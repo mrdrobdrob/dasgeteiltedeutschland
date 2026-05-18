@@ -6,50 +6,67 @@
 <title>Station 1 – Checkpoint Alpha</title>
 <link rel="stylesheet" href="shared.css">
 <style>
-  .sort-row {
-    display: flex; align-items: stretch; gap: 0;
-    margin-bottom: 8px; background: rgba(240,232,208,0.03);
-    border: 1px solid rgba(200,151,58,0.18);
-    transition: border-color 0.15s, background 0.15s;
-  }
-  .sort-row:hover { border-color: rgba(200,151,58,0.35); }
-  .sort-row.moved { background: rgba(200,151,58,0.08); border-color: var(--gold); }
+.sort-row {
+  display: flex;
+  align-items: stretch;
+  background: rgba(240,232,208,0.04);
+  border: 1px solid rgba(200,151,58,0.2);
+  margin-bottom: 7px;
+  cursor: grab;
+  user-select: none;
+  transition: opacity 0.15s, background 0.15s;
+}
+.sort-row.dragging { opacity: 0.4; }
+.sort-row.drag-over { border-color: var(--gold); background: rgba(200,151,58,0.12); }
+.sort-row.correct-row { border-color: #2d6a3f; background: rgba(45,106,63,0.15); }
+.sort-row.wrong-row   { border-color: #b5191a; background: rgba(181,25,26,0.12); }
 
-  .sort-pos {
-    width: 36px; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 600;
-    color: var(--muted); border-right: 1px solid rgba(200,151,58,0.15);
-    background: rgba(0,0,0,0.15);
-  }
-
-  .sort-text {
-    flex: 1; padding: 13px 16px;
-    font-size: 14px; line-height: 1.55; color: rgba(240,232,208,0.85);
-  }
-
-  .sort-btns {
-    display: flex; flex-direction: column;
-    flex-shrink: 0; border-left: 1px solid rgba(200,151,58,0.15);
-  }
-  .sort-btn {
-    flex: 1; width: 40px; background: transparent; border: none;
-    color: var(--muted); font-size: 14px; cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-    display: flex; align-items: center; justify-content: center;
-    line-height: 1;
-  }
-  .sort-btn:hover { background: rgba(200,151,58,0.15); color: var(--gold); }
-  .sort-btn:disabled { opacity: 0.2; cursor: default; }
-  .sort-btn + .sort-btn { border-top: 1px solid rgba(200,151,58,0.1); }
-
-  .sort-row.correct-row { border-color: #2d6a3f !important; background: rgba(45,106,63,0.1) !important; }
-  .sort-row.wrong-row   { border-color: #b5191a !important; background: rgba(181,25,26,0.08) !important; }
-
-  .instr {
-    font-size: 13px; color: var(--muted); font-style: italic;
-    margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
-  }
+.sort-pos {
+  width: 34px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  border-right: 1px solid rgba(200,151,58,0.15);
+  background: rgba(0,0,0,0.12);
+}
+.sort-text {
+  flex: 1;
+  padding: 12px 14px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(240,232,208,0.88);
+}
+.sort-arrows {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-left: 1px solid rgba(200,151,58,0.15);
+}
+.arr-btn {
+  width: 38px;
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: rgba(240,232,208,0.5);
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s;
+  padding: 0;
+}
+.arr-btn:hover:not(:disabled) {
+  background: rgba(200,151,58,0.15);
+  color: var(--gold);
+}
+.arr-btn:disabled { opacity: 0.2; cursor: default; }
+.arr-btn + .arr-btn { border-top: 1px solid rgba(200,151,58,0.1); }
 </style>
 </head>
 <body>
@@ -80,14 +97,11 @@
 
   <div class="question-area">
     <h3>🔍 Geheimakte: Zeitleiste ordnen</h3>
-    <p>Bringt die Ereignisse in die <strong>richtige chronologische Reihenfolge</strong> (frühestes = oben). Nutzt die <strong>▲ ▼ Pfeile</strong> zum Verschieben.</p>
-    <p style="color:var(--muted); font-size:13px; margin-top:6px;">Quelle: Zeitstrahl S. 90–91 im Schulbuch.</p>
+    <p>Bringt die Ereignisse in die <strong>richtige chronologische Reihenfolge</strong> (frühestes = oben).</p>
+    <p style="margin-top:8px; font-size:13px; color:var(--muted);">
+      Pfeile ▲▼ nutzen <em>oder</em> per Drag &amp; Drop verschieben · Quelle: Zeitstrahl S. 90–91
+    </p>
   </div>
-
-  <p class="instr">
-    <span style="font-size:18px;">⬆⬇</span>
-    Zeile anklicken oder Pfeile benutzen, um die Reihenfolge zu ändern
-  </p>
 
   <div id="sort-area"></div>
 
@@ -97,6 +111,7 @@
   </div>
 
   <div class="feedback" id="feedback"></div>
+
   <div class="code-reveal" id="code-reveal">
     <div class="code-label">Code für Station 2 erhalten:</div>
     <div class="code-value">1949</div>
@@ -112,101 +127,165 @@
 document.getElementById('progress-area').innerHTML = progressBar(1);
 
 const events = [
-  { id:'a', text: 'Ende des Zweiten Weltkriegs – Deutschland wird in vier Besatzungszonen aufgeteilt', year: 1945 },
-  { id:'b', text: 'Gründung der Bundesrepublik Deutschland (BRD)', year: 1949 },
-  { id:'c', text: 'Gründung der Deutschen Demokratischen Republik (DDR)', year: 1949 },
-  { id:'d', text: 'Volksaufstand in der DDR – mit sowjetischen Panzern niedergeschlagen', year: 1953 },
-  { id:'e', text: 'Gründung des Warschauer Pakts – DDR wird Mitglied', year: 1955 },
-  { id:'f', text: 'Bau der Berliner Mauer am 13. August', year: 1961 },
-  { id:'g', text: 'Unterzeichnung des Grundlagenvertrags zwischen BRD und DDR', year: 1972 },
-  { id:'h', text: 'Mauerfall – 9. November', year: 1989 },
+  { id:'a', text:'Ende des Zweiten Weltkriegs – Deutschland wird in vier Besatzungszonen aufgeteilt', year:1945 },
+  { id:'b', text:'Gründung der Bundesrepublik Deutschland (BRD)', year:1949 },
+  { id:'c', text:'Gründung der Deutschen Demokratischen Republik (DDR)', year:1949 },
+  { id:'d', text:'Volksaufstand in der DDR – mit sowjetischen Panzern niedergeschlagen', year:1953 },
+  { id:'e', text:'Gründung des Warschauer Pakts – DDR wird Mitglied', year:1955 },
+  { id:'f', text:'Bau der Berliner Mauer am 13. August', year:1961 },
+  { id:'g', text:'Unterzeichnung des Grundlagenvertrags zwischen BRD und DDR', year:1972 },
+  { id:'h', text:'Mauerfall – 9. November', year:1989 },
 ];
 
-// Shuffle once at load
 let order = [...events].sort(() => Math.random() - 0.5);
+let dragSrcIdx = null;
 
 function render() {
   const container = document.getElementById('sort-area');
   container.innerHTML = '';
-  order.forEach((e, i) => {
+
+  order.forEach(function(e, i) {
     const row = document.createElement('div');
     row.className = 'sort-row';
-    row.dataset.id = e.id;
+    row.setAttribute('draggable', 'true');
+    row.dataset.idx = i;
 
-    row.innerHTML = `
-      <div class="sort-pos">${i + 1}</div>
-      <div class="sort-text">${e.text}</div>
-      <div class="sort-btns">
-        <button class="sort-btn" title="Nach oben" onclick="move(${i}, -1)" ${i === 0 ? 'disabled' : ''}>▲</button>
-        <button class="sort-btn" title="Nach unten" onclick="move(${i}, +1)" ${i === order.length - 1 ? 'disabled' : ''}>▼</button>
-      </div>
-    `;
+    const pos = document.createElement('div');
+    pos.className = 'sort-pos';
+    pos.textContent = i + 1;
+
+    const txt = document.createElement('div');
+    txt.className = 'sort-text';
+    txt.textContent = e.text;
+
+    const arrows = document.createElement('div');
+    arrows.className = 'sort-arrows';
+
+    const btnUp = document.createElement('button');
+    btnUp.className = 'arr-btn';
+    btnUp.innerHTML = '&#9650;';
+    btnUp.title = 'Nach oben';
+    if (i === 0) btnUp.disabled = true;
+    btnUp.addEventListener('click', function(ev) {
+      ev.stopPropagation();
+      moveItem(i, -1);
+    });
+
+    const btnDown = document.createElement('button');
+    btnDown.className = 'arr-btn';
+    btnDown.innerHTML = '&#9660;';
+    btnDown.title = 'Nach unten';
+    if (i === order.length - 1) btnDown.disabled = true;
+    btnDown.addEventListener('click', function(ev) {
+      ev.stopPropagation();
+      moveItem(i, 1);
+    });
+
+    arrows.appendChild(btnUp);
+    arrows.appendChild(btnDown);
+    row.appendChild(pos);
+    row.appendChild(txt);
+    row.appendChild(arrows);
+
+    /* Drag & Drop events */
+    row.addEventListener('dragstart', function(ev) {
+      dragSrcIdx = i;
+      setTimeout(function() { row.classList.add('dragging'); }, 0);
+      ev.dataTransfer.effectAllowed = 'move';
+    });
+    row.addEventListener('dragend', function() {
+      row.classList.remove('dragging');
+      document.querySelectorAll('.sort-row').forEach(function(r) {
+        r.classList.remove('drag-over');
+      });
+      dragSrcIdx = null;
+    });
+    row.addEventListener('dragover', function(ev) {
+      ev.preventDefault();
+      ev.dataTransfer.dropEffect = 'move';
+      document.querySelectorAll('.sort-row').forEach(function(r) {
+        r.classList.remove('drag-over');
+      });
+      row.classList.add('drag-over');
+    });
+    row.addEventListener('dragleave', function() {
+      row.classList.remove('drag-over');
+    });
+    row.addEventListener('drop', function(ev) {
+      ev.preventDefault();
+      row.classList.remove('drag-over');
+      if (dragSrcIdx !== null && dragSrcIdx !== i) {
+        var tmp = order[dragSrcIdx];
+        order[dragSrcIdx] = order[i];
+        order[i] = tmp;
+        clearFeedback();
+        render();
+      }
+    });
+
     container.appendChild(row);
   });
 }
 
-function move(i, dir) {
-  const j = i + dir;
+function moveItem(i, dir) {
+  var j = i + dir;
   if (j < 0 || j >= order.length) return;
-  // Swap
-  [order[i], order[j]] = [order[j], order[i]];
+  var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
+  clearFeedback();
   render();
-  // Brief highlight on moved row
-  const rows = document.querySelectorAll('.sort-row');
-  rows[j].classList.add('moved');
-  setTimeout(() => rows[j].classList.remove('moved'), 400);
-  // Clear feedback when user changes order
-  const fb = document.getElementById('feedback');
-  fb.className = 'feedback'; fb.innerHTML = '';
 }
 
-render();
+function clearFeedback() {
+  var fb = document.getElementById('feedback');
+  fb.className = 'feedback';
+  fb.innerHTML = '';
+}
 
-let attempts = 0;
+var attempts = 0;
+
 function checkOrder() {
-  const correct = [...events].sort((a, b) => a.year - b.year).map(e => e.id);
-  const current = order.map(e => e.id);
-  const isCorrect = current.join('') === correct.join('');
+  var correct = events.slice().sort(function(a,b){ return a.year - b.year; }).map(function(e){ return e.id; });
+  var current = order.map(function(e){ return e.id; });
+  var isCorrect = current.join('') === correct.join('');
 
   attempts++;
-  const fb = document.getElementById('feedback');
+  var fb = document.getElementById('feedback');
 
-  // Colour-code each row
-  const rows = document.querySelectorAll('.sort-row');
-  rows.forEach((row, i) => {
+  var rows = document.querySelectorAll('.sort-row');
+  rows.forEach(function(row, i) {
     row.classList.remove('correct-row', 'wrong-row');
     if (isCorrect) {
       row.classList.add('correct-row');
     } else {
-      // Mark rows that are in a wrong position
       row.classList.add(current[i] === correct[i] ? 'correct-row' : 'wrong-row');
     }
   });
 
   if (isCorrect) {
     fb.className = 'feedback success';
-    fb.innerHTML = '✅ Ausgezeichnet! Die Chronologie ist korrekt. Hartmanns erste Akte ist gesichert.<br><small>Code für Station 2: <strong>1949</strong></small>';
+    fb.innerHTML = '&#10003; Ausgezeichnet! Die Chronologie ist korrekt. Hartmanns erste Akte ist gesichert.<br><small>Code f&uuml;r Station 2: <strong>1949</strong></small>';
     document.getElementById('code-reveal').classList.add('show');
     document.getElementById('next-btn').classList.add('show');
     markStationComplete(1);
   } else {
-    const wrongCount = current.filter((id, i) => id !== correct[i]).length;
+    var wrongCount = current.filter(function(id,i){ return id !== correct[i]; }).length;
+    fb.className = 'feedback error';
     if (attempts >= 2) {
-      fb.className = 'feedback error';
-      fb.innerHTML = `❌ ${wrongCount} Ereignis${wrongCount > 1 ? 'se sind' : ' ist'} noch falsch platziert (rot markiert). Tipp: Das erste Ereignis ist 1945, das letzte 1989. Nutze S. 90–91.`;
+      fb.innerHTML = '&#10007; ' + wrongCount + ' Position' + (wrongCount > 1 ? 'en sind' : ' ist') + ' noch falsch (rot). Tipp: 1945 zuerst, 1989 zuletzt. Schulbuch S.&nbsp;90&ndash;91!';
     } else {
-      fb.className = 'feedback error';
-      fb.innerHTML = `❌ Noch nicht ganz – ${wrongCount} Position${wrongCount > 1 ? 'en stimmen' : ' stimmt'} noch nicht (rot = falsch, grün = richtig). Schulbuch S. 90–91!`;
+      fb.innerHTML = '&#10007; Noch nicht ganz &ndash; ' + wrongCount + ' Position' + (wrongCount > 1 ? 'en stimmen' : ' stimmt') + ' nicht (rot = falsch, gr&uuml;n = richtig).';
     }
   }
 }
 
 function showHint() {
   addHint();
-  const fb = document.getElementById('feedback');
+  var fb = document.getElementById('feedback');
   fb.className = 'feedback hint';
-  fb.innerHTML = '💡 <strong>Hinweis:</strong> Die Jahreszahlen findet ihr im Zeitstrahl auf S. 90–91. Ankerpunkte: 1945 (Kriegsende) → 1949 (zwei Staatsgründungen!) → 1953 → 1955 → 1961 → 1972 → 1989.';
+  fb.innerHTML = '&#128161; <strong>Hinweis:</strong> Zeitstrahl S.&nbsp;90&ndash;91. Reihenfolge: 1945 &rarr; 1949 (BRD) &rarr; 1949 (DDR) &rarr; 1953 &rarr; 1955 &rarr; 1961 &rarr; 1972 &rarr; 1989.';
 }
+
+render();
 </script>
 </body>
 </html>
