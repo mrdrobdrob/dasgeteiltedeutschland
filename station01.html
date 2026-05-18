@@ -5,6 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Station 1 – Checkpoint Alpha</title>
 <link rel="stylesheet" href="shared.css">
+<style>
+  .sort-row {
+    display: flex; align-items: stretch; gap: 0;
+    margin-bottom: 8px; background: rgba(240,232,208,0.03);
+    border: 1px solid rgba(200,151,58,0.18);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .sort-row:hover { border-color: rgba(200,151,58,0.35); }
+  .sort-row.moved { background: rgba(200,151,58,0.08); border-color: var(--gold); }
+
+  .sort-pos {
+    width: 36px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 600;
+    color: var(--muted); border-right: 1px solid rgba(200,151,58,0.15);
+    background: rgba(0,0,0,0.15);
+  }
+
+  .sort-text {
+    flex: 1; padding: 13px 16px;
+    font-size: 14px; line-height: 1.55; color: rgba(240,232,208,0.85);
+  }
+
+  .sort-btns {
+    display: flex; flex-direction: column;
+    flex-shrink: 0; border-left: 1px solid rgba(200,151,58,0.15);
+  }
+  .sort-btn {
+    flex: 1; width: 40px; background: transparent; border: none;
+    color: var(--muted); font-size: 14px; cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+  }
+  .sort-btn:hover { background: rgba(200,151,58,0.15); color: var(--gold); }
+  .sort-btn:disabled { opacity: 0.2; cursor: default; }
+  .sort-btn + .sort-btn { border-top: 1px solid rgba(200,151,58,0.1); }
+
+  .sort-row.correct-row { border-color: #2d6a3f !important; background: rgba(45,106,63,0.1) !important; }
+  .sort-row.wrong-row   { border-color: #b5191a !important; background: rgba(181,25,26,0.08) !important; }
+
+  .instr {
+    font-size: 13px; color: var(--muted); font-style: italic;
+    margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+  }
+</style>
 </head>
 <body>
 <div class="noise"></div>
@@ -29,18 +75,21 @@
 
   <div class="heft-aufgabe">
     <div class="icon">📓</div>
-    <div class="text"><strong>Heft-Aufgabe Station 1:</strong> Erstellt eine Zeitleiste (1945–1989) mit mindestens 8 Ereignissen, die ihr in dieser Station kennenlernt. Notiert zu jedem Ereignis: Datum, Ereignis, Bedeutung (1 Satz).</div>
+    <div class="text"><strong>Heft-Aufgabe Station 1:</strong> Erstellt eine Zeitleiste (1945–1989) mit mindestens 8 Ereignissen. Notiert zu jedem: Datum, Ereignis, Bedeutung (1 Satz). Nutzt S. 90–91.</div>
   </div>
 
   <div class="question-area">
     <h3>🔍 Geheimakte: Zeitleiste ordnen</h3>
-    <p>Bringt die folgenden Ereignisse in die <strong>richtige chronologische Reihenfolge</strong> (frühestes zuerst). Klickt die Ereignisse in der richtigen Reihenfolge an.</p>
-    <p style="color:var(--muted); font-size:13px; margin-top:8px;">Tipp: Nutzt S. 90–91 (Zeitstrahl) aus eurem Schulbuch.</p>
+    <p>Bringt die Ereignisse in die <strong>richtige chronologische Reihenfolge</strong> (frühestes = oben). Nutzt die <strong>▲ ▼ Pfeile</strong> zum Verschieben.</p>
+    <p style="color:var(--muted); font-size:13px; margin-top:6px;">Quelle: Zeitstrahl S. 90–91 im Schulbuch.</p>
   </div>
 
-  <div id="sort-area" class="sort-list">
-    <!-- Shuffled list rendered by JS -->
-  </div>
+  <p class="instr">
+    <span style="font-size:18px;">⬆⬇</span>
+    Zeile anklicken oder Pfeile benutzen, um die Reihenfolge zu ändern
+  </p>
+
+  <div id="sort-area"></div>
 
   <div class="btn-row" style="margin-top:16px;">
     <button class="submit-btn" onclick="checkOrder()">▶ Reihenfolge prüfen</button>
@@ -50,7 +99,7 @@
   <div class="feedback" id="feedback"></div>
   <div class="code-reveal" id="code-reveal">
     <div class="code-label">Code für Station 2 erhalten:</div>
-    <div class="code-value" id="code-value">1949</div>
+    <div class="code-value">1949</div>
     <div class="code-note">Notiert diesen Code! → Gebt ihn bei Station 2 ein.</div>
   </div>
   <button class="next-btn" id="next-btn" onclick="window.location.href='station02.html'">
@@ -73,62 +122,81 @@ const events = [
   { id:'h', text: 'Mauerfall – 9. November', year: 1989 },
 ];
 
-// Shuffle for display
-const shuffled = [...events].sort(() => Math.random() - 0.5);
-const container = document.getElementById('sort-area');
+// Shuffle once at load
+let order = [...events].sort(() => Math.random() - 0.5);
 
-shuffled.forEach((e, i) => {
-  const div = document.createElement('div');
-  div.className = 'sort-item'; div.dataset.id = e.id; div.dataset.order = i;
-  div.innerHTML = `<span class="sort-handle">⠿</span><span>${e.text}</span>`;
-  div.addEventListener('click', () => selectItem(div));
-  container.appendChild(div);
-});
+function render() {
+  const container = document.getElementById('sort-area');
+  container.innerHTML = '';
+  order.forEach((e, i) => {
+    const row = document.createElement('div');
+    row.className = 'sort-row';
+    row.dataset.id = e.id;
 
-let selected = null;
-function selectItem(div) {
-  if(selected && selected !== div) {
-    // Swap
-    const items = [...container.querySelectorAll('.sort-item')];
-    const i1 = items.indexOf(selected);
-    const i2 = items.indexOf(div);
-    if(i1 < i2) container.insertBefore(div, selected);
-    else container.insertBefore(selected, div);
-    selected.classList.remove('selected');
-    selected = null;
-  } else if(selected === div) {
-    div.classList.remove('selected');
-    selected = null;
-  } else {
-    if(selected) selected.classList.remove('selected');
-    selected = div;
-    div.classList.add('selected');
-  }
+    row.innerHTML = `
+      <div class="sort-pos">${i + 1}</div>
+      <div class="sort-text">${e.text}</div>
+      <div class="sort-btns">
+        <button class="sort-btn" title="Nach oben" onclick="move(${i}, -1)" ${i === 0 ? 'disabled' : ''}>▲</button>
+        <button class="sort-btn" title="Nach unten" onclick="move(${i}, +1)" ${i === order.length - 1 ? 'disabled' : ''}>▼</button>
+      </div>
+    `;
+    container.appendChild(row);
+  });
 }
+
+function move(i, dir) {
+  const j = i + dir;
+  if (j < 0 || j >= order.length) return;
+  // Swap
+  [order[i], order[j]] = [order[j], order[i]];
+  render();
+  // Brief highlight on moved row
+  const rows = document.querySelectorAll('.sort-row');
+  rows[j].classList.add('moved');
+  setTimeout(() => rows[j].classList.remove('moved'), 400);
+  // Clear feedback when user changes order
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback'; fb.innerHTML = '';
+}
+
+render();
 
 let attempts = 0;
 function checkOrder() {
-  const items = [...container.querySelectorAll('.sort-item')];
-  const order = items.map(i => i.dataset.id);
-  const correct = events.sort((a,b)=>a.year-b.year).map(e=>e.id);
-  const isCorrect = order.join('') === correct.join('');
-  
+  const correct = [...events].sort((a, b) => a.year - b.year).map(e => e.id);
+  const current = order.map(e => e.id);
+  const isCorrect = current.join('') === correct.join('');
+
   attempts++;
   const fb = document.getElementById('feedback');
-  
-  if(isCorrect) {
+
+  // Colour-code each row
+  const rows = document.querySelectorAll('.sort-row');
+  rows.forEach((row, i) => {
+    row.classList.remove('correct-row', 'wrong-row');
+    if (isCorrect) {
+      row.classList.add('correct-row');
+    } else {
+      // Mark rows that are in a wrong position
+      row.classList.add(current[i] === correct[i] ? 'correct-row' : 'wrong-row');
+    }
+  });
+
+  if (isCorrect) {
     fb.className = 'feedback success';
     fb.innerHTML = '✅ Ausgezeichnet! Die Chronologie ist korrekt. Hartmanns erste Akte ist gesichert.<br><small>Code für Station 2: <strong>1949</strong></small>';
     document.getElementById('code-reveal').classList.add('show');
     document.getElementById('next-btn').classList.add('show');
     markStationComplete(1);
   } else {
-    if(attempts >= 2) {
+    const wrongCount = current.filter((id, i) => id !== correct[i]).length;
+    if (attempts >= 2) {
       fb.className = 'feedback error';
-      fb.innerHTML = '❌ Nicht ganz. Tipp: Das erste Ereignis ist das Ende des Zweiten Weltkriegs (1945), das letzte der Mauerfall (1989). Achte auf die Daten zwischen S. 90–91.';
+      fb.innerHTML = `❌ ${wrongCount} Ereignis${wrongCount > 1 ? 'se sind' : ' ist'} noch falsch platziert (rot markiert). Tipp: Das erste Ereignis ist 1945, das letzte 1989. Nutze S. 90–91.`;
     } else {
       fb.className = 'feedback error';
-      fb.innerHTML = '❌ Die Reihenfolge stimmt noch nicht. Schau nochmal in den Zeitstrahl auf S. 90–91 deines Schulbuchs!';
+      fb.innerHTML = `❌ Noch nicht ganz – ${wrongCount} Position${wrongCount > 1 ? 'en stimmen' : ' stimmt'} noch nicht (rot = falsch, grün = richtig). Schulbuch S. 90–91!`;
     }
   }
 }
@@ -137,7 +205,7 @@ function showHint() {
   addHint();
   const fb = document.getElementById('feedback');
   fb.className = 'feedback hint';
-  fb.innerHTML = '💡 <strong>Hinweis:</strong> Die Jahreszahlen findest du im Zeitstrahl auf S. 90–91. Wichtige Ankerpunkte: 1945 (Kriegsende), 1949 (zwei Staatsgründungen!), 1953, 1955, 1961, 1972, 1989.';
+  fb.innerHTML = '💡 <strong>Hinweis:</strong> Die Jahreszahlen findet ihr im Zeitstrahl auf S. 90–91. Ankerpunkte: 1945 (Kriegsende) → 1949 (zwei Staatsgründungen!) → 1953 → 1955 → 1961 → 1972 → 1989.';
 }
 </script>
 </body>

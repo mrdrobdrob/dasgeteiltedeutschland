@@ -280,23 +280,153 @@
     <p><strong>Agenten-Akte (Heft):</strong> Legt für jede Station eine Seite in eurem Heft an. Schreibt die Station-Nummer, das Thema, und eure Erkenntnisse auf. Am Ende habt ihr eine vollständige Zusammenfassung des geteilten Deutschlands – eure persönliche Akte für Major Hartmanns Tresor.</p>
   </div>
 
-  <div class="team-form">
-    <label for="teamname">🕵️ Euer Agenten-Teamname:</label>
-    <input type="text" id="teamname" placeholder="z.B. „Die Mauerbrecher"" maxlength="40">
+  <!-- RESUME BANNER – shown when a saved game is detected -->
+  <div id="resume-banner" style="display:none; max-width:700px; width:100%; animation: fadeUp 0.6s ease-out;">
+    <div style="
+      background: linear-gradient(135deg, #0d200f 0%, #0a1a0a 100%);
+      border: 1px solid rgba(125,207,149,0.4);
+      border-left: 4px solid #7dcf95;
+      padding: 28px 32px;
+    ">
+      <div style="font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:#7dcf95; margin-bottom:10px;">
+        💾 Gespeicherter Spielstand gefunden
+      </div>
+      <div id="resume-teamname" style="font-family:'Special Elite',monospace; font-size:22px; color:var(--paper); margin-bottom:6px;"></div>
+      <div id="resume-progress" style="font-size:14px; color:rgba(240,232,208,0.7); margin-bottom:20px;"></div>
+
+      <!-- Mini progress bar -->
+      <div id="resume-bar" style="display:flex; gap:4px; margin-bottom:20px;"></div>
+
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <button onclick="resumeMission()" style="
+          background: #2d6a3f; border:none; color:var(--paper);
+          font-family:'Oswald',sans-serif; font-weight:700;
+          font-size:16px; letter-spacing:3px; text-transform:uppercase;
+          padding:14px 28px; cursor:pointer; transition:all 0.2s;
+          clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+        ">▶ Weiterspielen</button>
+        <button onclick="showNewGame()" style="
+          background:transparent; border:1px solid rgba(200,151,58,0.4);
+          color:var(--muted); font-family:'Oswald',sans-serif;
+          font-size:13px; letter-spacing:2px; text-transform:uppercase;
+          padding:14px 20px; cursor:pointer; transition:all 0.2s;
+        ">✕ Neues Spiel starten</button>
+      </div>
+    </div>
   </div>
 
-  <button class="start-btn" onclick="startMission()">▶ Mission starten</button>
-  <p class="timer-note">Zeitlimit: <span>135 Minuten</span> · 10 Stationen</p>
+  <!-- NEW GAME FORM – hidden when resume is shown -->
+  <div id="new-game-section">
+    <div class="team-form">
+      <label for="teamname">🕵️ Euer Agenten-Teamname:</label>
+      <input type="text" id="teamname" placeholder="z.B. „Die Mauerbrecher"" maxlength="40">
+    </div>
+    <button class="start-btn" onclick="startMission()">▶ Mission starten</button>
+    <p class="timer-note">Zeitlimit: <span>3 × 45 Minuten</span> · 10 Stationen · Spielstand wird automatisch gespeichert</p>
+  </div>
+
 </div>
 
 <script>
+// ── Determine next unfinished station ──────────────────────────────────────
+function getNextStation() {
+  for (let i = 1; i <= 10; i++) {
+    if (localStorage.getItem('station' + i) !== 'done') return i;
+  }
+  return null; // all done
+}
+
+function countDone() {
+  let n = 0;
+  for (let i = 1; i <= 10; i++) if (localStorage.getItem('station' + i) === 'done') n++;
+  return n;
+}
+
+function formatElapsed(ms) {
+  const m = Math.floor(ms / 60000);
+  const s = Math.floor((ms % 60000) / 1000);
+  return m + ' Min. ' + s.toString().padStart(2,'0') + ' Sek.';
+}
+
+// ── On page load: check for saved game ────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTeam = localStorage.getItem('teamname');
+  const savedStart = localStorage.getItem('startTime');
+  const done = countDone();
+
+  if (savedTeam && savedStart && done > 0) {
+    // There is a saved game – show resume banner
+    document.getElementById('resume-banner').style.display = 'block';
+    document.getElementById('new-game-section').style.display = 'none';
+
+    const next = getNextStation();
+    const paused = parseInt(localStorage.getItem('pausedTime') || '0');
+    const elapsed = Date.now() - parseInt(savedStart) - paused;
+    const stationLabels = [
+      '','Chronologie','Bündnisse','Stasi','NS-Aufarbeitung',
+      'Volksaufstand','Wahlen','Wirtschaft','68er & RAF','Ostpolitik','Finale'
+    ];
+
+    document.getElementById('resume-teamname').textContent = '🕵️ ' + savedTeam;
+    document.getElementById('resume-progress').innerHTML =
+      '<strong style="color:var(--gold)">' + done + '/10</strong> Stationen abgeschlossen · ' +
+      'Gespielt: <strong style="color:var(--gold)">' + formatElapsed(elapsed) + '</strong>' +
+      (next ? ' · Nächste Station: <strong style="color:#7dcf95">Station ' + next + ' – ' + stationLabels[next] + '</strong>' : ' · Alle Stationen gelöst!');
+
+    // Mini progress bar
+    const bar = document.getElementById('resume-bar');
+    for (let i = 1; i <= 10; i++) {
+      const d = document.createElement('div');
+      const isDone = localStorage.getItem('station' + i) === 'done';
+      const isNext = i === next;
+      d.style.cssText = 'flex:1; height:8px; border-radius:2px; transition:background 0.3s; background:' +
+        (isDone ? '#2d6a3f' : isNext ? '#c8973a' : 'rgba(240,232,208,0.1)') + ';';
+      d.title = 'Station ' + i + (isDone ? ' ✓' : isNext ? ' ← hier' : '');
+      bar.appendChild(d);
+    }
+  }
+  // else: no saved game → show normal new-game form (already visible by default)
+});
+
+// ── Resume: jump to the next unsolved station ──────────────────────────────
+function resumeMission() {
+  // Close the pause window before resuming
+  const ps = parseInt(localStorage.getItem('pauseStart') || '0');
+  if (ps) {
+    const dur = Date.now() - ps;
+    const ex = parseInt(localStorage.getItem('pausedTime') || '0');
+    localStorage.setItem('pausedTime', ex + dur);
+    localStorage.removeItem('pauseStart');
+  }
+  const next = getNextStation();
+  if (next === null) {
+    window.location.href = 'success.html';
+  } else {
+    window.location.href = 'station' + String(next).padStart(2, '0') + '.html';
+  }
+}
+
+// ── Show new-game form (after confirming) ──────────────────────────────────
+function showNewGame() {
+  const ok = confirm(
+    'Achtung: Euer gespeicherter Spielstand wird gelöscht!\n\n' +
+    'Wollt ihr wirklich neu beginnen?'
+  );
+  if (!ok) return;
+  // Clear everything
+  localStorage.clear();
+  document.getElementById('resume-banner').style.display = 'none';
+  document.getElementById('new-game-section').style.display = 'block';
+}
+
+// ── Start fresh mission ────────────────────────────────────────────────────
 function startMission() {
   const name = document.getElementById('teamname').value.trim() || 'Unbekanntes Team';
   localStorage.setItem('teamname', name);
   localStorage.setItem('startTime', Date.now());
+  localStorage.setItem('pausedTime', '0');   // accumulated pause duration
   localStorage.setItem('hintsUsed', '0');
-  // clear previous progress
-  for(let i=1;i<=10;i++) localStorage.removeItem('station'+i);
+  for (let i = 1; i <= 10; i++) localStorage.removeItem('station' + i);
   window.location.href = 'station01.html';
 }
 </script>

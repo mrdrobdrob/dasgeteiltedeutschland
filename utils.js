@@ -24,12 +24,36 @@ function formatTime(ms) {
   return `${m}:${s.toString().padStart(2,'0')}`;
 }
 
+// Returns actual played time, subtracting accumulated pause durations.
 function getElapsed() {
   const start = parseInt(localStorage.getItem('startTime') || Date.now());
-  return Date.now() - start;
+  const paused = parseInt(localStorage.getItem('pausedTime') || '0');
+  return Date.now() - start - paused;
 }
 
-// Normalize answers: lowercase, trim, remove umlauts for comparison
+// Called by index.html when the team resumes – closes the pause window.
+function recordResume() {
+  const pauseStart = parseInt(localStorage.getItem('pauseStart') || '0');
+  if (!pauseStart) return;
+  const duration = Date.now() - pauseStart;
+  const existing = parseInt(localStorage.getItem('pausedTime') || '0');
+  localStorage.setItem('pausedTime', existing + duration);
+  localStorage.removeItem('pauseStart');
+}
+
+// Stores the moment the page is left so we can subtract that gap later.
+function recordPauseStart() {
+  if (!localStorage.getItem('startTime')) return;
+  if (localStorage.getItem('completed')) return;
+  localStorage.setItem('pauseStart', Date.now());
+}
+
+// Auto-record pause when tab/window is hidden or closed.
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') recordPauseStart();
+});
+
+// Normalize answers: lowercase, trim, replace umlauts for comparison.
 function normalize(str) {
   return str.toLowerCase().trim()
     .replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue')
@@ -39,10 +63,10 @@ function normalize(str) {
 
 function checkAnswer(input, correct, onSuccess, onFail) {
   const normalInput = normalize(input);
-  const normalCorrect = Array.isArray(correct) 
-    ? correct.map(normalize) 
+  const normalCorrect = Array.isArray(correct)
+    ? correct.map(normalize)
     : [normalize(correct)];
-  
+
   if(normalCorrect.some(c => normalInput.includes(c) || c.includes(normalInput))) {
     onSuccess();
   } else {
