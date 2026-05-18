@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lehrerhandreichung – Operation Mauerfall</title>
+<style>
+  body { font-family: 'Georgia', serif; max-width: 900px; margin: 0 auto; padding: 40px 28px; color: #1a1a1a; line-height: 1.7; }
+  h1 { color: #b5191a; font-size: 28px; border-bottom: 3px solid #b5191a; padding-bottom: 12px; }
+  h2 { color: #1a3a5c; font-size: 20px; margin-top: 36px; border-left: 4px solid #c8973a; padding-left: 14px; }
+  h3 { color: #2d6a3f; font-size: 16px; margin-top: 24px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th { background: #1a3a5c; color: white; padding: 10px 12px; text-align: left; }
+  td { padding: 9px 12px; border: 1px solid #ddd; }
+  tr:nth-child(even) { background: #f8f4ec; }
+  .box { background: #fff8e8; border: 1px solid #c8973a; border-left: 5px solid #c8973a; padding: 16px 20px; margin: 16px 0; }
+  .red-box { background: #fff0f0; border-left: 5px solid #b5191a; padding: 16px 20px; margin: 16px 0; }
+  .green-box { background: #f0fff4; border-left: 5px solid #2d6a3f; padding: 16px 20px; margin: 16px 0; }
+  code { background: #f0f0f0; padding: 2px 6px; font-family: monospace; font-size: 13px; border-radius: 3px; }
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-item { display: flex; gap: 16px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #eee; }
+  .tl-time { min-width: 110px; font-weight: bold; color: #b5191a; font-size: 15px; }
+  .tl-content { flex: 1; }
+  .badge { display: inline-block; background: #1a3a5c; color: white; padding: 2px 8px; font-size: 12px; border-radius: 3px; margin-right: 6px; }
+  .badge.red { background: #b5191a; }
+  .badge.green { background: #2d6a3f; }
+  .badge.gold { background: #c8973a; color: #1a0a00; }
+  ul, ol { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  @media print { .no-print { display: none; } body { font-size: 12px; } }
+  .solution-table td:last-child { font-family: monospace; font-weight: bold; color: #b5191a; }
+</style>
+</head>
+<body>
+
+<h1>📋 Lehrerhandreichung<br><small style="font-size:0.6em; color:#666;">Operation Mauerfall – Escape Room | Klasse 10 | Geschichte</small></h1>
+
+<div class="box">
+  <strong>Auf einen Blick:</strong> Interaktiver digitaler Escape Room zum Thema "Das geteilte Deutschland" (1945–1989). 10 Stationen, 135 Minuten (3 Schulstunden), Gruppenarbeit (4–5 SuS pro Gruppe), Schulbuch Cornelsen S. 88–123.
+</div>
+
+<h2>1. Vorbereitung &amp; Setup</h2>
+
+<h3>A) GitHub Pages einrichten (einmalig, ~10 Minuten)</h3>
+
+<ol>
+  <li><strong>GitHub-Account anlegen</strong> (falls noch nicht vorhanden): <a href="https://github.com" target="_blank">github.com</a></li>
+  
+  <li><strong>Neues Repository erstellen:</strong>
+    <ul>
+      <li>Klickt auf das <code>+</code>-Symbol oben rechts → "New repository"</li>
+      <li>Name: z.B. <code>escape-room-mauerfall</code></li>
+      <li>Sichtbarkeit: <strong>Public</strong> (wichtig für GitHub Pages)</li>
+      <li>"Create repository" klicken</li>
+    </ul>
+  </li>
+  
+  <li><strong>Dateien hochladen:</strong>
+    <ul>
+      <li>Klickt auf "Add file" → "Upload files"</li>
+      <li>Alle Dateien aus dem ZIP-Ordner per Drag &amp; Drop hochladen:<br>
+        <code>index.html</code>, <code>station01.html</code> bis <code>station10.html</code>, <code>success.html</code>, <code>shared.css</code>, <code>utils.js</code>
+      </li>
+      <li>"Commit changes" klicken</li>
+    </ul>
+  </li>
+  
+  <li><strong>GitHub Pages aktivieren:</strong>
+    <ul>
+      <li>Im Repository → "Settings" (oben)</li>
+      <li>Linkes Menü: "Pages"</li>
+      <li>Source: "Deploy from a branch"</li>
+      <li>Branch: <strong>main</strong> / root → "Save"</li>
+      <li>Nach 1–2 Minuten erscheint die URL: <code>https://[username].github.io/[repo-name]/</code></li>
+    </ul>
+  </li>
+  
+  <li><strong>URL testen &amp; teilen:</strong> Öffnet die URL im Browser. Wenn die Startseite erscheint, ist alles fertig!</li>
+</ol>
+
+<div class="red-box">
+  <strong>⚠️ Wichtig:</strong> Das Repository muss <strong>Public</strong> sein, damit GitHub Pages kostenlos funktioniert. Es werden keine persönlichen Schülerdaten auf GitHub gespeichert – alle Daten liegen nur im Browser-Speicher (localStorage) des Schülergeräts.
+</div>
+
+<h3>B) Technische Voraussetzungen (Klassenzimmer)</h3>
+<ul>
+  <li>1 Tablet oder Laptop pro Gruppe (4–5 SuS)</li>
+  <li>Internetverbindung (nur für das Laden der Google-Fonts – funktioniert auch offline, dann mit Fallback-Schrift)</li>
+  <li>Jede Gruppe kennt die URL der Startseite</li>
+  <li>Schulbücher: Cornelsen, Kapitel 3 (S. 88–123) – <strong>ein Exemplar pro Gruppe mindestens</strong></li>
+  <li>Hefte für alle SuS (Agenten-Akte)</li>
+</ul>
+
+<h3>C) Vorbereitung im Unterricht (Tag vorher)</h3>
+<ul>
+  <li>URL auf Tafel/Beamer/WhatsApp-Gruppe bereitstellen</li>
+  <li>Ggf. kurze Einführung: "Morgen machen wir einen Escape Room. Ihr braucht eure Schulbücher und Hefte."</li>
+  <li>Gruppen einteilen (4–5 SuS, möglichst leistungsheterogen)</li>
+</ul>
+
+<h2>2. Detaillierter Zeitplan (135 Minuten)</h2>
+
+<div class="timeline">
+  <div class="tl-item">
+    <div class="tl-time">0:00 – 0:10</div>
+    <div class="tl-content">
+      <span class="badge">Stunde 1</span> <strong>Einführung &amp; Einstieg</strong><br>
+      Szenario vorlesen (oder Startseite zeigen), Gruppen bilden, URL bekanntgeben. Kurze Erklärung: Schulbuch als Hauptquelle, Heft für jede Station nutzen.
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">0:10 – 0:45</div>
+    <div class="tl-content">
+      <strong>Station 1–3</strong> (Chronologie, Bündnisse, Stasi)<br>
+      Lehrkraft geht rum, beobachtet Gruppen. Keine Hilfe, außer bei echtem Stecken.
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">0:45 – 0:50</div>
+    <div class="tl-content">
+      <strong>Kurze Pause / Check-In:</strong> Welche Gruppen sind bei Station 4+? Kurzes Fazit zur Stasi sammeln (1 Satz pro Gruppe).
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">0:50 – 1:30</div>
+    <div class="tl-content">
+      <span class="badge">Stunde 2</span> <strong>Station 4–7</strong> (NS, Volksaufstand, Wahlen, Wirtschaft)<br>
+      Kernstationen mit viel Inhalt. Hier entscheidet sich der Rhythmus der Gruppen.
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">1:30 – 1:35</div>
+    <div class="tl-content">
+      <strong>Zwischenfazit:</strong> Welche Gruppe hat Station 7 schon? Kurze Frage: "Was war das Wirtschaftswunder?" – 1 Gruppe antwortet.
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">1:35 – 2:05</div>
+    <div class="tl-content">
+      <span class="badge">Stunde 3</span> <strong>Station 8–10</strong> (68er/RAF, Ostpolitik, Finale)<br>
+      Finale Stationen. Erste Gruppen, die fertig sind, beginnen mit der Reflexionsaufgabe.
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">2:05 – 2:20</div>
+    <div class="tl-content">
+      <span class="badge green">Auswertung</span> <strong>Ergebnissicherung im Plenum</strong><br>
+      Gruppen lesen ihre 5 wichtigsten Daten vor (Heft-Abschlussaufgabe). Lehrkraft sammelt an der Tafel.
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">2:20 – 2:30</div>
+    <div class="tl-content">
+      <strong>Reflexion &amp; Abschluss:</strong> Was hat überrascht? Was fandet ihr schwierig? Welche Station war lehrreichst?
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">2:30 – 2:35</div>
+    <div class="tl-content">
+      <span class="badge gold">Optional</span> Gruppen, die fertig sind, drucken ihr Zertifikat aus (Erfolgsmeldung → Drucken).
+    </div>
+  </div>
+</div>
+
+<h2>3. Alle Lösungen (Lehrerversion)</h2>
+
+<table class="solution-table">
+  <tr>
+    <th>Station</th>
+    <th>Thema</th>
+    <th>Aufgabentyp</th>
+    <th>Lösung / Code</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Chronologie</td>
+    <td>Sortieraufgabe</td>
+    <td>1945 → 1949 BRD → 1949 DDR → 1953 → 1955 → 1961 → 1972 → 1989 | Code: <strong>1949</strong></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Blockintegration</td>
+    <td>Zuordnung + Jahreszahl</td>
+    <td>BRD/DDR-Zuordnung (≥5/6 richtig), dann Jahr der NATO: <strong>1955</strong> | Code: STASI</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Stasi</td>
+    <td>Richtig/Falsch + Zahl</td>
+    <td>R/F (≥4/5), dann inoffizielle Mitarbeiter: <strong>174</strong> (Tausend) | Code: NS</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>NS-Aufarbeitung</td>
+    <td>Zuordnung BRD/DDR + MC</td>
+    <td>6 Zuordnungen (≥5/6), dann Schlussstrichmentalität: <strong>Antwort B</strong> | Code: 1953</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>Volksaufstand</td>
+    <td>Mehrfachauswahl + Text</td>
+    <td>Ursachen (alle 5 richtigen, keine falschen), dann: <strong>Sowjetunion</strong> | Code: WAHL</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>Wahlen</td>
+    <td>Zuordnung + Zahl</td>
+    <td>6 Zuordnungen (≥5/6), dann Parteien 1949: <strong>11</strong> | Code: PLAN</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>Wirtschaft</td>
+    <td>Multiple Choice Quiz</td>
+    <td>4 Fragen, min. 3 richtig: VEB=B, Marshallplan=B, Planwirtschaft=A, Soziale MW=C | Code: RAF</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>68er &amp; RAF</td>
+    <td>Zuordnung + Jahreszahl</td>
+    <td>6 Zuordnungen (≥5/6), dann heißer Herbst: <strong>1977</strong> | Code: OST</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>Ostpolitik</td>
+    <td>Quiz + MC</td>
+    <td>3 Quizfragen (≥2/3), Kniefall = <strong>Antwort A</strong> | Code: 89</td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>Finale</td>
+    <td>Transfer + Jahreszahl</td>
+    <td>Transfer = <strong>Antwort A</strong>, Tresor-Code: <strong>1989</strong> → Erfolg!</td>
+  </tr>
+</table>
+
+<h2>4. Differenzierung &amp; Umgang mit heterogenen Gruppen</h2>
+
+<h3>Für schnelle Gruppen:</h3>
+<ul>
+  <li>Die Heft-Aufgaben bieten Vertiefung – ermutigt sie, diese besonders ausführlich zu bearbeiten</li>
+  <li>Zusatzfrage: "Wenn ihr Bundeskanzler wärt: Welche Maßnahme aus diesem Escape Room hättet ihr anders gemacht?"</li>
+  <li>Recherche-Erweiterung: Stolpersteine-Projekt (Station 4-Hinweis im Schulbuch)</li>
+</ul>
+
+<h3>Für langsame Gruppen:</h3>
+<ul>
+  <li>Jede Station hat einen eingebauten <strong>Hinweis-Button</strong> (💡) – erinnert Gruppen daran, wenn sie 5+ Minuten feststecken</li>
+  <li>Stationen können übersprungen werden, wenn nötig (direkter URL-Aufruf der nächsten Station)</li>
+  <li>Alternativ: Station 7 (Wirtschaft) ist einsteigerfreundlicher und kann als "Booster" dienen</li>
+</ul>
+
+<h3>Notfall-Codes:</h3>
+Wenn eine Gruppe komplett feststeckt und keine Zeit mehr ist, können Sie folgende URLs direkt aufrufen:
+<br><br>
+<table>
+  <tr><th>Direkt zu</th><th>URL</th></tr>
+  <tr><td>Station 5 (Volksaufstand)</td><td><code>station05.html</code></td></tr>
+  <tr><td>Station 8 (68er)</td><td><code>station08.html</code></td></tr>
+  <tr><td>Direkt zum Finale</td><td><code>station10.html</code></td></tr>
+  <tr><td>Erfolgsmeldung (ohne Lösung)</td><td><code>success.html</code></td></tr>
+</table>
+
+<h2>5. Heft-Aufgaben – Überblick (Ergebnissicherung)</h2>
+
+<div class="green-box">
+  <strong>Ziel:</strong> Die Heft-Aufgaben sind so konzipiert, dass am Ende eine strukturierte <strong>Zusammenfassung des Kapitels</strong> im Heft steht – ohne dass die SuS es als "Abschreiben" erleben.
+</div>
+
+<table>
+  <tr><th>Station</th><th>Heft-Aufgabe (Kurzform)</th><th>Produkt</th></tr>
+  <tr><td>1</td><td>Zeitleiste 1945–1989 (≥8 Ereignisse)</td><td>Visualisierte Chronologie</td></tr>
+  <tr><td>2</td><td>Tabelle: BRD-West vs. DDR-Ostintegration (je 4 Verträge)</td><td>Vergleichstabelle</td></tr>
+  <tr><td>3</td><td>Stasi-Beschreibung: Aufgaben, IM, Folgen</td><td>Strukturierter Text</td></tr>
+  <tr><td>4</td><td>BRD vs. DDR: NS-Aufarbeitung (Selbstverständnis, Maßnahmen, Kritik)</td><td>Vergleichstabelle</td></tr>
+  <tr><td>5</td><td>Mind-Map Volksaufstand: Ursachen → Verlauf → Forderungen → Folgen</td><td>Mind-Map</td></tr>
+  <tr><td>6</td><td>Wahlen-Vergleich: 5 Kriterien BRD vs. DDR</td><td>Tabelle</td></tr>
+  <tr><td>7</td><td>T-Diagramm Vor-/Nachteile Wirtschaft + Vergleichsurteil</td><td>Argument + Urteil</td></tr>
+  <tr><td>8</td><td>68er vs. RAF: Ziele, Methoden, Folgen</td><td>Zwei-Spalten-Analyse</td></tr>
+  <tr><td>9</td><td>"Wandel durch Annäherung" + Grundlagenvertrag-Folgen</td><td>Erklärungstext</td></tr>
+  <tr><td>10</td><td>Abschluss-Reflexion: 5 wichtigste Daten + Überraschungen</td><td>Persönliche Reflexion</td></tr>
+</table>
+
+<h2>6. Kompetenzorientierung</h2>
+
+<table>
+  <tr>
+    <th>Kompetenz (Lehrplan)</th>
+    <th>Stationen</th>
+  </tr>
+  <tr>
+    <td>Zusammenhang Souveränitätserweiterung &amp; Blockintegration darstellen</td>
+    <td>1, 2</td>
+  </tr>
+  <tr>
+    <td>NS-Aufarbeitung in beiden deutschen Staaten bewerten</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>Wirtschaftliche und soziale Entwicklungen erörtern</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>Handlungsspielräume bezüglich der "deutschen Frage" beurteilen</td>
+    <td>2, 9, 10</td>
+  </tr>
+  <tr>
+    <td>Zentrale Ereignisse/Phasen der deutsch-deutschen Geschichte erläutern</td>
+    <td>1, 5, 8, 9</td>
+  </tr>
+  <tr>
+    <td>Gesellschaftliches Leben in Ost und West darstellen</td>
+    <td>3, 6, 7, 8</td>
+  </tr>
+</table>
+
+<h2>7. Datenschutz &amp; Technik</h2>
+
+<ul>
+  <li><strong>Keine Daten auf Servern:</strong> Alle Eingaben (Teamname, Fortschritt) werden nur im <code>localStorage</code> des Browsers gespeichert und beim nächsten Browser-Reset gelöscht.</li>
+  <li><strong>Keine Registrierung:</strong> SuS müssen keinen Account erstellen.</li>
+  <li><strong>Kein Tracking:</strong> Keine Analyse-Tools oder Cookies.</li>
+  <li><strong>Offline-Fähigkeit:</strong> Nach dem ersten Laden funktioniert der Escape Room auch ohne stabiles Internet (außer Google Fonts – Fallback auf Systemschrift).</li>
+</ul>
+
+<h2>8. Mögliche Erweiterungen</h2>
+
+<ul>
+  <li>📸 <strong>Foto-Aufgaben:</strong> SuS fotografieren ihr ausgefülltes Heft und tauschen mit einer anderen Gruppe</li>
+  <li>🗣 <strong>Fishbowl-Diskussion</strong> nach Station 10: "War die Teilung Deutschlands unvermeidlich?" </li>
+  <li>📊 <strong>Bewertung:</strong> Die Heft-Akte kann als Hausaufgabe ausgebaut und als Portfolio bewertet werden</li>
+  <li>🖥 <strong>Beamer-Modus:</strong> Den Escape Room auf dem Beamer zeigen und mit der Klasse gemeinsam lösen (für schwächere Klassen)</li>
+</ul>
+
+<hr>
+<p style="text-align:center; color:#666; font-size:13px; margin-top:40px;">
+  Lehrerhandreichung | Operation Mauerfall | Geschichte Klasse 10 | Schulbuch: Cornelsen, Kapitel 3 (S. 88–123)
+</p>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Station 4 – NS-Vergangenheit</title>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="noise"></div>
+<div class="bg-texture"></div>
+
+<div class="station-container">
+  <div id="progress-area"></div>
+
+  <div class="station-header">
+    <div class="station-num">04</div>
+    <div class="station-meta">
+      <div class="station-tag">⚖️ Erinnerungskultur &amp; Aufarbeitung</div>
+      <div class="station-title">Schatten der Vergangenheit:<br>Der Umgang mit dem NS</div>
+      <div class="station-loc">📍 Jüdisches Mahnmal, Ost-Berlin · 19:15 Uhr</div>
+    </div>
+  </div>
+
+  <div class="narrative">
+    Hartmanns vierte Akte handelt von Schuld und Verantwortung. Sie enthält eine Textquelle und drei Positionen – aber welche gehört zu welchem Staat? Löst das Rätsel der historischen Aufarbeitung.
+  </div>
+
+  <div class="doc-card">
+    <div class="doc-title">📜 Quelle: Barbara Just-Dahlmann, 1961 (Schulbuch S. 96–97)</div>
+    <p>„Ein Mann, der des Mordes an 12.000 Personen dringend verdächtig ist, wird gegen eine Kaution von 12.000 DM aus der Untersuchungshaft entlassen... Die Staatsanwälte haben eine Gleichung aufgestellt, die nicht wörtlich und nicht mathematisch zu nehmen ist und die sie in Zeiten der Resignation gebrauchen: 'Ein Toter gleich zehn Minuten Gefängnis.'"</p>
+    <div class="doc-source">Barbara Just-Dahlmann, Mitarbeiterin der Zentralstelle zur Verfolgung nationalsozialistischer Gewaltverbrechen, BRD, 1961</div>
+  </div>
+
+  <div class="heft-aufgabe">
+    <div class="icon">📓</div>
+    <div class="text"><strong>Heft-Aufgabe Station 4:</strong> Vergleichstabelle im Heft: <strong>BRD vs. DDR</strong> – je 3 Aspekte: (1) Selbstverständnis, (2) konkrete Maßnahmen, (3) Kritikpunkte. Nutzt S. 96–97.</div>
+  </div>
+
+  <div class="question-area">
+    <h3>🔍 Vergleich BRD vs. DDR: Zuordnung</h3>
+    <p>Ordnet die folgenden Aussagen zu: Gehören sie zum Umgang der <strong>BRD</strong>, der <strong>DDR</strong>, oder <strong>beiden</strong>?</p>
+  </div>
+
+  <div id="assign-area"></div>
+
+  <div class="btn-row" style="margin-top:16px;">
+    <button class="submit-btn" onclick="checkAssign()">▶ Prüfen</button>
+    <button class="hint-btn" onclick="showHint()">💡 Hinweis</button>
+  </div>
+  <div class="feedback" id="feedback"></div>
+
+  <div class="question-area" id="q2" style="display:none; margin-top:20px;">
+    <h3>🔓 Code-Frage: „Schlussstrich"</h3>
+    <p>In der BRD herrschte in den 1950er Jahren eine „Schlussstrichmentalität". Was beschreibt dieser Begriff?</p>
+    <p style="color:var(--muted); font-size:13px; margin-top:6px;">Wählt die treffendste Erklärung:</p>
+    <div class="choice-grid" style="margin-top:14px;" id="erklaer-choices">
+      <button class="choice-btn" onclick="selectErk(0)">A) Die BRD verurteilte besonders viele NS-Täter – ein Schlussstrich unter die Geschichte der Nazis.</button>
+      <button class="choice-btn" onclick="selectErk(1)">B) Viele Deutsche wollten die Verantwortung von sich weisen und mit der NS-Vergangenheit abschließen, ohne sie aufzuarbeiten.</button>
+      <button class="choice-btn" onclick="selectErk(2)">C) Die Alliierten zogen einen Schlussstrich unter die Besatzungszeit und gaben den Deutschen volle Souveränität.</button>
+      <button class="choice-btn" onclick="selectErk(3)">D) Die DDR-Führung schloss offiziell mit dem Nationalsozialismus ab, indem sie ihn verurteilte.</button>
+    </div>
+    <div class="feedback" id="feedback2" style="margin-top:12px;"></div>
+  </div>
+
+  <div class="code-reveal" id="code-reveal">
+    <div class="code-label">Code für Station 5:</div>
+    <div class="code-value">1953</div>
+    <div class="code-note">Jahr des Volksaufstands → Eingabe bei Station 5</div>
+  </div>
+  <button class="next-btn" id="next-btn" onclick="window.location.href='station05.html'">
+    Weiter zu Station 5: Volksaufstand →
+  </button>
+</div>
+
+<script src="utils.js"></script>
+<script>
+document.getElementById('progress-area').innerHTML = progressBar(4);
+
+const items = [
+  { text: 'Verstand sich als "antifaschistischer Staat" und sah die Verantwortung für NS-Verbrechen im "kapitalistischen" Westen.', answer: 'DDR' },
+  { text: 'Gründete 1958 die "Zentralstelle zur Verfolgung nationalsozialistischer Gewaltverbrechen"', answer: 'BRD' },
+  { text: 'Viele Täter konnten nach Amnestie von 1951 in staatliche Positionen zurückkehren.', answer: 'BRD' },
+  { text: 'Führte die "Waldheimer Prozesse" durch – schnelle Schauprozesse gegen ehemalige KZ-Aufseher.', answer: 'DDR' },
+  { text: 'Willy Brandts Kniefall in Warschau (1970) war ein Symbol der Versöhnung und moralischen Verantwortung.', answer: 'BRD' },
+  { text: 'Nutzte die NS-Vergangenheit politisch, um die BRD als faschistischen Nachfolgestaat darzustellen.', answer: 'DDR' },
+];
+
+const area = document.getElementById('assign-area');
+const answers = {};
+
+items.forEach((item, i) => {
+  const div = document.createElement('div');
+  div.style.cssText = 'margin-bottom:12px; padding:14px; background:rgba(240,232,208,0.03); border:1px solid rgba(200,151,58,0.15);';
+  div.innerHTML = `
+    <p style="font-size:14px; margin-bottom:10px; color:rgba(240,232,208,0.85);">${i+1}. ${item.text}</p>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button class="choice-btn" id="b-${i}-BRD" onclick="setA(${i},'BRD')">BRD</button>
+      <button class="choice-btn" id="b-${i}-DDR" onclick="setA(${i},'DDR')">DDR</button>
+      <button class="choice-btn" id="b-${i}-BEIDE" onclick="setA(${i},'BEIDE')">Beide</button>
+    </div>
+  `;
+  area.appendChild(div);
+});
+
+function setA(i, val) {
+  answers[i] = val;
+  ['BRD','DDR','BEIDE'].forEach(v => document.getElementById('b-'+i+'-'+v).classList.toggle('selected', val===v));
+}
+
+let done = false;
+function checkAssign() {
+  if(done) { document.getElementById('q2').style.display='block'; return; }
+  let correct = 0;
+  items.forEach((item, i) => {
+    ['BRD','DDR','BEIDE'].forEach(v => document.getElementById('b-'+i+'-'+v).classList.remove('correct','wrong','selected'));
+    document.getElementById('b-'+i+'-'+item.answer).classList.add('correct');
+    if(answers[i] && answers[i] !== item.answer) document.getElementById('b-'+i+'-'+answers[i]).classList.add('wrong');
+    if(answers[i] === item.answer) correct++;
+  });
+  const fb = document.getElementById('feedback');
+  if(correct >= 5) {
+    fb.className = 'feedback success';
+    fb.innerHTML = `✅ ${correct}/6 richtig! Ihr kennt den Unterschied. Jetzt die Code-Frage:`;
+    done = true;
+    document.getElementById('q2').style.display = 'block';
+  } else {
+    fb.className = 'feedback error';
+    fb.innerHTML = `❌ ${correct}/6. Lest S. 96–97 genau: Was ist der Unterschied zwischen "verordnetem Antifaschismus" (DDR) und der "Schlussstrichmentalität" + Auschwitz-Prozessen (BRD)?`;
+  }
+}
+
+let erkSel = -1;
+function selectErk(i) {
+  erkSel = i;
+  document.querySelectorAll('#erklaer-choices .choice-btn').forEach((b,j) => b.classList.toggle('selected', i===j));
+}
+
+function checkNum() {}
+
+document.querySelector('.btn-row:last-of-type .submit-btn') && null;
+
+// Override submit for q2
+document.addEventListener('DOMContentLoaded', () => {});
+
+function checkFinal() {
+  const fb = document.getElementById('feedback2');
+  if(erkSel === 1) {
+    fb.className = 'feedback success';
+    fb.innerHTML = '✅ Richtig! Viele Deutsche wollten abschließen statt aufarbeiten. Code freigeschaltet!';
+    document.getElementById('code-reveal').classList.add('show');
+    document.getElementById('next-btn').classList.add('show');
+    markStationComplete(4);
+  } else {
+    fb.className = 'feedback error';
+    fb.innerHTML = '❌ Nicht ganz. Der Begriff "Schlussstrich" beschreibt die Haltung vieler Westdeutscher, die Verantwortung für NS-Verbrechen <em>ablehnen</em> wollten. Lies S. 96, Abschnitt "Schlussstrichmentalität in der BRD".';
+  }
+}
+
+// Add button for final check
+document.getElementById('q2').innerHTML += `<button class="submit-btn" style="margin-top:14px;" onclick="checkFinal()">▶ Erklärung prüfen</button>`;
+
+function showHint() {
+  addHint();
+  document.getElementById('feedback').className = 'feedback hint';
+  document.getElementById('feedback').innerHTML = '💡 <strong>Hinweis:</strong> DDR = "verordneter Antifaschismus" – die DDR bezeichnete sich als antifaschistischen Staat und wies alle Verantwortung dem Westen zu. BRD = anfangs "Schlussstrichmentalität", dann Auschwitz-Prozesse (1963–65) und zunehmende Aufarbeitung.';
+}
+</script>
+</body>
+</html>

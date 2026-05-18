@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Station 6 – Wahlen</title>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="noise"></div>
+<div class="bg-texture"></div>
+
+<div class="station-container">
+  <div id="progress-area"></div>
+
+  <div class="station-header">
+    <div class="station-num">06</div>
+    <div class="station-meta">
+      <div class="station-tag">🗳 Demokratie vs. Diktatur</div>
+      <div class="station-title">Stimmzettel oder Einheitsliste:<br>Wahlen im Vergleich</div>
+      <div class="station-loc">📍 Ehemaliges Wahllokal, Ost-Berlin · 20:05 Uhr</div>
+    </div>
+  </div>
+
+  <div class="narrative">
+    Hartmanns sechste Akte: Zwei Stimmzettel liegen auf dem Tisch. Einer aus der BRD, einer aus der DDR – aber welcher ist welcher? Analysiert das Wahlsystem beider Staaten.
+  </div>
+
+  <div class="doc-card">
+    <div class="doc-title">📜 Quelle: Historiker Stefan Wolle über DDR-Wahlen (2013) – Schulbuch S. 99</div>
+    <p>„Bei uns gibt es kein Parteiengezänk zu den Wahlen", erklärte der Leiter des Amts für Information drei Monate vor den ersten Volkskammerwahlen. „Alle unsere Anstrengungen richten sich auf den Aufbau und das schnelle Erreichen weiterer Erfolge. Dafür ist die Zusammenarbeit der Parteien notwendig."</p>
+    <p>Im Westen wird es einen Wahlkampf der Parteien gegeneinander geben und die Lebenshaltung wird sinken. „Unsere Bevölkerung wird selbst entscheiden, ob sie den einen oder den anderen Weg gehen will." Doch es gab nichts mehr zu entscheiden...</p>
+    <div class="doc-source">Schulbuch S. 99, M4</div>
+  </div>
+
+  <div class="heft-aufgabe">
+    <div class="icon">📓</div>
+    <div class="text"><strong>Heft-Aufgabe Station 6:</strong> Vergleichstabelle: <strong>Wahlen BRD vs. DDR</strong> – Kriterien: Wahlprinzipien, Auswahl, Parteien, Ergebnis der ersten Wahl, Wahlbeteiligung. (S. 98–99)</div>
+  </div>
+
+  <div class="question-area">
+    <h3>🔍 Unterschiede erkennen</h3>
+    <p>Ordnet jede Aussage dem Wahlsystem der <strong>BRD</strong> oder der <strong>DDR</strong> zu:</p>
+  </div>
+
+  <div id="match-area"></div>
+
+  <div class="btn-row" style="margin-top:16px;">
+    <button class="submit-btn" onclick="checkAll()">▶ Prüfen</button>
+    <button class="hint-btn" onclick="showHint()">💡 Hinweis</button>
+  </div>
+  <div class="feedback" id="feedback"></div>
+
+  <div class="question-area" id="q2" style="display:none; margin-top:20px;">
+    <h3>🔓 Code-Frage: Erste Bundestagswahl</h3>
+    <p>Wie viele Parteien schafften 1949 den Einzug in den ersten Deutschen Bundestag? (Schulbuch S. 98)</p>
+    <div class="input-area" style="margin-top:14px;">
+      <label>Anzahl der Parteien:</label>
+      <input type="text" class="code-input" id="ans-input" placeholder="__" maxlength="4" style="font-size:22px;">
+    </div>
+    <div class="btn-row" style="margin-top:12px;">
+      <button class="submit-btn" onclick="checkNum()">▶ Prüfen</button>
+    </div>
+    <div class="feedback" id="feedback2"></div>
+  </div>
+
+  <div class="code-reveal" id="code-reveal">
+    <div class="code-label">Code für Station 7:</div>
+    <div class="code-value">PLAN</div>
+    <div class="code-note">Stichwort „PLAN" → Station 7: Wirtschaft</div>
+  </div>
+  <button class="next-btn" id="next-btn" onclick="window.location.href='station07.html'">
+    Weiter zu Station 7: Wirtschaft →
+  </button>
+</div>
+
+<script src="utils.js"></script>
+<script>
+document.getElementById('progress-area').innerHTML = progressBar(6);
+
+const items = [
+  { text: 'Freie, gleiche, geheime und unmittelbare Wahlen – Ausdruck des politischen Willens der Bevölkerung', answer: 'BRD' },
+  { text: 'Die "Nationale Front" legte die Sitzverteilung schon vor der Wahl fest', answer: 'DDR' },
+  { text: 'Fünfprozenthürde als Sperrklausel für den Einzug ins Parlament', answer: 'BRD' },
+  { text: 'Auf dem Stimmzettel nur ein Kreuz – Zustimmung, wenn der Zettel gefaltet in die Wahlurne', answer: 'DDR' },
+  { text: 'Koalitionsregierungen mit CDU/CSU oder SPD als großen Parteien, FDP oft beteiligt', answer: 'BRD' },
+  { text: 'Die SED bekam die meisten Volkskammersitze aufgrund der Nationalen Front', answer: 'DDR' },
+];
+
+const area = document.getElementById('match-area');
+const answers = {};
+
+items.forEach((item, i) => {
+  const div = document.createElement('div');
+  div.style.cssText = 'margin-bottom:12px; padding:14px; background:rgba(240,232,208,0.03); border:1px solid rgba(200,151,58,0.15);';
+  div.innerHTML = `
+    <p style="font-size:14px; margin-bottom:10px; color:rgba(240,232,208,0.85);">${item.text}</p>
+    <div style="display:flex; gap:10px;">
+      <button class="choice-btn" id="b-${i}-BRD" onclick="setA(${i},'BRD')">BRD</button>
+      <button class="choice-btn" id="b-${i}-DDR" onclick="setA(${i},'DDR')">DDR</button>
+    </div>
+  `;
+  area.appendChild(div);
+});
+
+function setA(i, val) {
+  answers[i] = val;
+  ['BRD','DDR'].forEach(v => document.getElementById('b-'+i+'-'+v).classList.toggle('selected', val===v));
+}
+
+let done = false;
+function checkAll() {
+  if(done) { document.getElementById('q2').style.display='block'; return; }
+  let correct = 0;
+  items.forEach((item,i) => {
+    ['BRD','DDR'].forEach(v => document.getElementById('b-'+i+'-'+v).classList.remove('correct','wrong','selected'));
+    document.getElementById('b-'+i+'-'+item.answer).classList.add('correct');
+    if(answers[i] && answers[i]!==item.answer) document.getElementById('b-'+i+'-'+answers[i]).classList.add('wrong');
+    if(answers[i]===item.answer) correct++;
+  });
+  const fb = document.getElementById('feedback');
+  if(correct >= 5) {
+    fb.className='feedback success'; fb.innerHTML=`✅ ${correct}/6 richtig! Jetzt die Code-Frage:`;
+    done=true; document.getElementById('q2').style.display='block';
+  } else {
+    fb.className='feedback error'; fb.innerHTML=`❌ ${correct}/6. Lest S. 98–99: Was sind die Grundprinzipien der BRD-Wahl? Was bedeutet "Einheitsliste" in der DDR?`;
+  }
+}
+
+function checkNum() {
+  const val = document.getElementById('ans-input').value.trim();
+  const fb = document.getElementById('feedback2');
+  if(val === '11') {
+    fb.className='feedback success'; fb.innerHTML='✅ Korrekt! 11 Parteien schafften 1949 den Einzug. Code freigeschaltet!';
+    document.getElementById('code-reveal').classList.add('show');
+    document.getElementById('next-btn').classList.add('show');
+    markStationComplete(6);
+  } else {
+    fb.className='feedback error'; fb.innerHTML='❌ Nicht korrekt. Schau auf die Grafik M3 auf S. 98/99 – die zeigt die Zusammensetzung des ersten Bundestags 1949.';
+  }
+}
+
+function showHint() {
+  addHint();
+  document.getElementById('feedback').className='feedback hint';
+  document.getElementById('feedback').innerHTML='💡 <strong>Hinweis:</strong> BRD = Mehrparteiensystem, echte Wahl, Fünfprozenthürde. DDR = "Einheitsliste" der Nationalen Front – kein echter Wettbewerb, Sitzverteilung vorab festgelegt. Die Parteien der DDR unterstützten alle die SED-Linie.';
+}
+</script>
+</body>
+</html>

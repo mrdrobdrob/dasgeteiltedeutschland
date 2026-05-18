@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Station 8 – RAF und 68er</title>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="noise"></div>
+<div class="bg-texture"></div>
+
+<div class="station-container">
+  <div id="progress-area"></div>
+
+  <div class="station-header">
+    <div class="station-num">08</div>
+    <div class="station-meta">
+      <div class="station-tag">✊ Gesellschaftlicher Wandel</div>
+      <div class="station-title">Protest &amp; Terror:<br>Die 68er und die RAF</div>
+      <div class="station-loc">📍 Frankfurt am Main · 20:55 Uhr</div>
+    </div>
+  </div>
+
+  <div class="narrative">
+    Hartmanns achte Akte: Ein Fahndungsplakat. Dahinter steckt die Geschichte des politischen Widerstands in der BRD – von friedlichen Protesten bis hin zu Terror. Wer versteht den Unterschied, öffnet die nächste Tür.
+  </div>
+
+  <div class="doc-card">
+    <div class="doc-title">📜 Quelle: Silke Maier-Witt (ehem. RAF-Mitglied), Interview 2001 – Schulbuch S. 115</div>
+    <p>„Im Knast, wo ich anfing, mich mit der Frage auseinanderzusetzen, wieso bin ich gerade da reingekommen. Ich bin im Grunde aus einer Position der Schwäche in die RAF gekommen. Ich habe, als ich inhaftiert war, eine Frau kennengelernt, die war in einer Sekte, und da habe ich gemerkt: So unterschiedlich ist das gar nicht."</p>
+    <p>Frage: Und bei der RAF heiligte der Zweck jedes Mittel?<br>„Das ist es, was ich mir im Nachhinein am meisten übel genommen habe. Dass ich sehr wohl gesehen habe, wie entsetzlich das war..."</p>
+    <div class="doc-source">Schulbuch S. 115, M2</div>
+  </div>
+
+  <div class="heft-aufgabe">
+    <div class="icon">📓</div>
+    <div class="text"><strong>Heft-Aufgabe Station 8:</strong> Zwei-Spalten-Analyse: <strong>68er-Bewegung vs. RAF</strong> – Ziele, Methoden, Ergebnis/Folgen. Warum ist der Unterschied wichtig für eine Demokratie? (S. 112–115)</div>
+  </div>
+
+  <div class="question-area">
+    <h3>🔍 Analyse: 68er vs. RAF</h3>
+    <p>Welche Aussagen treffen auf die <strong>68er-Bewegung</strong>, welche auf die <strong>RAF</strong>, welche auf <strong>beide oder keine</strong>?</p>
+  </div>
+
+  <div id="match-area"></div>
+
+  <div class="btn-row" style="margin-top:16px;">
+    <button class="submit-btn" onclick="checkAll()">▶ Prüfen</button>
+    <button class="hint-btn" onclick="showHint()">💡 Hinweis</button>
+  </div>
+  <div class="feedback" id="feedback"></div>
+
+  <div class="question-area" id="q2" style="display:none; margin-top:20px;">
+    <h3>🔓 Code-Frage: Der „heiße Herbst"</h3>
+    <p>In welchem Jahr war der „heiße Herbst" der RAF – der Höhepunkt der terroristischen Anschläge mit der Entführung Schleyers? (Schulbuch S. 114–115)</p>
+    <div class="input-area" style="margin-top:14px;">
+      <label>Jahr:</label>
+      <input type="text" class="code-input" id="ans-input" placeholder="19__" maxlength="4">
+    </div>
+    <div class="btn-row" style="margin-top:12px;">
+      <button class="submit-btn" onclick="checkYear()">▶ Prüfen</button>
+    </div>
+    <div class="feedback" id="feedback2"></div>
+  </div>
+
+  <div class="code-reveal" id="code-reveal">
+    <div class="code-label">Code für Station 9:</div>
+    <div class="code-value">OST</div>
+    <div class="code-note">Stichwort „OST" → Station 9: Ostpolitik</div>
+  </div>
+  <button class="next-btn" id="next-btn" onclick="window.location.href='station09.html'">
+    Weiter zu Station 9: Ostpolitik →
+  </button>
+</div>
+
+<script src="utils.js"></script>
+<script>
+document.getElementById('progress-area').innerHTML = progressBar(8);
+
+const items = [
+  { text: 'Protestierte gegen den Vietnamkrieg und die Notstandsgesetze in der BRD', answer: '68er' },
+  { text: 'Wollte durch bewaffneten Kampf den "kapitalistischen Unterdrückerstaat" stürzen', answer: 'RAF' },
+  { text: 'Führte zur Entstehung der Grünen Partei in den 1980er Jahren', answer: '68er' },
+  { text: 'Entführte 1977 Arbeitgeberpräsident Hanns Martin Schleyer', answer: 'RAF' },
+  { text: 'Kritisierte die unzureichende Auseinandersetzung mit der NS-Vergangenheit der Elterngeneration', answer: '68er' },
+  { text: 'Erhielt zeitweise Unterstützung durch die SED-Diktatur der DDR', answer: 'RAF' },
+];
+
+const area = document.getElementById('match-area');
+const answers = {};
+
+items.forEach((item, i) => {
+  const div = document.createElement('div');
+  div.style.cssText = 'margin-bottom:12px; padding:14px; background:rgba(240,232,208,0.03); border:1px solid rgba(200,151,58,0.15);';
+  div.innerHTML = `
+    <p style="font-size:14px; margin-bottom:10px; color:rgba(240,232,208,0.85);">${item.text}</p>
+    <div style="display:flex; gap:10px;">
+      <button class="choice-btn" id="b-${i}-68er" onclick="setA(${i},'68er')">68er</button>
+      <button class="choice-btn" id="b-${i}-RAF" onclick="setA(${i},'RAF')">RAF</button>
+    </div>
+  `;
+  area.appendChild(div);
+});
+
+function setA(i, val) {
+  answers[i] = val;
+  ['68er','RAF'].forEach(v => document.getElementById('b-'+i+'-'+v).classList.toggle('selected', val===v));
+}
+
+let done = false;
+function checkAll() {
+  if(done) { document.getElementById('q2').style.display='block'; return; }
+  let correct = 0;
+  items.forEach((item,i) => {
+    ['68er','RAF'].forEach(v => document.getElementById('b-'+i+'-'+v).classList.remove('correct','wrong','selected'));
+    document.getElementById('b-'+i+'-'+item.answer).classList.add('correct');
+    if(answers[i] && answers[i]!==item.answer) document.getElementById('b-'+i+'-'+answers[i]).classList.add('wrong');
+    if(answers[i]===item.answer) correct++;
+  });
+  const fb = document.getElementById('feedback');
+  if(correct >= 5) {
+    fb.className='feedback success'; fb.innerHTML=`✅ ${correct}/6 richtig! Code-Frage folgt:`;
+    done=true; document.getElementById('q2').style.display='block';
+  } else {
+    fb.className='feedback error'; fb.innerHTML=`❌ ${correct}/6. Lest S. 112–115: Die 68er waren eine breite demokratische Bewegung; die RAF war eine kleine extremistische Gruppe, die aus ihr hervorging.`;
+  }
+}
+
+function checkYear() {
+  const val = document.getElementById('ans-input').value.trim();
+  const fb = document.getElementById('feedback2');
+  if(val==='1977') {
+    fb.className='feedback success'; fb.innerHTML='✅ Richtig! 1977 – der "heiße Herbst". Schleyer-Entführung, Lufthansa "Landshut". Code freigeschaltet!';
+    document.getElementById('code-reveal').classList.add('show');
+    document.getElementById('next-btn').classList.add('show');
+    markStationComplete(8);
+  } else {
+    fb.className='feedback error'; fb.innerHTML='❌ Nicht korrekt. Schau in S. 114–115, Abschnitt "Der heiße Herbst 1977".';
+  }
+}
+
+function showHint() {
+  addHint();
+  document.getElementById('feedback').className='feedback hint';
+  document.getElementById('feedback').innerHTML='💡 <strong>Hinweis:</strong> 68er = friedlicher Protest, Studentenbewegung, Wertewandel → führte zu Grünen, Frauenbewegung. RAF = linksextremer Terrorismus, kleine Gruppe, Bankraub, Mord. Beide entstammen den 1968er Protesten, aber gingen völlig verschiedene Wege.';
+}
+</script>
+</body>
+</html>

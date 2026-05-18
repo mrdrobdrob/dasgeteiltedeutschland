@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operation Mauerfall – Escape Room</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Oswald:wght@300;600;700&family=Source+Serif+4:ital,wght@0,300;0,600;1,300&display=swap');
+
+  :root {
+    --ink: #1a1208;
+    --paper: #f0e8d0;
+    --red: #b5191a;
+    --grey: #4a4a4a;
+    --gold: #c8973a;
+    --muted: #8a7d68;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Source Serif 4', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .noise {
+    position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .bg-texture {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, #2a1a08 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, #1a0808 0%, transparent 40%),
+      linear-gradient(180deg, #0d0d0d 0%, #1a1208 50%, #0d0b05 100%);
+  }
+
+  .wire-bg {
+    position: fixed; inset: 0; z-index: 1; opacity: 0.06;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, #c8973a 39px, #c8973a 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, #c8973a 39px, #c8973a 40px);
+  }
+
+  .container {
+    position: relative; z-index: 10;
+    max-width: 860px; margin: 0 auto;
+    padding: 60px 30px;
+    display: flex; flex-direction: column; align-items: center; gap: 40px;
+  }
+
+  .stamp {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700; font-size: 11px; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--red);
+    border: 2px solid var(--red); padding: 6px 16px;
+    opacity: 0.85; transform: rotate(-2deg);
+    animation: stampIn 0.6s ease-out 0.3s both;
+  }
+  @keyframes stampIn {
+    from { opacity: 0; transform: rotate(-2deg) scale(1.5); }
+    to { opacity: 0.85; transform: rotate(-2deg) scale(1); }
+  }
+
+  .top-bar {
+    width: 100%; display: flex; align-items: center; gap: 20px; justify-content: center;
+    animation: fadeDown 0.8s ease-out 0.1s both;
+  }
+  .line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  @keyframes fadeDown { from { opacity:0; transform: translateY(-20px); } to { opacity:1; transform: none; } }
+
+  .codename {
+    font-family: 'Special Elite', monospace;
+    font-size: 13px; letter-spacing: 3px;
+    color: var(--muted); text-align: center;
+    animation: fadeDown 0.8s ease-out 0.2s both;
+  }
+
+  h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700; font-size: clamp(42px, 8vw, 80px);
+    line-height: 0.95; text-align: center; letter-spacing: -1px;
+    text-transform: uppercase;
+    animation: titleReveal 1s ease-out 0.4s both;
+  }
+  h1 .sub { display: block; font-size: 0.45em; letter-spacing: 8px; color: var(--gold); font-weight: 300; margin-bottom: 8px; }
+  h1 .main { color: var(--paper); }
+  h1 .accent { color: var(--red); display: block; }
+  @keyframes titleReveal {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .badge {
+    width: 120px; height: 120px; border-radius: 50%;
+    border: 3px solid var(--gold);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: radial-gradient(circle, #1e1608 0%, #0d0d0d 100%);
+    text-align: center;
+    animation: badgeSpin 1.2s ease-out 0.6s both;
+    box-shadow: 0 0 30px rgba(200,151,58,0.2), inset 0 0 20px rgba(0,0,0,0.5);
+  }
+  @keyframes badgeSpin {
+    from { opacity: 0; transform: rotate(-180deg) scale(0.5); }
+    to { opacity: 1; transform: rotate(0deg) scale(1); }
+  }
+  .badge .year { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: var(--gold); }
+  .badge .label { font-family: 'Special Elite', monospace; font-size: 9px; letter-spacing: 2px; color: var(--muted); margin-top: 4px; }
+
+  .intro-box {
+    background: rgba(240,232,208,0.04);
+    border: 1px solid rgba(200,151,58,0.25);
+    border-left: 4px solid var(--gold);
+    padding: 30px 36px;
+    max-width: 660px;
+    animation: fadeUp 0.8s ease-out 0.7s both;
+    position: relative;
+  }
+  .intro-box::before {
+    content: '❝';
+    position: absolute; top: 10px; left: 14px;
+    font-size: 36px; color: var(--gold); opacity: 0.3;
+    font-family: serif; line-height: 1;
+  }
+  .intro-box p {
+    font-size: 17px; line-height: 1.75;
+    color: rgba(240,232,208,0.85);
+    font-style: italic;
+  }
+  .intro-box .source {
+    margin-top: 14px; font-size: 12px; letter-spacing: 2px;
+    color: var(--muted); font-style: normal; font-family: 'Oswald', sans-serif;
+    font-weight: 300; text-transform: uppercase;
+  }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: none; } }
+
+  .briefing {
+    background: linear-gradient(135deg, #1a1005 0%, #100d05 100%);
+    border: 1px solid rgba(200,151,58,0.2);
+    padding: 36px 40px; max-width: 700px; width: 100%;
+    animation: fadeUp 0.8s ease-out 0.9s both;
+  }
+  .briefing h2 {
+    font-family: 'Oswald', sans-serif; font-weight: 600;
+    font-size: 18px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--red); border-bottom: 1px solid rgba(181,25,26,0.3);
+    padding-bottom: 12px; margin-bottom: 20px;
+  }
+  .briefing p {
+    font-size: 16px; line-height: 1.8; color: rgba(240,232,208,0.8);
+    margin-bottom: 14px;
+  }
+  .briefing strong { color: var(--gold); font-style: normal; }
+
+  .mission-list {
+    list-style: none; margin: 20px 0;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .mission-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 15px; color: rgba(240,232,208,0.75);
+  }
+  .mission-list li::before {
+    content: '▶';
+    color: var(--gold); font-size: 10px; margin-top: 5px; flex-shrink: 0;
+  }
+
+  .heft-box {
+    background: rgba(200,151,58,0.06);
+    border: 1px dashed rgba(200,151,58,0.3);
+    padding: 20px 28px; max-width: 700px; width: 100%;
+    display: flex; gap: 16px; align-items: flex-start;
+    animation: fadeUp 0.8s ease-out 1s both;
+  }
+  .heft-icon { font-size: 32px; flex-shrink: 0; }
+  .heft-box p { font-size: 14px; line-height: 1.65; color: rgba(240,232,208,0.7); }
+  .heft-box strong { color: var(--gold); }
+
+  .team-form {
+    display: flex; flex-direction: column; gap: 16px;
+    max-width: 500px; width: 100%;
+    animation: fadeUp 0.8s ease-out 1.1s both;
+  }
+  .team-form label {
+    font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 4px;
+    display: block;
+  }
+  .team-form input {
+    background: rgba(240,232,208,0.05);
+    border: 1px solid rgba(200,151,58,0.3);
+    border-bottom: 2px solid var(--gold);
+    color: var(--paper); font-family: 'Special Elite', monospace;
+    font-size: 18px; padding: 12px 16px; width: 100%;
+    outline: none; transition: background 0.2s;
+    text-align: center;
+  }
+  .team-form input:focus { background: rgba(200,151,58,0.08); }
+  .team-form input::placeholder { color: var(--muted); font-size: 14px; }
+
+  .start-btn {
+    background: var(--red); border: none; color: var(--paper);
+    font-family: 'Oswald', sans-serif; font-weight: 700;
+    font-size: 18px; letter-spacing: 4px; text-transform: uppercase;
+    padding: 18px 48px; cursor: pointer;
+    transition: all 0.2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    animation: fadeUp 0.8s ease-out 1.2s both;
+  }
+  .start-btn:hover {
+    background: #d42020; transform: scale(1.02);
+    box-shadow: 0 6px 24px rgba(181,25,26,0.4);
+  }
+
+  .timer-note {
+    font-family: 'Special Elite', monospace; font-size: 13px;
+    color: var(--muted); letter-spacing: 1px;
+    animation: fadeUp 0.8s ease-out 1.3s both;
+  }
+  .timer-note span { color: var(--gold); }
+
+  .divider {
+    width: 100%; display: flex; align-items: center; gap: 16px;
+    animation: fadeUp 0.8s ease-out 1s both;
+  }
+  .divider .line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(200,151,58,0.3), transparent); }
+  .divider span { font-size: 18px; color: var(--gold); opacity: 0.5; }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<div class="bg-texture"></div>
+<div class="wire-bg"></div>
+
+<div class="container">
+  <div class="top-bar">
+    <div class="line"></div>
+    <div class="stamp">Streng Geheim</div>
+    <div class="line"></div>
+  </div>
+
+  <p class="codename">— Geschichts-Escape-Room · Klasse 10 —</p>
+
+  <div class="badge">
+    <div class="year">1961</div>
+    <div class="label">– 1989 –</div>
+    <div class="label" style="margin-top:6px">BERLIN</div>
+  </div>
+
+  <h1>
+    <span class="sub">Operation</span>
+    <span class="main">Mauerfall</span>
+    <span class="accent">1989</span>
+  </h1>
+
+  <div class="intro-box">
+    <p>„Auch wenn zwei Staaten in Deutschland existieren, sind sie doch füreinander nicht Ausland."</p>
+    <p class="source">— Bundeskanzler Willy Brandt, 1972</p>
+  </div>
+
+  <div class="briefing">
+    <h2>📋 Mission Briefing</h2>
+    <p>Berlin, <strong>9. November 1989, 18:00 Uhr.</strong> Der DDR-Grenzoffizier <strong>Major Klaus Hartmann</strong> hat geheime Dokumente versteckt – Beweise für die innere Logik der deutschen Teilung, die die Geschichte für immer verändern werden.</p>
+    <p>In wenigen Stunden fällt die <strong>Berliner Mauer</strong>. Doch bevor das geschieht: Hartmann hat in zehn Verstecken im Stadtgebiet Rätsel hinterlassen. Nur wer alle löst, findet den Zugangscode zum Tresor – und sichert die Dokumente für die Nachwelt.</p>
+    <p><strong>Eure Aufgabe:</strong> Löst alle 10 Rätsel und befreit die Wahrheit über das geteilte Deutschland!</p>
+    <ul class="mission-list">
+      <li>Nutzt euer Schulbuch (S. 88–123) als Hauptquelle</li>
+      <li>Haltet alle Antworten im Heft fest – das sind eure Agenten-Akten!</li>
+      <li>Jedes gelöste Rätsel gibt euch einen <strong>Code-Teil</strong> für das nächste</li>
+      <li>Ihr habt <strong>135 Minuten</strong> – die Geschichte wartet nicht</li>
+    </ul>
+  </div>
+
+  <div class="heft-box">
+    <div class="heft-icon">📓</div>
+    <p><strong>Agenten-Akte (Heft):</strong> Legt für jede Station eine Seite in eurem Heft an. Schreibt die Station-Nummer, das Thema, und eure Erkenntnisse auf. Am Ende habt ihr eine vollständige Zusammenfassung des geteilten Deutschlands – eure persönliche Akte für Major Hartmanns Tresor.</p>
+  </div>
+
+  <div class="team-form">
+    <label for="teamname">🕵️ Euer Agenten-Teamname:</label>
+    <input type="text" id="teamname" placeholder="z.B. „Die Mauerbrecher"" maxlength="40">
+  </div>
+
+  <button class="start-btn" onclick="startMission()">▶ Mission starten</button>
+  <p class="timer-note">Zeitlimit: <span>135 Minuten</span> · 10 Stationen</p>
+</div>
+
+<script>
+function startMission() {
+  const name = document.getElementById('teamname').value.trim() || 'Unbekanntes Team';
+  localStorage.setItem('teamname', name);
+  localStorage.setItem('startTime', Date.now());
+  localStorage.setItem('hintsUsed', '0');
+  // clear previous progress
+  for(let i=1;i<=10;i++) localStorage.removeItem('station'+i);
+  window.location.href = 'station01.html';
+}
+</script>
+</body>
+</html>

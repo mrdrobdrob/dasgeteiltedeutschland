@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Station 2 – Das Bündnissystem</title>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="noise"></div>
+<div class="bg-texture"></div>
+
+<div class="station-container">
+  <div id="progress-area"></div>
+
+  <div class="station-header">
+    <div class="station-num">02</div>
+    <div class="station-meta">
+      <div class="station-tag">🌍 Blockintegration &amp; Bündnisse</div>
+      <div class="station-title">Das geteilte Europa:<br>NATO vs. Warschauer Pakt</div>
+      <div class="station-loc">📍 Brandenburger Tor, West-Seite · 18:31 Uhr</div>
+    </div>
+  </div>
+
+  <div class="narrative">
+    Major Hartmanns zweite Akte: Eine Karte Europas mit vertauschten Bündniszuordnungen. Nur wer die politisch-militärischen Bündnisse der Nachkriegszeit kennt, kann die Fehler korrigieren und den nächsten Code entschlüsseln.
+  </div>
+
+  <div class="doc-card">
+    <div class="doc-title">📜 Geheimakte: Verhörmitschrift, 1955</div>
+    <p>Verhörter Agent: „Die Gründung zweier deutscher Staaten im Jahr 1949 bedeutete die Verfestigung der deutschen Teilung. Beide Staaten traten in Machtblöcke ein – die BRD den westlichen, die DDR den östlichen."</p>
+    <p>Verhörer: „Und die Souveränität? Wann erlangten die Staaten ihre außenpolitische Handlungsfähigkeit zurück?"</p>
+    <p>Agent: „Schrittweise – durch Verträge und Bündnisbeitritte..."</p>
+    <div class="doc-source">Fiktive Akte auf Basis: Schulbuch S. 92–95</div>
+  </div>
+
+  <div class="heft-aufgabe">
+    <div class="icon">📓</div>
+    <div class="text"><strong>Heft-Aufgabe Station 2:</strong> Zeichnet eine zweispaltige Tabelle: Links <strong>BRD/Westintegration</strong>, rechts <strong>DDR/Ostintegration</strong>. Tragt je 4 wichtige Verträge/Bündnisse mit Jahreszahl ein. (S. 92–95)</div>
+  </div>
+
+  <div class="question-area">
+    <h3>🔍 Zuordnungsaufgabe: Welches Bündnis – welcher Staat?</h3>
+    <p>Ordnet jede Aussage der <strong>BRD</strong> oder der <strong>DDR</strong> zu. Klickt die passende Schaltfläche.</p>
+  </div>
+
+  <div id="match-area"></div>
+
+  <div class="btn-row" style="margin-top:16px;">
+    <button class="submit-btn" onclick="checkMatches()">▶ Zuordnung prüfen</button>
+    <button class="hint-btn" onclick="showHint()">💡 Hinweis</button>
+  </div>
+
+  <div class="feedback" id="feedback"></div>
+
+  <div class="question-area" id="q2-area" style="display:none; margin-top:20px;">
+    <h3>🔓 Code-Frage: Wann trat die BRD der NATO bei?</h3>
+    <p>Gebt die Jahreszahl ein (Schulbuch S. 92–95 / Zeitstrahl S. 90).</p>
+    <div class="input-area" style="margin-top:14px;">
+      <label>Jahreszahl:</label>
+      <input type="text" class="code-input" id="year-input" placeholder="19__" maxlength="4">
+    </div>
+    <div class="btn-row" style="margin-top:12px;">
+      <button class="submit-btn" onclick="checkYear()">▶ Prüfen</button>
+    </div>
+    <div class="feedback" id="feedback2"></div>
+  </div>
+
+  <div class="code-reveal" id="code-reveal">
+    <div class="code-label">Code für Station 3 erhalten:</div>
+    <div class="code-value">STASI</div>
+    <div class="code-note">Notiert: STASI → Eingabe bei Station 3</div>
+  </div>
+  <button class="next-btn" id="next-btn" onclick="window.location.href='station03.html'">
+    Weiter zu Station 3: Die Stasi →
+  </button>
+</div>
+
+<script src="utils.js"></script>
+<script>
+document.getElementById('progress-area').innerHTML = progressBar(2);
+
+const statements = [
+  { text: 'Trat 1949 der NATO bei (Nordatlantikpakt)', answer: 'BRD', note: 'Nein – die BRD trat 1955 der NATO bei.' },
+  { text: 'Wurde Gründungsmitglied des Warschauer Pakts (1955)', answer: 'DDR', note: 'Richtig – die DDR war Gründungsmitglied.' },
+  { text: 'Unterzeichnete den Deutschlandvertrag (Pariser Verträge 1955) und erlangte weitgehende Souveränität', answer: 'BRD', note: 'Richtig – durch die Pariser Verträge.' },
+  { text: 'Wurde Mitglied des Rats für gegenseitige Wirtschaftshilfe (RGW) 1950', answer: 'DDR', note: 'Richtig – der RGW war das Gegenstück zum Marshallplan.' },
+  { text: 'Baute die Bundeswehr auf und führte die Wehrpflicht ein', answer: 'BRD', note: 'Richtig.' },
+  { text: 'Gründete die Nationale Volksarmee (NVA) 1956', answer: 'DDR', note: 'Richtig.' },
+];
+
+const area = document.getElementById('match-area');
+const userAnswers = {};
+
+statements.forEach((s, i) => {
+  const div = document.createElement('div');
+  div.style.cssText = 'margin-bottom:12px; padding:14px; background:rgba(240,232,208,0.03); border:1px solid rgba(200,151,58,0.15);';
+  div.innerHTML = `
+    <p style="font-size:14px; margin-bottom:10px; color:rgba(240,232,208,0.85);">${s.text}</p>
+    <div style="display:flex; gap:10px;">
+      <button class="choice-btn" id="btn-brd-${i}" onclick="select(${i},'BRD')">BRD</button>
+      <button class="choice-btn" id="btn-ddr-${i}" onclick="select(${i},'DDR')">DDR</button>
+    </div>
+  `;
+  area.appendChild(div);
+});
+
+function select(i, val) {
+  userAnswers[i] = val;
+  document.getElementById('btn-brd-'+i).classList.toggle('selected', val==='BRD');
+  document.getElementById('btn-ddr-'+i).classList.toggle('selected', val==='DDR');
+}
+
+let matchDone = false;
+function checkMatches() {
+  if(matchDone) { document.getElementById('q2-area').style.display='block'; return; }
+  let correct = 0;
+  const fb = document.getElementById('feedback');
+  
+  statements.forEach((s,i) => {
+    const right = userAnswers[i] === s.answer;
+    document.getElementById('btn-brd-'+i).classList.remove('selected','correct','wrong');
+    document.getElementById('btn-ddr-'+i).classList.remove('selected','correct','wrong');
+    if(userAnswers[i]) {
+      document.getElementById('btn-'+userAnswers[i].toLowerCase()+'-'+i).classList.add(right?'correct':'wrong');
+      const correctId = 'btn-'+s.answer.toLowerCase()+'-'+i;
+      if(!right) document.getElementById(correctId).classList.add('correct');
+    }
+    if(right) correct++;
+  });
+
+  if(correct >= 5) {
+    fb.className = 'feedback success';
+    fb.innerHTML = `✅ ${correct}/6 richtig! Gut gemacht. Beantwortet jetzt die Code-Frage unten.`;
+    matchDone = true;
+    document.getElementById('q2-area').style.display = 'block';
+  } else {
+    fb.className = 'feedback error';
+    fb.innerHTML = `❌ ${correct}/6 richtig. Schau nochmal auf S. 92–95 – besonders auf die Jahreszahlen der Bündnisbeitritte.`;
+  }
+}
+
+function checkYear() {
+  const val = document.getElementById('year-input').value.trim();
+  const fb2 = document.getElementById('feedback2');
+  if(val === '1955') {
+    fb2.className = 'feedback success';
+    fb2.innerHTML = '✅ Korrekt! Die BRD trat 1955 der NATO bei (Pariser Verträge). Code freigeschaltet!';
+    document.getElementById('code-reveal').classList.add('show');
+    document.getElementById('next-btn').classList.add('show');
+    markStationComplete(2);
+  } else {
+    fb2.className = 'feedback error';
+    fb2.innerHTML = '❌ Nicht korrekt. Hinweis: Lies S. 92–93, Abschnitt "Westintegration der BRD" – wann unterzeichnete Adenauer die Pariser Verträge?';
+  }
+}
+
+function showHint() {
+  addHint();
+  document.getElementById('feedback').className = 'feedback hint';
+  document.getElementById('feedback').innerHTML = '💡 <strong>Hinweis:</strong> Schau auf die Karte M1 auf S. 90/91 – sie zeigt die Bündnissysteme in Europa. Rot = östlich (Warschauer Pakt), Blau = westlich (NATO). Lies auch S. 92–95: Westintegration der BRD vs. Ostintegration der DDR.';
+}
+</script>
+</body>
+</html>

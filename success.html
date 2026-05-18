@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Erfüllt – Operation Mauerfall</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Oswald:wght@300;600;700&family=Source+Serif+4:ital,wght@0,300;0,600;1,300&display=swap');
+
+:root {
+  --ink: #1a1208; --paper: #f0e8d0; --red: #b5191a; --gold: #c8973a; --muted: #8a7d68; --green: #2d6a3f;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background: var(--ink); color: var(--paper); font-family: 'Source Serif 4', serif; min-height:100vh; overflow-x:hidden; }
+
+.bg {
+  position:fixed; inset:0; z-index:0;
+  background: radial-gradient(ellipse at 50% 0%, #1a3020 0%, #0d0d0d 60%);
+}
+
+.container {
+  position:relative; z-index:10;
+  max-width:760px; margin:0 auto; padding:60px 28px;
+  display:flex; flex-direction:column; align-items:center; gap:32px;
+  text-align:center;
+}
+
+.firework { font-size:60px; animation: bounce 1s ease-in-out infinite alternate; }
+@keyframes bounce { to { transform: scale(1.15) rotate(5deg); } }
+
+.success-stamp {
+  font-family:'Oswald',sans-serif; font-weight:700; font-size:16px; letter-spacing:4px;
+  text-transform:uppercase; color: #2d6a3f; border: 3px solid #2d6a3f; padding:8px 24px;
+  background: rgba(45,106,63,0.15);
+  animation: stampIn 0.8s ease-out;
+}
+@keyframes stampIn { from {opacity:0;transform:scale(2);} to {opacity:1;transform:scale(1);} }
+
+h1 {
+  font-family:'Oswald',sans-serif; font-weight:700;
+  font-size: clamp(36px, 7vw, 64px);
+  text-transform:uppercase; line-height:1;
+}
+h1 .sub { display:block; font-size:0.4em; letter-spacing:8px; color:var(--gold); font-weight:300; margin-bottom:10px; }
+h1 .main { color:var(--paper); }
+
+.time-box {
+  background: rgba(200,151,58,0.1); border: 1px solid var(--gold);
+  padding:20px 40px;
+}
+.time-box .label { font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+.time-box .value { font-family:'Special Elite',monospace; font-size:36px; color:var(--gold); margin-top:6px; }
+
+.certificate {
+  background: #f5edd6; color: #1a0a00;
+  border: 3px solid #c8973a; padding:40px 48px;
+  max-width:640px; width:100%; position:relative;
+  box-shadow: 8px 8px 32px rgba(0,0,0,0.5);
+}
+.certificate::before, .certificate::after {
+  content:''; position:absolute;
+  border: 2px solid rgba(200,151,58,0.3);
+}
+.certificate::before { inset:8px; }
+.certificate::after { inset:4px; }
+.certificate h2 { font-family:'Oswald',sans-serif; font-weight:700; font-size:28px; text-transform:uppercase; color:#1a0a00; letter-spacing:2px; }
+.certificate .sub-h { font-family:'Special Elite',monospace; font-size:14px; letter-spacing:2px; color:#6a4a20; margin:8px 0 20px; }
+.certificate .team { font-family:'Special Elite',monospace; font-size:26px; color:#b5191a; margin:16px 0; }
+.certificate p { font-size:15px; line-height:1.7; color:#2a1a00; }
+.certificate .date { margin-top:20px; font-size:13px; color:#6a4a20; font-style:italic; }
+.cert-line { width:100%; height:1px; background:rgba(200,151,58,0.4); margin:16px 0; }
+
+.skills-box {
+  background: rgba(240,232,208,0.04); border: 1px solid rgba(200,151,58,0.2);
+  padding:28px 32px; max-width:640px; width:100%; text-align:left;
+}
+.skills-box h3 { font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
+.skill-item { display:flex; gap:12px; align-items:flex-start; margin-bottom:12px; }
+.skill-item::before { content:'✓'; color:#7dcf95; font-size:16px; flex-shrink:0; margin-top:2px; }
+.skill-item p { font-size:14px; line-height:1.65; color:rgba(240,232,208,0.8); }
+
+.heft-final {
+  background: rgba(45,106,63,0.1); border: 1px solid rgba(45,106,63,0.4); border-left:4px solid #7dcf95;
+  padding:24px 28px; max-width:640px; width:100%; text-align:left;
+}
+.heft-final h3 { font-family:'Oswald',sans-serif; font-size:15px; letter-spacing:2px; text-transform:uppercase; color:#7dcf95; margin-bottom:12px; }
+.heft-final p { font-size:14px; line-height:1.7; color:rgba(240,232,208,0.8); }
+.heft-final strong { color:#7dcf95; }
+
+.share-btn {
+  background: var(--red); border:none; color:var(--paper);
+  font-family:'Oswald',sans-serif; font-weight:700;
+  font-size:16px; letter-spacing:3px; text-transform:uppercase;
+  padding:16px 36px; cursor:pointer; transition:all 0.2s;
+  clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+}
+.share-btn:hover { filter:brightness(1.2); }
+
+.restart-link { color:var(--muted); font-size:13px; text-decoration:none; letter-spacing:1px; transition:color 0.2s; }
+.restart-link:hover { color:var(--gold); }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="container">
+
+  <div class="firework">🎉</div>
+
+  <div class="success-stamp">✅ Mission erfüllt</div>
+
+  <h1>
+    <span class="sub">Operation</span>
+    <span class="main">Mauerfall 1989</span>
+  </h1>
+
+  <div class="time-box">
+    <div class="label">⏱ Eure Zeit</div>
+    <div class="value" id="time-display">—:——</div>
+  </div>
+
+  <div class="certificate">
+    <div style="font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:#6a4a20; margin-bottom:12px;">Bundesarchiv für Zeitgeschichte · Berlin</div>
+    <div class="cert-line"></div>
+    <h2>Agenten-Zertifikat</h2>
+    <div class="sub-h">— Operation Mauerfall 1989 —</div>
+    <p>Hiermit wird bestätigt, dass das Team</p>
+    <div class="team" id="team-display">"Die Mauerbrecher"</div>
+    <p>alle 10 Stationen der Geheimakte erfolgreich gelöst und damit die historischen Dokumente von Major Klaus Hartmann gesichert hat. Die Wahrheit über das geteilte Deutschland ist gerettet.</p>
+    <div class="cert-line"></div>
+    <p style="font-size:13px;">9. November 1989 · Berlin · Checkpoint Charlie</p>
+    <div class="date">Ausgestellt am <span id="today-date"></span></div>
+  </div>
+
+  <div class="skills-box">
+    <h3>📋 Erworbene Kompetenzen</h3>
+    <div class="skill-item"><p>Chronologie der deutschen Teilung (1945–1989) erläutert</p></div>
+    <div class="skill-item"><p>Blockintegration (NATO vs. Warschauer Pakt) und Bündnissysteme dargestellt</p></div>
+    <div class="skill-item"><p>NS-Aufarbeitung in BRD und DDR verglichen und bewertet</p></div>
+    <div class="skill-item"><p>Volksaufstand 1953 – Ursachen, Verlauf, Folgen analysiert</p></div>
+    <div class="skill-item"><p>Wahlsysteme Ost vs. West unterschieden und demokratische Prinzipien bewertet</p></div>
+    <div class="skill-item"><p>Plan- und Marktwirtschaft verglichen</p></div>
+    <div class="skill-item"><p>68er-Bewegung und RAF unterschieden und eingeordnet</p></div>
+    <div class="skill-item"><p>Ostpolitik, Grundlagenvertrag und "Wandel durch Annäherung" erklärt</p></div>
+    <div class="skill-item"><p>Handlungsspielräume beider Staaten in der "deutschen Frage" beurteilt</p></div>
+  </div>
+
+  <div class="heft-final">
+    <h3>📓 Letzte Heft-Aufgabe – Abschluss</h3>
+    <p>Ihr habt in diesem Escape Room zu jeder Station Notizen gemacht. Ihr habt jetzt eine vollständige <strong>Zusammenfassung des geteilten Deutschlands</strong> in eurer Akte.</p>
+    <p style="margin-top:12px;">Schreibt als Abschluss: <strong>Fünf Daten, die ihr aus der Zeitliste für die wichtigsten haltet</strong> – und erklärt in je einem Satz, warum.</p>
+    <p style="margin-top:12px; color:rgba(240,232,208,0.6); font-size:13px;">💡 Vergleicht eure Auswahl mit dem Team nebenan – was haben die anderen gewählt?</p>
+  </div>
+
+  <button class="share-btn" onclick="printCert()">🖨 Zertifikat drucken</button>
+  <a href="index.html" class="restart-link">← Neue Mission starten</a>
+
+</div>
+
+<script>
+const team = localStorage.getItem('teamname') || 'Agentes-Team';
+document.getElementById('team-display').textContent = '"' + team + '"';
+
+const start = parseInt(localStorage.getItem('startTime') || Date.now());
+const end = parseInt(localStorage.getItem('endTime') || Date.now());
+const elapsed = end - start;
+const minutes = Math.floor(elapsed / 60000);
+const seconds = Math.floor((elapsed % 60000) / 1000);
+document.getElementById('time-display').textContent = `${minutes}:${seconds.toString().padStart(2,'0')}`;
+
+const now = new Date();
+document.getElementById('today-date').textContent = now.toLocaleDateString('de-DE', {day:'numeric', month:'long', year:'numeric'});
+
+function printCert() { window.print(); }
+</script>
+</body>
+</html>

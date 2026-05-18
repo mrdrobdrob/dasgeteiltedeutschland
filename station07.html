@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Station 7 – Wirtschaft</title>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="noise"></div>
+<div class="bg-texture"></div>
+
+<div class="station-container">
+  <div id="progress-area"></div>
+
+  <div class="station-header">
+    <div class="station-num">07</div>
+    <div class="station-meta">
+      <div class="station-tag">💰 Wirtschaftssysteme</div>
+      <div class="station-title">Schlange vor dem Laden:<br>Plan vs. Markt</div>
+      <div class="station-loc">📍 Konsumgenossenschaft, Rostock · 20:30 Uhr</div>
+    </div>
+  </div>
+
+  <div class="narrative">
+    Ein Foto aus dem Jahr 1982: Menschen stehen Schlange vor einem Geschäft in Rostock. Hartmanns siebte Akte beschreibt zwei völlig verschiedene Wirtschaftsmodelle – und warum das eine florierte, während das andere scheiterte.
+  </div>
+
+  <div class="doc-card" style="background:#1a2a12; border-color:#3a5c2a; color:#d0e8c0;">
+    <div class="doc-title" style="color:#7dcf95;">📊 Das Wirtschaftswunder – BRD (1950er Jahre)</div>
+    <p style="color:#c0d8b0;">Die soziale Marktwirtschaft war zunächst kein Erfolg – das Wechselspiel von Angebot und Nachfrage führte nicht automatisch zu günstigen Preisen. Nach der Währungsreform 1948 wurden staatlich festgesetzte Preise frei. Ob und Gemüse waren zunächst so teuer, Schuhe und Kleider unerschwinglich. Aber mit dem Marshallplan, der EWG und dem Koreakrieg-Boom wuchs die Wirtschaft rasant.</p>
+    <div class="doc-source" style="color:#7a9a6a;">Schulbuch S. 100–101</div>
+  </div>
+
+  <div class="doc-card" style="background:#2a1a12; border-color:#5c3a2a; color:#e8d0c0;">
+    <div class="doc-title" style="color:#f07050;">📊 Planwirtschaft – DDR</div>
+    <p style="color:#d8c0a8;">Ab 1951 erstellten Planungskommissionen Fünfjahrspläne. Sie legten fest, welche Waren zu welchen Preisen produziert werden sollten. Diese Pläne funktionierten in der Praxis nicht gut: Die Planungskommissionen konnten nicht vorhersagen, welche Rohstoffe benötigt werden. Es gab kaum Konkurrenz und keine Preisgestaltung nach Angebot und Nachfrage.</p>
+    <div class="doc-source" style="color:#9a7a6a;">Schulbuch S. 100–101</div>
+  </div>
+
+  <div class="heft-aufgabe">
+    <div class="icon">📓</div>
+    <div class="text"><strong>Heft-Aufgabe Station 7:</strong> T-Diagramm: <strong>Vor- und Nachteile</strong> beider Wirtschaftssysteme (je 3). Dann: Welches System war erfolgreicher und warum? (S. 100–101)</div>
+  </div>
+
+  <div class="question-area">
+    <h3>🔍 Wirtschaftswissen-Quiz</h3>
+    <p>Beantwortet folgende Fragen – wählt die richtige Antwort:</p>
+  </div>
+
+  <div id="quiz-area"></div>
+
+  <div class="btn-row" style="margin-top:16px;">
+    <button class="submit-btn" onclick="checkQuiz()">▶ Quiz prüfen</button>
+    <button class="hint-btn" onclick="showHint()">💡 Hinweis</button>
+  </div>
+  <div class="feedback" id="feedback"></div>
+
+  <div class="code-reveal" id="code-reveal">
+    <div class="code-label">Code für Station 8:</div>
+    <div class="code-value">RAF</div>
+    <div class="code-note">Kürzel „RAF" → Station 8</div>
+  </div>
+  <button class="next-btn" id="next-btn" onclick="window.location.href='station08.html'">
+    Weiter zu Station 8: RAF-Terror →
+  </button>
+</div>
+
+<script src="utils.js"></script>
+<script>
+document.getElementById('progress-area').innerHTML = progressBar(7);
+
+const questions = [
+  {
+    q: 'Was beschreibt der Begriff "VEB" in der DDR-Wirtschaft?',
+    opts: ['Verband Erwerbstätiger Berliner', 'Volkseigener Betrieb – staatlich geführte Produktionsstätten', 'Vereinigte Exportbetriebe', 'Volkswirtschaftliches Einheitsbüro'],
+    correct: 1
+  },
+  {
+    q: 'Was war der "Marshallplan"?',
+    opts: ['Ein DDR-Wirtschaftsplan aus den 1950ern', 'Amerikanische Wirtschaftshilfe für Westeuropa nach dem Krieg', 'Ein sowjetischer Plan zur Industrialisierung der DDR', 'Ein NATO-Vertrag über Rüstungsausgaben'],
+    correct: 1
+  },
+  {
+    q: 'Warum scheiterte die Planwirtschaft der DDR langfristig?',
+    opts: [
+      'Die Planungskommissionen konnten Bedarf und Preise nicht korrekt vorhersagen; kein Wettbewerb',
+      'Die DDR hatte zu wenige Arbeitskräfte',
+      'Die Sowjetunion gab zu wenig Geld',
+      'Die DDR hatte keine Industrie'
+    ],
+    correct: 0
+  },
+  {
+    q: 'Was sicherte in der BRD die "soziale Marktwirtschaft" den Arbeitnehmern zu?',
+    opts: [
+      'Vollständige Gleichheit aller Einkommen',
+      'Staatliche Planung aller Produktionsziele',
+      'Sozialgesetze: Lohnfortzahlung bei Krankheit, Rentenversicherung, Tarifverhandlungen',
+      'Kostenlose Wohnung und Grundversorgung'
+    ],
+    correct: 2
+  },
+];
+
+const area = document.getElementById('quiz-area');
+const userAnswers = {};
+
+questions.forEach((q,qi) => {
+  const div = document.createElement('div');
+  div.style.cssText = 'margin-bottom:20px; padding:16px; background:rgba(240,232,208,0.03); border:1px solid rgba(200,151,58,0.15);';
+  div.innerHTML = `<p style="font-size:15px; font-weight:600; margin-bottom:12px; color:var(--paper);">${qi+1}. ${q.q}</p>
+    <div class="choice-grid">${q.opts.map((o,oi)=>`<button class="choice-btn" id="q${qi}o${oi}" onclick="setQA(${qi},${oi})">${String.fromCharCode(65+oi)}) ${o}</button>`).join('')}</div>`;
+  area.appendChild(div);
+});
+
+function setQA(qi, oi) {
+  userAnswers[qi] = oi;
+  for(let j=0;j<4;j++) {
+    const btn = document.getElementById('q'+qi+'o'+j);
+    if(btn) btn.classList.toggle('selected', j===oi);
+  }
+}
+
+function checkQuiz() {
+  let correct = 0;
+  questions.forEach((q,qi) => {
+    for(let j=0;j<q.opts.length;j++) {
+      const btn = document.getElementById('q'+qi+'o'+j);
+      if(!btn) return;
+      btn.classList.remove('selected','correct','wrong');
+      if(j===q.correct) btn.classList.add('correct');
+      else if(userAnswers[qi]===j) btn.classList.add('wrong');
+    }
+    if(userAnswers[qi]===q.correct) correct++;
+  });
+  const fb = document.getElementById('feedback');
+  if(correct >= 3) {
+    fb.className='feedback success'; fb.innerHTML=`✅ ${correct}/4 richtig! Ihr versteht die Wirtschaftssysteme. Code freigeschaltet!`;
+    document.getElementById('code-reveal').classList.add('show');
+    document.getElementById('next-btn').classList.add('show');
+    markStationComplete(7);
+  } else {
+    fb.className='feedback error'; fb.innerHTML=`❌ ${correct}/4 richtig. Lest S. 100–101 nochmal – besonders: Was ist ein VEB? Was tat der Marshallplan? Warum versagte die Planwirtschaft?`;
+  }
+}
+
+function showHint() {
+  addHint();
+  document.getElementById('feedback').className='feedback hint';
+  document.getElementById('feedback').innerHTML='💡 <strong>Hinweis:</strong> VEB = Volkseigener Betrieb (staatlich). Marshallplan = US-Hilfe für Westeuropa. Planwirtschaft scheiterte wegen fehlender Preissignale und kein Anreiz zu Effizienz. Soziale Marktwirtschaft = Markt + soziale Absicherung (Tarifverträge, Krankenversicherung).';
+}
+</script>
+</body>
+</html>
