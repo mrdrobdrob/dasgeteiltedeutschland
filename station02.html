@@ -3,163 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Station 2 – Das Bündnissystem</title>
+<title>Station 2 – Blockintegration</title>
 <link rel="stylesheet" href="shared.css">
 </head>
 <body>
-<div class="noise"></div>
-<div class="bg-texture"></div>
-
+<div class="noise"></div><div class="bg-texture"></div>
 <div class="station-container">
   <div id="progress-area"></div>
-
   <div class="station-header">
     <div class="station-num">02</div>
     <div class="station-meta">
-      <div class="station-tag">🌍 Blockintegration &amp; Bündnisse</div>
-      <div class="station-title">Das geteilte Europa:<br>NATO vs. Warschauer Pakt</div>
-      <div class="station-loc">📍 Brandenburger Tor, West-Seite · 18:31 Uhr</div>
+      <div class="station-tag">&#127758; Blockintegration</div>
+      <div class="station-title">Das geteilte Europa: NATO vs. Warschauer Pakt</div>
+      <div class="station-loc">&#128205; Brandenburger Tor &middot; 18:31 Uhr</div>
     </div>
   </div>
-
-  <div class="narrative">
-    Major Hartmanns zweite Akte: Eine Karte Europas mit vertauschten Bündniszuordnungen. Nur wer die politisch-militärischen Bündnisse der Nachkriegszeit kennt, kann die Fehler korrigieren und den nächsten Code entschlüsseln.
-  </div>
-
-  <div class="doc-card">
-    <div class="doc-title">📜 Geheimakte: Verhörmitschrift, 1955</div>
-    <p>Verhörter Agent: „Die Gründung zweier deutscher Staaten im Jahr 1949 bedeutete die Verfestigung der deutschen Teilung. Beide Staaten traten in Machtblöcke ein – die BRD den westlichen, die DDR den östlichen."</p>
-    <p>Verhörer: „Und die Souveränität? Wann erlangten die Staaten ihre außenpolitische Handlungsfähigkeit zurück?"</p>
-    <p>Agent: „Schrittweise – durch Verträge und Bündnisbeitritte..."</p>
-    <div class="doc-source">Fiktive Akte auf Basis: Schulbuch S. 92–95</div>
-  </div>
-
+  <div class="narrative">Hartmanns zweite Akte: Beide deutschen Staaten wurden in Machtbl&ouml;cke eingebunden. Wer die Beitrittsschritte genau kennt, erh&auml;lt das n&auml;chste Code-Zeichen.</div>
   <div class="heft-aufgabe">
-    <div class="icon">📓</div>
-    <div class="text"><strong>Heft-Aufgabe Station 2:</strong> Zeichnet eine zweispaltige Tabelle: Links <strong>BRD/Westintegration</strong>, rechts <strong>DDR/Ostintegration</strong>. Tragt je 4 wichtige Verträge/Bündnisse mit Jahreszahl ein. (S. 92–95)</div>
+    <div class="icon">&#128211;</div>
+    <div class="text"><strong>Heft S.&nbsp;2:</strong> Tabelle BRD-Westintegration vs. DDR-Ostintegration &ndash; je 4 Vertr&auml;ge/B&uuml;ndnisse mit Jahr. Quelle: S.&nbsp;92&ndash;95. &mdash; <strong>Code-Zeichen in Tabelle eintragen!</strong></div>
   </div>
 
+  <!-- Part 1: Kategorisierung – randomised so no predictable BRD/DDR pattern -->
   <div class="question-area">
-    <h3>🔍 Zuordnungsaufgabe: Welches Bündnis – welcher Staat?</h3>
-    <p>Ordnet jede Aussage der <strong>BRD</strong> oder der <strong>DDR</strong> zu. Klickt die passende Schaltfläche.</p>
+    <h3>&#128269; Teil 1: Zuordnung B&uuml;ndnisse</h3>
+    <p>Ordnet jede Aussage der BRD oder der DDR zu. (Quelle: S.&nbsp;92&ndash;95)</p>
   </div>
-
   <div id="match-area"></div>
-
-  <div class="btn-row" style="margin-top:16px;">
-    <button class="submit-btn" onclick="checkMatches()">▶ Zuordnung prüfen</button>
-    <button class="hint-btn" onclick="showHint()">💡 Hinweis</button>
+  <div class="btn-row" style="margin-top:12px;">
+    <button class="submit-btn" onclick="checkMatches()">&#9654; Pr&uuml;fen</button>
+    <button class="hint-btn" onclick="showHint1()">&#128161; Hinweis</button>
   </div>
+  <div class="feedback" id="fb1"></div>
 
-  <div class="feedback" id="feedback"></div>
-
-  <div class="question-area" id="q2-area" style="display:none; margin-top:20px;">
-    <h3>🔓 Code-Frage: Wann trat die BRD der NATO bei?</h3>
-    <p>Gebt die Jahreszahl ein (Schulbuch S. 92–95 / Zeitstrahl S. 90).</p>
+  <!-- Part 2: Open text – year question, no multiple choice to pattern-match -->
+  <div class="question-area" id="q2" style="display:none;margin-top:24px;">
+    <h3>&#128269; Teil 2: Schl&uuml;sseljahr</h3>
+    <p>In welchem Jahr unterzeichnete Adenauer die <strong>Pariser Vertr&auml;ge</strong>, durch die die BRD weitgehende Souver&auml;nit&auml;t erlangte und der NATO beitrat?</p>
+    <p style="font-size:13px;color:var(--muted);margin-top:6px;">Freitextantwort &ndash; Quelle: S.&nbsp;92&ndash;93</p>
     <div class="input-area" style="margin-top:14px;">
-      <label>Jahreszahl:</label>
-      <input type="text" class="code-input" id="year-input" placeholder="19__" maxlength="4">
+      <label>Jahr (4-stellig):</label>
+      <input type="text" class="code-input" id="year-input" placeholder="19__" maxlength="4" style="font-size:22px;letter-spacing:6px;">
     </div>
     <div class="btn-row" style="margin-top:12px;">
-      <button class="submit-btn" onclick="checkYear()">▶ Prüfen</button>
+      <button class="submit-btn" onclick="checkYear()">&#9654; Pr&uuml;fen</button>
+      <button class="hint-btn" onclick="showHint2()">&#128161; Hinweis</button>
     </div>
-    <div class="feedback" id="feedback2"></div>
+    <div class="feedback" id="fb2"></div>
   </div>
 
-  <div class="code-reveal" id="code-reveal">
-    <div class="code-label">Code für Station 3 erhalten:</div>
-    <div class="code-value">STASI</div>
-    <div class="code-note">Notiert: STASI → Eingabe bei Station 3</div>
+  <div id="code-section" style="display:none;margin-top:20px;">
+    <div class="code-reveal show">
+      <div class="code-label">&#128274; Code-Zeichen Station&nbsp;2 von&nbsp;10:</div>
+      <div class="code-value">5</div>
+      <div class="code-note">Warum <strong>5</strong>? Das Jahr des NATO-Beitritts der BRD: 19<strong>5</strong>5 &ndash; die letzte Ziffer der Pariser Vertr&auml;ge.<br>Position 2 in eurer Code-Tabelle im Heft.</div>
+    </div>
+    <button class="next-btn show" onclick="window.location.href='station03.html'" style="margin-top:12px;">Weiter zu Station&nbsp;3 &#8594;</button>
   </div>
-  <button class="next-btn" id="next-btn" onclick="window.location.href='station03.html'">
-    Weiter zu Station 3: Die Stasi →
-  </button>
 </div>
 
 <script src="utils.js"></script>
 <script>
 document.getElementById('progress-area').innerHTML = progressBar(2);
 
-const statements = [
-  { text: 'Trat 1949 der NATO bei (Nordatlantikpakt)', answer: 'BRD', note: 'Nein – die BRD trat 1955 der NATO bei.' },
-  { text: 'Wurde Gründungsmitglied des Warschauer Pakts (1955)', answer: 'DDR', note: 'Richtig – die DDR war Gründungsmitglied.' },
-  { text: 'Unterzeichnete den Deutschlandvertrag (Pariser Verträge 1955) und erlangte weitgehende Souveränität', answer: 'BRD', note: 'Richtig – durch die Pariser Verträge.' },
-  { text: 'Wurde Mitglied des Rats für gegenseitige Wirtschaftshilfe (RGW) 1950', answer: 'DDR', note: 'Richtig – der RGW war das Gegenstück zum Marshallplan.' },
-  { text: 'Baute die Bundeswehr auf und führte die Wehrpflicht ein', answer: 'BRD', note: 'Richtig.' },
-  { text: 'Gründete die Nationale Volksarmee (NVA) 1956', answer: 'DDR', note: 'Richtig.' },
+// Statements deliberately interleaved so no simple BRD/DDR/BRD/DDR pattern exists
+var items=[
+  {text:'Unterzeichnete den Deutschlandvertrag (Pariser Vertr&auml;ge 1955) und erlangte weitgehende Souver&auml;nit&auml;t',answer:'BRD'},
+  {text:'Wurde Gr&uuml;ndungsmitglied des Warschauer Pakts (1955)',answer:'DDR'},
+  {text:'Gr&uuml;ndete 1956 die Nationale Volksarmee (NVA)',answer:'DDR'},
+  {text:'Baute die Bundeswehr auf und f&uuml;hrte die Wehrpflicht ein',answer:'BRD'},
+  {text:'Wurde 1950 Mitglied des Rats f&uuml;r gegenseitige Wirtschaftshilfe (RGW)',answer:'DDR'},
+  {text:'Profitierte vom Marshallplan und der wirtschaftlichen Integration in die EWG',answer:'BRD'},
+  {text:'Stand bis 1955 unter der Kontrolle der Sowjetischen Kontrollkommission (SKK)',answer:'DDR'},
+  {text:'Die alliierten &bdquo;Hohen Kommissare&ldquo; &uuml;berwachten Innen- und Au&szlig;enpolitik bis 1955',answer:'BRD'},
 ];
+// Shuffle to break any residual pattern
+items.sort(function(){return Math.random()-.5;});
 
-const area = document.getElementById('match-area');
-const userAnswers = {};
-
-statements.forEach((s, i) => {
-  const div = document.createElement('div');
-  div.style.cssText = 'margin-bottom:12px; padding:14px; background:rgba(240,232,208,0.03); border:1px solid rgba(200,151,58,0.15);';
-  div.innerHTML = `
-    <p style="font-size:14px; margin-bottom:10px; color:rgba(240,232,208,0.85);">${s.text}</p>
-    <div style="display:flex; gap:10px;">
-      <button class="choice-btn" id="btn-brd-${i}" onclick="select(${i},'BRD')">BRD</button>
-      <button class="choice-btn" id="btn-ddr-${i}" onclick="select(${i},'DDR')">DDR</button>
-    </div>
-  `;
+var answers={};
+var area=document.getElementById('match-area');
+items.forEach(function(item,i){
+  var div=document.createElement('div');
+  div.style.cssText='margin-bottom:12px;padding:14px;background:rgba(240,232,208,0.03);border:1px solid rgba(200,151,58,0.15);';
+  div.innerHTML='<p style="font-size:14px;margin-bottom:10px;color:rgba(240,232,208,0.85);">'+(i+1)+'. '+item.text+'</p>'+
+    '<div style="display:flex;gap:10px;">'+
+    '<button class="choice-btn" id="b'+i+'BRD" onclick="setA('+i+',\'BRD\')">BRD</button>'+
+    '<button class="choice-btn" id="b'+i+'DDR" onclick="setA('+i+',\'DDR\')">DDR</button>'+
+    '</div>';
   area.appendChild(div);
 });
 
-function select(i, val) {
-  userAnswers[i] = val;
-  document.getElementById('btn-brd-'+i).classList.toggle('selected', val==='BRD');
-  document.getElementById('btn-ddr-'+i).classList.toggle('selected', val==='DDR');
+function setA(i,val){
+  answers[i]=val;
+  ['BRD','DDR'].forEach(function(v){document.getElementById('b'+i+v).classList.toggle('selected',val===v);});
 }
 
-let matchDone = false;
-function checkMatches() {
-  if(matchDone) { document.getElementById('q2-area').style.display='block'; return; }
-  let correct = 0;
-  const fb = document.getElementById('feedback');
-  
-  statements.forEach((s,i) => {
-    const right = userAnswers[i] === s.answer;
-    document.getElementById('btn-brd-'+i).classList.remove('selected','correct','wrong');
-    document.getElementById('btn-ddr-'+i).classList.remove('selected','correct','wrong');
-    if(userAnswers[i]) {
-      document.getElementById('btn-'+userAnswers[i].toLowerCase()+'-'+i).classList.add(right?'correct':'wrong');
-      const correctId = 'btn-'+s.answer.toLowerCase()+'-'+i;
-      if(!right) document.getElementById(correctId).classList.add('correct');
-    }
-    if(right) correct++;
+var matchDone=false;
+function checkMatches(){
+  if(matchDone){document.getElementById('q2').style.display='block';return;}
+  var correct=0;
+  items.forEach(function(item,i){
+    ['BRD','DDR'].forEach(function(v){document.getElementById('b'+i+v).classList.remove('correct','wrong','selected');});
+    document.getElementById('b'+i+item.answer).classList.add('correct');
+    if(answers[i]&&answers[i]!==item.answer) document.getElementById('b'+i+answers[i]).classList.add('wrong');
+    if(answers[i]===item.answer) correct++;
   });
-
-  if(correct >= 5) {
-    fb.className = 'feedback success';
-    fb.innerHTML = `✅ ${correct}/6 richtig! Gut gemacht. Beantwortet jetzt die Code-Frage unten.`;
-    matchDone = true;
-    document.getElementById('q2-area').style.display = 'block';
+  var fb=document.getElementById('fb1');
+  if(correct>=6){
+    fb.className='feedback success';fb.innerHTML='&#10003; '+correct+'/8 richtig. Weiter zu Teil 2:';
+    matchDone=true;document.getElementById('q2').style.display='block';
   } else {
-    fb.className = 'feedback error';
-    fb.innerHTML = `❌ ${correct}/6 richtig. Schau nochmal auf S. 92–95 – besonders auf die Jahreszahlen der Bündnisbeitritte.`;
+    fb.className='feedback error';fb.innerHTML='&#10007; '+correct+'/8. Lest S.&nbsp;92&ndash;95 genau: Welcher Staat trat welchem B&uuml;ndnis bei?';
   }
 }
 
-function checkYear() {
-  const val = document.getElementById('year-input').value.trim();
-  const fb2 = document.getElementById('feedback2');
-  if(val === '1955') {
-    fb2.className = 'feedback success';
-    fb2.innerHTML = '✅ Korrekt! Die BRD trat 1955 der NATO bei (Pariser Verträge). Code freigeschaltet!';
-    document.getElementById('code-reveal').classList.add('show');
-    document.getElementById('next-btn').classList.add('show');
+function checkYear(){
+  var val=document.getElementById('year-input').value.trim();
+  var fb=document.getElementById('fb2');
+  if(val==='1955'){
+    fb.className='feedback success';fb.innerHTML='&#10003; Korrekt! 1955 &ndash; Pariser Vertr&auml;ge, NATO-Beitritt.';
+    saveCode(2,'5');
+    document.getElementById('code-section').style.display='block';
     markStationComplete(2);
+  } else if(val==='1949'){
+    fb.className='feedback error';fb.innerHTML='&#10007; 1949 war die Gr&uuml;ndung der BRD, aber noch nicht der NATO-Beitritt. Lies S.&nbsp;92&ndash;93 weiter.';
   } else {
-    fb2.className = 'feedback error';
-    fb2.innerHTML = '❌ Nicht korrekt. Hinweis: Lies S. 92–93, Abschnitt "Westintegration der BRD" – wann unterzeichnete Adenauer die Pariser Verträge?';
+    fb.className='feedback error';fb.innerHTML='&#10007; Nicht korrekt. Schau in S.&nbsp;92&ndash;93, Abschnitt &bdquo;Westintegration der BRD&ldquo;.';
   }
 }
 
-function showHint() {
-  addHint();
-  document.getElementById('feedback').className = 'feedback hint';
-  document.getElementById('feedback').innerHTML = '💡 <strong>Hinweis:</strong> Schau auf die Karte M1 auf S. 90/91 – sie zeigt die Bündnissysteme in Europa. Rot = östlich (Warschauer Pakt), Blau = westlich (NATO). Lies auch S. 92–95: Westintegration der BRD vs. Ostintegration der DDR.';
-}
+function showHint1(){addHint();var fb=document.getElementById('fb1');fb.className='feedback hint';fb.innerHTML='&#128161; Karte M1 S.&nbsp;90&ndash;91: Rot = Warschauer Pakt (Osten), Blau = NATO (Westen). Lies auch S.&nbsp;92&ndash;95 Abschnitt &bdquo;Westintegration&ldquo; vs. &bdquo;Ostintegration&ldquo;.';}
+function showHint2(){addHint();var fb=document.getElementById('fb2');fb.className='feedback hint';fb.innerHTML='&#128161; S.&nbsp;92&ndash;93: Wann unterzeichnete Adenauer die Pariser Vertr&auml;ge? Das Jahr steht explizit im Text.';}
 </script>
 </body>
 </html>

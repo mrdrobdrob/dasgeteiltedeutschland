@@ -1,152 +1,119 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Station 5 – Volksaufstand 1953</title>
-<link rel="stylesheet" href="shared.css">
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Station 5 – Volksaufstand</title><link rel="stylesheet" href="shared.css"></head>
 <body>
-<div class="noise"></div>
-<div class="bg-texture"></div>
-
+<div class="noise"></div><div class="bg-texture"></div>
 <div class="station-container">
   <div id="progress-area"></div>
-
   <div class="station-header">
     <div class="station-num">05</div>
     <div class="station-meta">
-      <div class="station-tag">✊ Widerstand &amp; Repression</div>
-      <div class="station-title">17. Juni 1953:<br>Volksaufstand in der DDR</div>
-      <div class="station-loc">📍 Ehemaliger Stalinallee, Ost-Berlin · 19:40 Uhr</div>
+      <div class="station-tag">&#9994; Widerstand</div>
+      <div class="station-title">17. Juni 1953: Volksaufstand in der DDR</div>
+      <div class="station-loc">&#128205; Ehem. Stalinallee, Ost-Berlin &middot; 19:40 Uhr</div>
     </div>
   </div>
-
-  <div class="narrative">
-    Die fünfte Akte: Ein Telegramm des Bitterfelder Streikkomitees liegt auf dem Tisch. Die Forderungen sind durchgestrichen – nur ihr könnt sie rekonstruieren. Analysiert die Quellen und findet den Code.
-  </div>
-
-  <div class="doc-card">
-    <div class="doc-title">📜 Quelle: Telegramm des Bitterfelder Streikkomitees (16. Juni 1953) – Schulbuch S. 105</div>
-    <p>„Wir Werktätigen ... fordern von Ihnen:<br>
-    1. Rücktritt der [...] Regierung, die sich durch Wahlmanöver an die Macht gebracht hat<br>
-    2. freie, geheime, direkte Wahlen<br>
-    3. sofortige Freilassung der politischen Häftlinge<br>
-    4. sofortige Normalisierung des Lebensstandards ohne Lohnsenkung<br>
-    5. Zulassung sämtlicher großer demokratischer Parteien Westdeutschlands<br>
-    6. keine Repressalien gegen die Streikenden."</p>
-    <div class="doc-source">Quelle: Schulbuch S. 105, M2</div>
-  </div>
-
+  <div class="narrative">Am 17. Juni 1953 erhoben sich Zehntausende &ndash; und wurden niedergeschlagen. Hartmanns f&uuml;nfte Akte: Rekonstruiert den Aufstand aus den Quellen.</div>
   <div class="heft-aufgabe">
-    <div class="icon">📓</div>
-    <div class="text"><strong>Heft-Aufgabe Station 5:</strong> Mind-Map zum Volksaufstand: Ursachen → Verlauf → Forderungen → Reaktion der SED → Folgen. Nutzt S. 104–105.</div>
+    <div class="icon">&#128211;</div>
+    <div class="text"><strong>Heft S.&nbsp;5:</strong> Mind-Map: Ursachen &rarr; Verlauf &rarr; Forderungen &rarr; Reaktion SED &rarr; Folgen. Quelle: S.&nbsp;104&ndash;105. &mdash; <strong>Code-Zeichen eintragen!</strong></div>
+  </div>
+  <div class="doc-card">
+    <div class="doc-title">&#128196; Telegramm Bitterfelder Streikkomitee, 16. Juni 1953 (S.&nbsp;105)</div>
+    <p>„Wir Werkt&auml;tigen fordern: 1. R&uuml;cktritt der Regierung... 2. freie, geheime, direkte Wahlen... 3. sofortige Freilassung der politischen H&auml;ftlinge... 4. Normalisierung des Lebensstandards ohne Lohnsenkung..."</p>
+    <div class="doc-source">Schulbuch S.&nbsp;105, M2</div>
   </div>
 
+  <!-- Part 1: Multi-select causes – no pattern possible -->
   <div class="question-area">
-    <h3>🔍 Analyse: Was führte zum Aufstand?</h3>
-    <p>Wählt alle <strong>richtigen Ursachen</strong> des Volksaufstands vom 17. Juni 1953 aus (mehrere Antworten möglich):</p>
+    <h3>&#128269; Teil 1: Ursachen des Aufstands</h3>
+    <p>W&auml;hlt <strong>alle richtigen Ursachen</strong> aus (mehrere m&ouml;glich). (S.&nbsp;104)</p>
   </div>
-
   <div id="ursachen-area"></div>
-
-  <div class="btn-row" style="margin-top:16px;">
-    <button class="submit-btn" onclick="checkUrsachen()">▶ Prüfen</button>
-    <button class="hint-btn" onclick="showHint()">💡 Hinweis</button>
+  <div class="btn-row" style="margin-top:12px;">
+    <button class="submit-btn" onclick="checkUrsachen()">&#9654; Pr&uuml;fen</button>
+    <button class="hint-btn" onclick="showHint1()">&#128161; Hinweis</button>
   </div>
-  <div class="feedback" id="feedback"></div>
+  <div class="feedback" id="fb1"></div>
 
-  <div class="question-area" id="q2" style="display:none; margin-top:20px;">
-    <h3>🔓 Code-Frage: Wie wurde der Aufstand beendet?</h3>
-    <p>Welche Macht schickte Panzer, um den Aufstand niederzuschlagen? (Ein Wort)</p>
+  <!-- Part 2: Source analysis – which source defends the uprising, which condemns it? -->
+  <div class="question-area" id="q2" style="display:none;margin-top:24px;">
+    <h3>&#128269; Teil 2: Quellenanalyse</h3>
+    <p>S.&nbsp;105 enth&auml;lt zwei Quellen zum Volksaufstand: das Telegramm des Streikkomitees (M2) und eine Ver&ouml;ffentlichung des Zentralkomitees der SED (M3).</p>
+    <p style="margin-top:10px;">Mit welchen <strong>zwei Worten</strong> bezeichnet das ZK der SED die Aufst&auml;ndischen in M3? (Lest S.&nbsp;105 M3 genau)</p>
     <div class="input-area" style="margin-top:14px;">
-      <label>Antwort:</label>
-      <input type="text" class="code-input" id="ans-input" placeholder="..." maxlength="30" style="font-size:18px; letter-spacing:1px;">
+      <label>Zwei Worte (aus dem Quelltext):</label>
+      <input type="text" class="code-input" id="words-input" placeholder="... ..." maxlength="40" style="font-size:18px;">
     </div>
     <div class="btn-row" style="margin-top:12px;">
-      <button class="submit-btn" onclick="checkAns()">▶ Prüfen</button>
+      <button class="submit-btn" onclick="checkWords()">&#9654; Pr&uuml;fen</button>
+      <button class="hint-btn" onclick="showHint2()">&#128161; Hinweis</button>
     </div>
-    <div class="feedback" id="feedback2"></div>
+    <div class="feedback" id="fb2"></div>
   </div>
 
-  <div class="code-reveal" id="code-reveal">
-    <div class="code-label">Code für Station 6:</div>
-    <div class="code-value">WAHL</div>
-    <div class="code-note">Stichwort „WAHL" → Station 6: Wahlen</div>
+  <div id="code-section" style="display:none;margin-top:20px;">
+    <div class="code-reveal show">
+      <div class="code-label">&#128274; Code-Zeichen Station&nbsp;5 von&nbsp;10:</div>
+      <div class="code-value">7</div>
+      <div class="code-note">Warum <strong>7</strong>? Der <strong>17.</strong> Juni 1953 &ndash; die Ziffer aus dem Datum des Volksaufstands.<br>Position 5 in eurer Code-Tabelle.</div>
+    </div>
+    <button class="next-btn show" onclick="window.location.href='station06.html'" style="margin-top:12px;">Weiter zu Station&nbsp;6 &#8594;</button>
   </div>
-  <button class="next-btn" id="next-btn" onclick="window.location.href='station06.html'">
-    Weiter zu Station 6: Wahlen →
-  </button>
 </div>
-
 <script src="utils.js"></script>
 <script>
 document.getElementById('progress-area').innerHTML = progressBar(5);
-
-const ursachen = [
-  { text: 'Erhöhung der Arbeitsnormen (mehr Arbeit für gleichen Lohn)', correct: true },
-  { text: 'Einführung des Euros in der DDR', correct: false },
-  { text: 'Schlechte Versorgungslage – Mangel an Lebensmitteln und Konsumgütern', correct: true },
-  { text: 'Unterdrückung politischer Opposition und Verhaftungen', correct: true },
-  { text: 'Bau der Berliner Mauer 1953', correct: false },
-  { text: 'Politische Bevormundung durch das SED-Regime und fehlende demokratische Rechte', correct: true },
-  { text: 'Reparationszahlungen an die Sowjetunion belasteten die Wirtschaft', correct: true },
+var ursachen=[
+  {text:'Erh&ouml;hung der Arbeitsnormen &ndash; mehr Arbeit f&uuml;r gleichen Lohn',correct:true},
+  {text:'Schlechte Versorgungslage und Mangel an Lebensmitteln',correct:true},
+  {text:'Unterdr&uuml;ckung jeder politischen Opposition durch die SED',correct:true},
+  {text:'Reparationszahlungen an die Sowjetunion belasteten die Wirtschaft stark',correct:true},
+  {text:'Bau der Berliner Mauer sperrte die Fl&uuml;chtlingsrouten ab',correct:false},
+  {text:'Ein&uuml;hrung des Euros ersetzte die Mark der DDR',correct:false},
+  {text:'Die Abschaffung von Lebensmittelmarken erh&ouml;hte spontan die Preise',correct:true},
 ];
-
-const area = document.getElementById('ursachen-area');
-const sel = new Set();
-ursachen.forEach((u, i) => {
-  const btn = document.createElement('button');
-  btn.className = 'choice-btn'; btn.style.display='block'; btn.style.width='100%'; btn.style.marginBottom='8px'; btn.style.textAlign='left';
-  btn.textContent = u.text;
-  btn.onclick = () => {
-    if(sel.has(i)) { sel.delete(i); btn.classList.remove('selected'); }
-    else { sel.add(i); btn.classList.add('selected'); }
+ursachen.sort(function(){return Math.random()-.5;});
+var sel=[];
+var area=document.getElementById('ursachen-area');
+ursachen.forEach(function(u,i){
+  var btn=document.createElement('button');
+  btn.className='choice-btn';btn.style.cssText='display:block;width:100%;margin-bottom:8px;text-align:left;';
+  btn.innerHTML=u.text;
+  btn.onclick=function(){
+    var idx=sel.indexOf(i);
+    if(idx>=0){sel.splice(idx,1);btn.classList.remove('selected');}
+    else{sel.push(i);btn.classList.add('selected');}
   };
-  btn.id = 'u-'+i;
-  area.appendChild(btn);
+  btn.id='u'+i;area.appendChild(btn);
 });
-
-let done = false;
-function checkUrsachen() {
-  if(done) { document.getElementById('q2').style.display='block'; return; }
-  const correct = new Set(ursachen.map((u,i)=>u.correct?i:-1).filter(i=>i>=0));
-  ursachen.forEach((u,i) => {
-    document.getElementById('u-'+i).classList.remove('selected','correct','wrong');
-    if(u.correct) document.getElementById('u-'+i).classList.add('correct');
-    else if(sel.has(i)) document.getElementById('u-'+i).classList.add('wrong');
+var uDone=false;
+function checkUrsachen(){
+  if(uDone){document.getElementById('q2').style.display='block';return;}
+  var wrongSel=sel.filter(function(i){return !ursachen[i].correct;}).length;
+  var rightSel=sel.filter(function(i){return ursachen[i].correct;}).length;
+  var totalRight=ursachen.filter(function(u){return u.correct;}).length;
+  ursachen.forEach(function(u,i){
+    document.getElementById('u'+i).classList.remove('selected','correct','wrong');
+    if(u.correct) document.getElementById('u'+i).classList.add('correct');
+    else if(sel.indexOf(i)>=0) document.getElementById('u'+i).classList.add('wrong');
   });
-  let rightSel = [...sel].filter(i=>ursachen[i].correct).length;
-  let wrongSel = [...sel].filter(i=>!ursachen[i].correct).length;
-  const fb = document.getElementById('feedback');
-  if(rightSel >= 4 && wrongSel === 0) {
-    fb.className = 'feedback success'; fb.innerHTML = '✅ Sehr gut! Jetzt die Code-Frage:';
-    done = true; document.getElementById('q2').style.display = 'block';
-  } else if(wrongSel > 0) {
-    fb.className = 'feedback error'; fb.innerHTML = `❌ Ihr habt ${wrongSel} falsche Antwort(en) gewählt. Schaut in S. 104–105: Was sind die eigentlichen Ursachen?`;
-  } else {
-    fb.className = 'feedback error'; fb.innerHTML = `❌ Ihr habt ${rightSel} richtige Ursachen – aber es gibt mehr! Lest S. 104, Abschnitte "Aufbau des Sozialismus" und "Vom Streik zum Aufstand".`;
-  }
+  var fb=document.getElementById('fb1');
+  if(wrongSel===0&&rightSel>=4){fb.className='feedback success';fb.innerHTML='&#10003; Richtig! Weiter zu Teil 2:';uDone=true;document.getElementById('q2').style.display='block';}
+  else if(wrongSel>0){fb.className='feedback error';fb.innerHTML='&#10007; '+wrongSel+' falsche Auswahl (rot). Bau der Berliner Mauer war 1961 &ndash; also NACH dem Aufstand!';}
+  else{fb.className='feedback error';fb.innerHTML='&#10007; Es gibt noch mehr Ursachen! S.&nbsp;104: &bdquo;Aufbau des Sozialismus als Ziel&ldquo; &ndash; was f&uuml;hrte zur Unzufriedenheit?';}
 }
-
-function checkAns() {
-  const val = document.getElementById('ans-input').value;
-  const fb = document.getElementById('feedback2');
-  checkAnswer(val, ['sowjetunion', 'sowjetisch', 'sowjet', 'udssr', 'ussr', 'rote armee'], () => {
-    fb.className = 'feedback success'; fb.innerHTML = '✅ Richtig! Die sowjetische Armee schickte Panzer. Der Aufstand wurde brutal niedergeschlagen. Code freigeschaltet!';
-    document.getElementById('code-reveal').classList.add('show');
-    document.getElementById('next-btn').classList.add('show');
-    markStationComplete(5);
-  }, () => {
-    fb.className = 'feedback error'; fb.innerHTML = '❌ Nicht korrekt. Lies S. 104–105: "Als die Lage immer weiter außer Kontrolle geriet, rief die Regierung die sowjetische Armee um Hilfe..."';
+function checkWords(){
+  var val=document.getElementById('words-input').value;
+  var fb=document.getElementById('fb2');
+  checkAnswer(val,['faschistische untergrundorganisation','faschistische agenten','westliche agenten','amerikanische agenten','faschist'],function(){
+    fb.className='feedback success';fb.innerHTML='&#10003; Korrekt! Das ZK bezeichnete die Aufst&auml;ndischen als von &bdquo;faschistischen&ldquo; Agenten gesteuert &ndash; eine offensichtliche Propagandalüge.';
+    saveCode(5,'7');document.getElementById('code-section').style.display='block';markStationComplete(5);
+  },function(){
+    fb.className='feedback error';fb.innerHTML='&#10007; Lest M3 auf S.&nbsp;105 genau: Mit welchen Begriffen delegitimiert das ZK die Streikenden? Sucht nach dem Wort &bdquo;faschistisch&ldquo;...';
   });
 }
-
-function showHint() {
-  addHint();
-  document.getElementById('feedback').className = 'feedback hint';
-  document.getElementById('feedback').innerHTML = '💡 <strong>Hinweis:</strong> Die Hauptursachen findet ihr auf S. 104: Erhöhung der Arbeitsnormen, schlechte Versorgung, politische Unterdrückung, Reparationszahlungen. "Bau der Berliner Mauer" war 1961 – also NACH dem Aufstand!';
-}
-</script>
-</body>
-</html>
+function showHint1(){addHint();document.getElementById('fb1').className='feedback hint';document.getElementById('fb1').innerHTML='&#128161; S.&nbsp;104: &bdquo;Aufbau des Sozialismus&ldquo;, erh&ouml;hte Arbeitsnormen, Reparationen, Versorgungsm&auml;ngel. Achtung: Was passierte erst 1961?';}
+function showHint2(){addHint();document.getElementById('fb2').className='feedback hint';document.getElementById('fb2').innerHTML='&#128161; M3, S.&nbsp;105, erster Satz: Das ZK behauptet, an diesem Tag seien &bdquo;Gruppen maskierter Volksfeinde&ldquo; aufgetreten &ndash; und verweist auf amerikanische und welche anderen Gruppen?';}
+</script></body></html>

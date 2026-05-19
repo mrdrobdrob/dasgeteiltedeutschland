@@ -1,164 +1,109 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Station 9 – Ostpolitik</title>
-<link rel="stylesheet" href="shared.css">
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Station 9 – Ostpolitik</title><link rel="stylesheet" href="shared.css"></head>
 <body>
-<div class="noise"></div>
-<div class="bg-texture"></div>
-
+<div class="noise"></div><div class="bg-texture"></div>
 <div class="station-container">
   <div id="progress-area"></div>
-
   <div class="station-header">
     <div class="station-num">09</div>
     <div class="station-meta">
-      <div class="station-tag">🤝 Entspannungspolitik</div>
-      <div class="station-title">Kniefall in Warschau:<br>Wandel durch Annäherung</div>
-      <div class="station-loc">📍 Warschau / Bonn · 21:20 Uhr</div>
+      <div class="station-tag">&#129309; Entspannungspolitik</div>
+      <div class="station-title">Kniefall in Warschau: Wandel durch Ann&auml;herung</div>
+      <div class="station-loc">&#128205; Warschau / Bonn &middot; 21:20 Uhr</div>
     </div>
   </div>
-
-  <div class="narrative">
-    Hartmanns vorletzte Akte zeigt ein bekanntes Foto: Willy Brandt kniet am 7. Dezember 1970 vor dem Mahnmal für die Opfer des Warschauer Ghettos. Was steckt hinter dieser Geste – und was bedeutete die neue Ostpolitik für Deutschland?
-  </div>
-
-  <div class="doc-card">
-    <div class="doc-title">📜 Egon Bahr, Evangelische Akademie Tutzing, 15. Juli 1963 – Schulbuch S. 117</div>
-    <p>„Die Voraussetzungen zur Wiedervereinigung sind nicht durch die Sowjetunion zu schaffen... Die Wiedervereinigung ist ein außenpolitisches Problem. [...] Die Änderung der Ost-West-Verhältnisse, die die USA versuchen wollen, dient der Überwindung des Status quo, indem der Status quo zunächst nicht verändert werden soll. Das klingt paradox, aber es eröffnet Aussichten... <strong>Wandel durch Annäherung.</strong>"</p>
-    <div class="doc-source">Schulbuch S. 117, M2 – Rede Egon Bahrs</div>
-  </div>
-
+  <div class="narrative">Hartmanns vorletzte Akte: Willy Brandts Kniefall ver&auml;nderte die deutsche Au&szlig;enpolitik. Versteht ihr das Konzept &bdquo;Wandel durch Ann&auml;herung&ldquo; wirklich?</div>
   <div class="heft-aufgabe">
-    <div class="icon">📓</div>
-    <div class="text"><strong>Heft-Aufgabe Station 9:</strong> Erklärt den Begriff <strong>"Wandel durch Annäherung"</strong> in eigenen Worten. Notiert: (1) Was änderte sich nach dem Grundlagenvertrag 1972? (2) Welche Kritik gab es? (3) War die Ostpolitik ein Erfolg? (S. 116–119)</div>
+    <div class="icon">&#128211;</div>
+    <div class="text"><strong>Heft S.&nbsp;9:</strong> Erkl&auml;rt &bdquo;Wandel durch Ann&auml;herung&ldquo; in eigenen Worten. Was &auml;nderte sich nach dem Grundlagenvertrag 1972? Quelle: S.&nbsp;116&ndash;119. &mdash; <strong>Code-Zeichen eintragen!</strong></div>
+  </div>
+  <div class="doc-card">
+    <div class="doc-title">&#128196; Egon Bahr, Tutzing, 15. Juli 1963 (S.&nbsp;117)</div>
+    <p>„Die &Auml;nderung der Ost-West-Verh&auml;ltnisse... dient der &Uuml;berwindung des Status quo, indem der Status quo zun&auml;chst nicht ver&auml;ndert werden soll. Das klingt paradox, aber es er&ouml;ffnet Aussichten... <strong>Wandel durch Ann&auml;herung.</strong>"</p>
+    <div class="doc-source">Schulbuch S.&nbsp;117, M2</div>
   </div>
 
+  <!-- Part 1: 4 open-answer questions about Ostpolitik facts -->
   <div class="question-area">
-    <h3>🔍 Ostpolitik – Wissensfragen</h3>
-    <p>Wählt jeweils die richtige Antwort:</p>
+    <h3>&#128269; Teil 1: Ostpolitik-Fakten</h3>
+    <p>Beantwortet alle vier Fragen. (S.&nbsp;116&ndash;119)</p>
   </div>
-
-  <div id="quiz-area"></div>
-
-  <div class="btn-row" style="margin-top:16px;">
-    <button class="submit-btn" onclick="checkQuiz()">▶ Quiz prüfen</button>
-    <button class="hint-btn" onclick="showHint()">💡 Hinweis</button>
+  <div id="q-area"></div>
+  <div class="btn-row" style="margin-top:12px;">
+    <button class="submit-btn" onclick="checkAll()">&#9654; Alle pr&uuml;fen</button>
+    <button class="hint-btn" onclick="showHint()">&#128161; Hinweis</button>
   </div>
-  <div class="feedback" id="feedback"></div>
+  <div class="feedback" id="fb1"></div>
 
-  <div class="question-area" id="q2" style="display:none; margin-top:20px;">
-    <h3>🔓 Code-Frage: Der Kniefall</h3>
-    <p>Was zeigte Brandts Kniefall in Warschau symbolisch? Wählt die treffendste Antwort:</p>
-    <div style="margin-top:14px; display:flex; flex-direction:column; gap:10px;">
-      <button class="choice-btn" id="k0" onclick="selK(0)">A) Er entschuldigte sich persönlich für Kriegsverbrechen, obwohl er selbst nicht schuldig war – als Symbol der deutschen Verantwortung.</button>
-      <button class="choice-btn" id="k1" onclick="selK(1)">B) Er zeigte, dass Deutschland militärisch besiegt war und keine Ansprüche mehr stellte.</button>
-      <button class="choice-btn" id="k2" onclick="selK(2)">C) Er demonstrierte, dass die BRD die DDR nicht anerkennt.</button>
+  <!-- Part 2: Interpretation – what does Brandt's Kniefall symbolise? -->
+  <div class="question-area" id="q2" style="display:none;margin-top:24px;">
+    <h3>&#128269; Teil 2: Quelleninterpretation</h3>
+    <p>Der &bdquo;Spiegel&ldquo;-Journalist Hermann Schreiber kommentierte Brandts Kniefall (S.&nbsp;116): <em>„Dann kniet er, der das nicht n&ouml;tig hat, f&uuml;r alle, die es n&ouml;tig haben..."</em></p>
+    <p style="margin-top:10px;">Was meint Schreiber damit? Schreibt in <strong>einem vollst&auml;ndigen Satz</strong>, wen Brandt durch diesen Kniefall vertrat:</p>
+    <div class="input-area" style="margin-top:14px;">
+      <label>Erkl&auml;rung (eigene Worte):</label>
+      <textarea id="interp-input" style="width:100%;background:rgba(240,232,208,0.05);border:1px solid rgba(200,151,58,0.3);border-bottom:2px solid var(--gold);color:var(--paper);font-family:'Source Serif 4',serif;font-size:15px;padding:12px 14px;outline:none;resize:vertical;min-height:80px;" placeholder="Brandt vertrat..."></textarea>
     </div>
-    <button class="submit-btn" style="margin-top:14px;" onclick="checkKnie()">▶ Prüfen</button>
-    <div class="feedback" id="feedback2" style="margin-top:12px;"></div>
+    <div class="btn-row" style="margin-top:12px;">
+      <button class="submit-btn" onclick="checkInterp()">&#9654; Pr&uuml;fen</button>
+      <button class="hint-btn" onclick="showHint2()">&#128161; Hinweis</button>
+    </div>
+    <div class="feedback" id="fb2"></div>
   </div>
 
-  <div class="code-reveal" id="code-reveal">
-    <div class="code-label">🔑 Letzter Code-Teil für den Tresor:</div>
-    <div class="code-value">89</div>
-    <div class="code-note">„89" – das Jahr des Mauerfalls → Station 10: Finale!</div>
+  <div id="code-section" style="display:none;margin-top:20px;">
+    <div class="code-reveal show">
+      <div class="code-label">&#128274; Code-Zeichen Station&nbsp;9 von&nbsp;10:</div>
+      <div class="code-value">W</div>
+      <div class="code-note">Warum <strong>W</strong>? Der erste Buchstabe von <strong>Warschauer</strong> Vertrag (1970) &ndash; Brandts wichtigstes Ostpolitik-Abkommen, unterzeichnet an dem Ort, wo er auch kniete.<br>Position 9 in eurer Code-Tabelle.</div>
+    </div>
+    <button class="next-btn show" onclick="window.location.href='station10.html'" style="margin-top:12px;">Weiter zur <strong>FINALEN</strong> Station&nbsp;10 &#8594;</button>
   </div>
-  <button class="next-btn" id="next-btn" onclick="window.location.href='station10.html'">
-    ⚡ Zur FINALEN Station 10 →
-  </button>
 </div>
-
 <script src="utils.js"></script>
 <script>
 document.getElementById('progress-area').innerHTML = progressBar(9);
-
-const questions = [
-  {
-    q: 'Was war der Grundlagenvertrag von 1972?',
-    opts: ['Ein Vertrag, in dem die BRD die DDR als gleichberechtigten Staat anerkannte und die gegenseitigen Beziehungen regelte', 'Ein Vertrag, mit dem die DDR aufhörte zu existieren', 'Ein NATO-Beitrittsvertrag der BRD', 'Ein Handelsvertrag zwischen BRD und Sowjetunion'],
-    correct: 0
-  },
-  {
-    q: 'Was verstand Brandt unter "Wandel durch Annäherung"?',
-    opts: ['Militärischen Druck auf die DDR ausüben', 'Durch Dialog, Verträge und Kontakte die Lage der Menschen in der DDR verbessern und langfristig Veränderung ermöglichen', 'Die DDR isolieren, bis sie zusammenbricht', 'Die Grenzen sofort öffnen'],
-    correct: 1
-  },
-  {
-    q: 'Wie wurde der Moskauer Vertrag (1970) in Teilen der BRD bewertet?',
-    opts: ['Als großen diplomatischen Sieg Deutschlands', 'Als "Verrat", weil er den Verzicht auf Gebietsansprüche östlich von Oder und Neiße bedeutete', 'Als unnötig – die Beziehungen zur DDR waren ohnehin gut', 'Als erste Vorstufe zur Wiedervereinigung'],
-    correct: 1
-  },
+var questions=[
+  {q:'In welchem Jahr unterzeichneten BRD und DDR den Grundlagenvertrag?',answers:['1972'],hint:'S.&nbsp;118: &bdquo;Das Ergebnis war der Grundlagenvertrag, der am 21. Dezember ... unterzeichnet wurde.&ldquo;'},
+  {q:'Wer war Brandts Staatssekret&auml;r und Architekt der neuen Ostpolitik? (Nachname)',answers:['bahr','egon bahr'],hint:'S.&nbsp;116: &bdquo;Unter dem Motto... wurde Brandts Staatssekret&auml;r Egon ...&ldquo;'},
+  {q:'Mit welchem Land schloss Brandt am 12. August 1970 den Moskauer Vertrag?',answers:['sowjetunion','udssr','sowjetisch','russland','ussr'],hint:'S.&nbsp;117: &bdquo;Am 12. August 1970 verpflichteten sich die ... und die BRD im Moskauer Vertrag...&ldquo;'},
+  {q:'Was ermöglichte der Grundlagenvertrag den Bewohnern der Grenzregionen im Westen?',answers:['tagesbesuche','grenzbesuche','besuche jenseits','reisen','familienbesuche'],hint:'S.&nbsp;119: &bdquo;Die Bewohner der Grenzregionen im Westen erhielten die Erlaubnis f&uuml;r...&ldquo;'},
 ];
-
-const area = document.getElementById('quiz-area');
-const userAnswers = {};
-
-questions.forEach((q,qi) => {
-  const div = document.createElement('div');
-  div.style.cssText = 'margin-bottom:20px; padding:16px; background:rgba(240,232,208,0.03); border:1px solid rgba(200,151,58,0.15);';
-  div.innerHTML = `<p style="font-size:15px; font-weight:600; margin-bottom:12px; color:var(--paper);">${qi+1}. ${q.q}</p>
-    <div style="display:flex; flex-direction:column; gap:8px;">${q.opts.map((o,oi)=>`<button class="choice-btn" id="q${qi}o${oi}" onclick="setQA(${qi},${oi})" style="text-align:left;">${String.fromCharCode(65+oi)}) ${o}</button>`).join('')}</div>`;
-  area.appendChild(div);
+var qArea=document.getElementById('q-area');
+questions.forEach(function(q,i){
+  var div=document.createElement('div');
+  div.style.cssText='margin-bottom:16px;padding:16px;background:rgba(240,232,208,0.03);border:1px solid rgba(200,151,58,0.15);';
+  div.innerHTML='<p style="font-size:15px;font-weight:600;margin-bottom:10px;color:var(--paper);">'+(i+1)+'. '+q.q+'</p>'+
+    '<input type="text" class="code-input" id="oi'+i+'" placeholder="..." style="font-size:18px;letter-spacing:1px;text-align:left;padding:10px 14px;" maxlength="30">'+
+    '<div class="feedback" id="ofb'+i+'" style="margin-top:8px;font-size:14px;"></div>';
+  qArea.appendChild(div);
 });
-
-function setQA(qi, oi) {
-  userAnswers[qi] = oi;
-  for(let j=0;j<4;j++) {
-    const btn = document.getElementById('q'+qi+'o'+j);
-    if(btn) btn.classList.toggle('selected', j===oi);
-  }
-}
-
-let done = false;
-function checkQuiz() {
-  if(done) { document.getElementById('q2').style.display='block'; return; }
-  let correct = 0;
-  questions.forEach((q,qi) => {
-    for(let j=0;j<q.opts.length;j++) {
-      const btn = document.getElementById('q'+qi+'o'+j);
-      if(!btn) return;
-      btn.classList.remove('selected','correct','wrong');
-      if(j===q.correct) btn.classList.add('correct');
-      else if(userAnswers[qi]===j) btn.classList.add('wrong');
-    }
-    if(userAnswers[qi]===q.correct) correct++;
+var solved=0;
+var qDone=false;
+function checkAll(){
+  if(qDone){document.getElementById('q2').style.display='block';return;}
+  solved=0;
+  questions.forEach(function(q,i){
+    var val=document.getElementById('oi'+i).value;
+    var fb=document.getElementById('ofb'+i);
+    checkAnswer(val,q.answers,function(){fb.className='feedback success';fb.style.display='block';fb.innerHTML='&#10003;';solved++;
+      if(solved===questions.length){document.getElementById('fb1').className='feedback success';document.getElementById('fb1').innerHTML='&#10003; Alle richtig! Weiter zu Teil 2:';qDone=true;document.getElementById('q2').style.display='block';}
+    },function(){fb.className='feedback error';fb.style.display='block';fb.innerHTML='&#10007; Tipp: '+q.hint;});
   });
-  const fb = document.getElementById('feedback');
-  if(correct >= 2) {
-    fb.className='feedback success'; fb.innerHTML=`✅ ${correct}/3 richtig! Letzte Frage:`;
-    done=true; document.getElementById('q2').style.display='block';
-  } else {
-    fb.className='feedback error'; fb.innerHTML=`❌ ${correct}/3. Lest S. 116–119: Was ist "Wandel durch Annäherung"? Was regelte der Grundlagenvertrag?`;
-  }
+  if(solved<questions.length) {document.getElementById('fb1').className='feedback error';document.getElementById('fb1').innerHTML='&#10007; '+solved+'/4 korrekt. Verbessert die rot markierten Felder.';}
 }
-
-let kSel = -1;
-function selK(i) {
-  kSel = i;
-  [0,1,2].forEach(j => document.getElementById('k'+j).classList.toggle('selected', i===j));
+function checkInterp(){
+  var val=document.getElementById('interp-input').value;
+  var fb=document.getElementById('fb2');
+  checkAnswer(val,['deutschen','alle deutschen','schuld','verantwortung','kollektiv','kollektive','tater','täter','ns','nationalsozialismus','kriegsverbrechen'],function(){
+    fb.className='feedback success';fb.innerHTML='&#10003; Gut erkannt! Brandt &ndash; selbst kein NS-T&auml;ter &ndash; kniete f&uuml;r alle Deutschen, die Verantwortung f&uuml;r die NS-Verbrechen tragen.';
+    saveCode(9,'W');document.getElementById('code-section').style.display='block';markStationComplete(9);
+  },function(){
+    fb.className='feedback error';fb.innerHTML='&#10007; Schreiber sagt: Brandt hatte es &bdquo;nicht n&ouml;tig&ldquo; (er war kein NS-T&auml;ter). Aber er kniete f&uuml;r alle, die es n&ouml;tig h&auml;tten. Wer sind diese Menschen?';
+  });
 }
-
-function checkKnie() {
-  const fb = document.getElementById('feedback2');
-  if(kSel===0) {
-    fb.className='feedback success'; fb.innerHTML='✅ Richtig! Brandt kniete als Zeichen der deutschen Verantwortung – obwohl er selbst im Widerstand war. Letzter Code freigeschaltet!';
-    document.getElementById('code-reveal').classList.add('show');
-    document.getElementById('next-btn').classList.add('show');
-    markStationComplete(9);
-  } else {
-    fb.className='feedback error'; fb.innerHTML='❌ Lies nochmal S. 116–117. Brandt selbst war kein NS-Täter – er kniete als Symbol für ALLE Deutschen, die Verantwortung übernehmen. "Dann kniet er da für die, die es nötig haben, und bittet um Vergebung..."';
-  }
-}
-
-function showHint() {
-  addHint();
-  document.getElementById('feedback').className='feedback hint';
-  document.getElementById('feedback').innerHTML='💡 <strong>Hinweis:</strong> "Wandel durch Annäherung" = Egon Bahrs Konzept: nicht durch Konfrontation, sondern durch Kontakte und Verträge die Lage verbessern. Der Grundlagenvertrag ermöglichte Reiseerleichterungen, Familienzusammenführungen, Briefverkehr. Kniefall = moralisches Symbol.';
-}
-</script>
-</body>
-</html>
+function showHint(){addHint();document.getElementById('fb1').className='feedback hint';document.getElementById('fb1').innerHTML='&#128161; Alle Antworten stehen in S.&nbsp;116&ndash;119. Sucht nach den Jahreszahlen, Namen und Vertragsbezeichnungen.';}
+function showHint2(){addHint();document.getElementById('fb2').className='feedback hint';document.getElementById('fb2').innerHTML='&#128161; Brandt war im Widerstand gegen die Nazis &ndash; er war kein T&auml;ter. Dennoch kniete er. F&uuml;r wen? Die Bildunterschrift S.&nbsp;116 enth&auml;lt Schreibers vollen Kommentar.';}
+</script></body></html>

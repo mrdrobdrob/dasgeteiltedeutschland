@@ -1,150 +1,112 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Station 6 – Wahlen</title>
-<link rel="stylesheet" href="shared.css">
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Station 6 – Wahlen</title><link rel="stylesheet" href="shared.css"></head>
 <body>
-<div class="noise"></div>
-<div class="bg-texture"></div>
-
+<div class="noise"></div><div class="bg-texture"></div>
 <div class="station-container">
   <div id="progress-area"></div>
-
   <div class="station-header">
     <div class="station-num">06</div>
     <div class="station-meta">
-      <div class="station-tag">🗳 Demokratie vs. Diktatur</div>
-      <div class="station-title">Stimmzettel oder Einheitsliste:<br>Wahlen im Vergleich</div>
-      <div class="station-loc">📍 Ehemaliges Wahllokal, Ost-Berlin · 20:05 Uhr</div>
+      <div class="station-tag">&#128499; Demokratie vs. Diktatur</div>
+      <div class="station-title">Stimmzettel oder Einheitsliste</div>
+      <div class="station-loc">&#128205; Ehem. Wahllokal, Ost-Berlin &middot; 20:05 Uhr</div>
     </div>
   </div>
-
-  <div class="narrative">
-    Hartmanns sechste Akte: Zwei Stimmzettel liegen auf dem Tisch. Einer aus der BRD, einer aus der DDR – aber welcher ist welcher? Analysiert das Wahlsystem beider Staaten.
-  </div>
-
-  <div class="doc-card">
-    <div class="doc-title">📜 Quelle: Historiker Stefan Wolle über DDR-Wahlen (2013) – Schulbuch S. 99</div>
-    <p>„Bei uns gibt es kein Parteiengezänk zu den Wahlen", erklärte der Leiter des Amts für Information drei Monate vor den ersten Volkskammerwahlen. „Alle unsere Anstrengungen richten sich auf den Aufbau und das schnelle Erreichen weiterer Erfolge. Dafür ist die Zusammenarbeit der Parteien notwendig."</p>
-    <p>Im Westen wird es einen Wahlkampf der Parteien gegeneinander geben und die Lebenshaltung wird sinken. „Unsere Bevölkerung wird selbst entscheiden, ob sie den einen oder den anderen Weg gehen will." Doch es gab nichts mehr zu entscheiden...</p>
-    <div class="doc-source">Schulbuch S. 99, M4</div>
-  </div>
-
+  <div class="narrative">Hartmanns sechste Akte: Zwei Stimmzettel, zwei Systeme. Analysiert den Unterschied zwischen echter Wahl und Scheinwahl.</div>
   <div class="heft-aufgabe">
-    <div class="icon">📓</div>
-    <div class="text"><strong>Heft-Aufgabe Station 6:</strong> Vergleichstabelle: <strong>Wahlen BRD vs. DDR</strong> – Kriterien: Wahlprinzipien, Auswahl, Parteien, Ergebnis der ersten Wahl, Wahlbeteiligung. (S. 98–99)</div>
+    <div class="icon">&#128211;</div>
+    <div class="text"><strong>Heft S.&nbsp;6:</strong> Wahlvergleich BRD vs. DDR: 5 Kriterien (Prinzipien, Parteienauswahl, Ergebnis-Offenheit, Kontrolle, Legitimation). Quelle: S.&nbsp;98&ndash;99. &mdash; <strong>Code-Zeichen eintragen!</strong></div>
   </div>
 
   <div class="question-area">
-    <h3>🔍 Unterschiede erkennen</h3>
-    <p>Ordnet jede Aussage dem Wahlsystem der <strong>BRD</strong> oder der <strong>DDR</strong> zu:</p>
+    <h3>&#128269; Teil 1: Wahlsystem-Merkmale zuordnen</h3>
+    <p>Ordnet zu: BRD oder DDR? (S.&nbsp;98&ndash;99) &ndash; Mehrere Aussagen pro Staat.</p>
   </div>
-
   <div id="match-area"></div>
-
-  <div class="btn-row" style="margin-top:16px;">
-    <button class="submit-btn" onclick="checkAll()">▶ Prüfen</button>
-    <button class="hint-btn" onclick="showHint()">💡 Hinweis</button>
+  <div class="btn-row" style="margin-top:12px;">
+    <button class="submit-btn" onclick="checkAll()">&#9654; Pr&uuml;fen</button>
+    <button class="hint-btn" onclick="showHint1()">&#128161; Hinweis</button>
   </div>
-  <div class="feedback" id="feedback"></div>
+  <div class="feedback" id="fb1"></div>
 
-  <div class="question-area" id="q2" style="display:none; margin-top:20px;">
-    <h3>🔓 Code-Frage: Erste Bundestagswahl</h3>
-    <p>Wie viele Parteien schafften 1949 den Einzug in den ersten Deutschen Bundestag? (Schulbuch S. 98)</p>
+  <!-- Part 2: Open text – historian quote interpretation -->
+  <div class="question-area" id="q2" style="display:none;margin-top:24px;">
+    <h3>&#128269; Teil 2: Historiker-Urteil</h3>
+    <p>Historiker Stefan Wolle schreibt (S.&nbsp;99, M4): <em>„Wozu noch Parteiengez&auml;nk, wenn es die eine Partei gibt, die immer Recht hatte?"</em></p>
+    <p style="margin-top:10px;">Wie nennt man das politische System, das Wolle hier beschreibt? (Ein Wort &ndash; Fachbegriff)</p>
     <div class="input-area" style="margin-top:14px;">
-      <label>Anzahl der Parteien:</label>
-      <input type="text" class="code-input" id="ans-input" placeholder="__" maxlength="4" style="font-size:22px;">
+      <label>Fachbegriff:</label>
+      <input type="text" class="code-input" id="term-input" placeholder="..." maxlength="25" style="font-size:20px;">
     </div>
     <div class="btn-row" style="margin-top:12px;">
-      <button class="submit-btn" onclick="checkNum()">▶ Prüfen</button>
+      <button class="submit-btn" onclick="checkTerm()">&#9654; Pr&uuml;fen</button>
+      <button class="hint-btn" onclick="showHint2()">&#128161; Hinweis</button>
     </div>
-    <div class="feedback" id="feedback2"></div>
+    <div class="feedback" id="fb2"></div>
   </div>
 
-  <div class="code-reveal" id="code-reveal">
-    <div class="code-label">Code für Station 7:</div>
-    <div class="code-value">PLAN</div>
-    <div class="code-note">Stichwort „PLAN" → Station 7: Wirtschaft</div>
+  <div id="code-section" style="display:none;margin-top:20px;">
+    <div class="code-reveal show">
+      <div class="code-label">&#128274; Code-Zeichen Station&nbsp;6 von&nbsp;10:</div>
+      <div class="code-value">E</div>
+      <div class="code-note">Warum <strong>E</strong>? Der erste Buchstabe von <strong>Einheitsliste</strong> &ndash; das DDR-Instrument, das freie Wahlen verhinderte.<br>Position 6 in eurer Code-Tabelle.</div>
+    </div>
+    <button class="next-btn show" onclick="window.location.href='station07.html'" style="margin-top:12px;">Weiter zu Station&nbsp;7 &#8594;</button>
   </div>
-  <button class="next-btn" id="next-btn" onclick="window.location.href='station07.html'">
-    Weiter zu Station 7: Wirtschaft →
-  </button>
 </div>
-
 <script src="utils.js"></script>
 <script>
 document.getElementById('progress-area').innerHTML = progressBar(6);
-
-const items = [
-  { text: 'Freie, gleiche, geheime und unmittelbare Wahlen – Ausdruck des politischen Willens der Bevölkerung', answer: 'BRD' },
-  { text: 'Die "Nationale Front" legte die Sitzverteilung schon vor der Wahl fest', answer: 'DDR' },
-  { text: 'Fünfprozenthürde als Sperrklausel für den Einzug ins Parlament', answer: 'BRD' },
-  { text: 'Auf dem Stimmzettel nur ein Kreuz – Zustimmung, wenn der Zettel gefaltet in die Wahlurne', answer: 'DDR' },
-  { text: 'Koalitionsregierungen mit CDU/CSU oder SPD als großen Parteien, FDP oft beteiligt', answer: 'BRD' },
-  { text: 'Die SED bekam die meisten Volkskammersitze aufgrund der Nationalen Front', answer: 'DDR' },
+var items=[
+  {text:'Freie, gleiche, geheime und unmittelbare Wahl &ndash; Grundprinzip der Demokratie',answer:'BRD'},
+  {text:'Die &bdquo;Nationale Front&ldquo; legte die Sitzverteilung f&uuml;r die Volkskammer vor der Wahl fest',answer:'DDR'},
+  {text:'F&uuml;nfprozenthürde: Parteien unter 5&thinsp;% der Stimmen ziehen nicht ins Parlament ein',answer:'BRD'},
+  {text:'Auf dem Stimmzettel stand nur eine Liste &ndash; ein Kreuz bedeutete Zustimmung',answer:'DDR'},
+  {text:'1949 schafften 11 Parteien den Einzug &ndash; darunter KPD, Bayernpartei und Wirtschaftliche Aufbauvereinigung',answer:'BRD'},
+  {text:'Die SED erhielt die meisten Volkskammersitze kraft der Nationalen Front &ndash; nicht durch Stimmenmehrheit',answer:'DDR'},
+  {text:'Koalitionsregierungen aus SPD/CDU und FDP bestimmten jahrzehntelang die Politik',answer:'BRD'},
+  {text:'Wer den Zettel gefaltet einwarf, stimmte zu &ndash; Kontrolle durch Beobachter im Wahllokal m&ouml;glich',answer:'DDR'},
 ];
-
-const area = document.getElementById('match-area');
-const answers = {};
-
-items.forEach((item, i) => {
-  const div = document.createElement('div');
-  div.style.cssText = 'margin-bottom:12px; padding:14px; background:rgba(240,232,208,0.03); border:1px solid rgba(200,151,58,0.15);';
-  div.innerHTML = `
-    <p style="font-size:14px; margin-bottom:10px; color:rgba(240,232,208,0.85);">${item.text}</p>
-    <div style="display:flex; gap:10px;">
-      <button class="choice-btn" id="b-${i}-BRD" onclick="setA(${i},'BRD')">BRD</button>
-      <button class="choice-btn" id="b-${i}-DDR" onclick="setA(${i},'DDR')">DDR</button>
-    </div>
-  `;
+items.sort(function(){return Math.random()-.5;});
+var answers={};
+var area=document.getElementById('match-area');
+items.forEach(function(item,i){
+  var div=document.createElement('div');
+  div.style.cssText='margin-bottom:12px;padding:14px;background:rgba(240,232,208,0.03);border:1px solid rgba(200,151,58,0.15);';
+  div.innerHTML='<p style="font-size:14px;margin-bottom:10px;color:rgba(240,232,208,0.85);">'+(i+1)+'. '+item.text+'</p>'+
+    '<div style="display:flex;gap:10px;">'+
+    '<button class="choice-btn" id="w'+i+'BRD" onclick="setA('+i+',\'BRD\')">BRD</button>'+
+    '<button class="choice-btn" id="w'+i+'DDR" onclick="setA('+i+',\'DDR\')">DDR</button>'+
+    '</div>';
   area.appendChild(div);
 });
-
-function setA(i, val) {
-  answers[i] = val;
-  ['BRD','DDR'].forEach(v => document.getElementById('b-'+i+'-'+v).classList.toggle('selected', val===v));
-}
-
-let done = false;
-function checkAll() {
-  if(done) { document.getElementById('q2').style.display='block'; return; }
-  let correct = 0;
-  items.forEach((item,i) => {
-    ['BRD','DDR'].forEach(v => document.getElementById('b-'+i+'-'+v).classList.remove('correct','wrong','selected'));
-    document.getElementById('b-'+i+'-'+item.answer).classList.add('correct');
-    if(answers[i] && answers[i]!==item.answer) document.getElementById('b-'+i+'-'+answers[i]).classList.add('wrong');
+function setA(i,val){answers[i]=val;['BRD','DDR'].forEach(function(v){document.getElementById('w'+i+v).classList.toggle('selected',val===v);});}
+var done=false;
+function checkAll(){
+  if(done){document.getElementById('q2').style.display='block';return;}
+  var correct=0;
+  items.forEach(function(item,i){
+    ['BRD','DDR'].forEach(function(v){document.getElementById('w'+i+v).classList.remove('correct','wrong','selected');});
+    document.getElementById('w'+i+item.answer).classList.add('correct');
+    if(answers[i]&&answers[i]!==item.answer) document.getElementById('w'+i+answers[i]).classList.add('wrong');
     if(answers[i]===item.answer) correct++;
   });
-  const fb = document.getElementById('feedback');
-  if(correct >= 5) {
-    fb.className='feedback success'; fb.innerHTML=`✅ ${correct}/6 richtig! Jetzt die Code-Frage:`;
-    done=true; document.getElementById('q2').style.display='block';
-  } else {
-    fb.className='feedback error'; fb.innerHTML=`❌ ${correct}/6. Lest S. 98–99: Was sind die Grundprinzipien der BRD-Wahl? Was bedeutet "Einheitsliste" in der DDR?`;
-  }
+  var fb=document.getElementById('fb1');
+  if(correct>=6){fb.className='feedback success';fb.innerHTML='&#10003; '+correct+'/8 richtig! Teil 2:';done=true;document.getElementById('q2').style.display='block';}
+  else{fb.className='feedback error';fb.innerHTML='&#10007; '+correct+'/8. BRD = echte Wahl mit Wettbewerb. DDR = Einheitsliste der Nationalen Front. S.&nbsp;98&ndash;99.';}
 }
-
-function checkNum() {
-  const val = document.getElementById('ans-input').value.trim();
-  const fb = document.getElementById('feedback2');
-  if(val === '11') {
-    fb.className='feedback success'; fb.innerHTML='✅ Korrekt! 11 Parteien schafften 1949 den Einzug. Code freigeschaltet!';
-    document.getElementById('code-reveal').classList.add('show');
-    document.getElementById('next-btn').classList.add('show');
-    markStationComplete(6);
-  } else {
-    fb.className='feedback error'; fb.innerHTML='❌ Nicht korrekt. Schau auf die Grafik M3 auf S. 98/99 – die zeigt die Zusammensetzung des ersten Bundestags 1949.';
-  }
+function checkTerm(){
+  var val=document.getElementById('term-input').value;
+  var fb=document.getElementById('fb2');
+  checkAnswer(val,['diktatur','einparteiendiktatur','sed-diktatur','totalitarismus','einparteienherrschaft','einparteienstaat'],function(){
+    fb.className='feedback success';fb.innerHTML='&#10003; Richtig! Die DDR war eine SED-Diktatur &ndash; keine echte Demokratie.';
+    saveCode(6,'E');document.getElementById('code-section').style.display='block';markStationComplete(6);
+  },function(){
+    fb.className='feedback error';fb.innerHTML='&#10007; Wolle beschreibt ein System, in dem eine Partei alle Macht hat und keine echte Opposition duldet. Wie nennt man das?';
+  });
 }
-
-function showHint() {
-  addHint();
-  document.getElementById('feedback').className='feedback hint';
-  document.getElementById('feedback').innerHTML='💡 <strong>Hinweis:</strong> BRD = Mehrparteiensystem, echte Wahl, Fünfprozenthürde. DDR = "Einheitsliste" der Nationalen Front – kein echter Wettbewerb, Sitzverteilung vorab festgelegt. Die Parteien der DDR unterstützten alle die SED-Linie.';
-}
-</script>
-</body>
-</html>
+function showHint1(){addHint();document.getElementById('fb1').className='feedback hint';document.getElementById('fb1').innerHTML='&#128161; BRD: allgemein, frei, gleich, geheim, unmittelbar. DDR: &bdquo;Nationale Front&ldquo; legt alles vor der Wahl fest. S.&nbsp;98&ndash;99.';}
+function showHint2(){addHint();document.getElementById('fb2').className='feedback hint';document.getElementById('fb2').innerHTML='&#128161; Wolle beschreibt ein Regime, in dem es keine Konkurrenz der Parteien gibt &ndash; eine Partei hat alle Macht. Das Gegenteil hei&szlig;t Demokratie; der Fachbegriff f&uuml;r das Gegenteil ist...';}
+</script></body></html>

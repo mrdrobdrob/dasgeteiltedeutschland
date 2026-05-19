@@ -1,121 +1,90 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Station 10 – Der Tresor</title>
-<link rel="stylesheet" href="shared.css">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Station 10 – Der Tresor</title><link rel="stylesheet" href="shared.css">
 <style>
-.tresor-display {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 8px; margin: 24px 0;
-}
-.tresor-digit {
-  background: #0a0a0a; border: 2px solid var(--gold);
-  color: var(--gold); font-family: 'Special Elite', monospace;
-  font-size: 32px; text-align: center; padding: 14px 6px;
-  letter-spacing: 2px;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 0 6px rgba(200,151,58,0.2);
-}
-.big-input {
-  background: rgba(240,232,208,0.05);
-  border: 2px solid var(--gold);
-  color: var(--gold); font-family: 'Special Elite', monospace;
-  font-size: 28px; padding: 16px; width: 100%;
-  text-align: center; letter-spacing: 6px; outline: none;
-  text-transform: uppercase;
-}
-.summary-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 12px; margin: 20px 0;
-}
-.summary-item {
-  background: rgba(240,232,208,0.03); border: 1px solid rgba(200,151,58,0.15);
-  padding: 12px 16px;
-}
-.summary-item .s-num { font-family:'Oswald',sans-serif; font-size:11px; color:var(--muted); letter-spacing:2px; }
-.summary-item .s-topic { font-size:14px; color:rgba(240,232,208,0.8); margin-top:4px; }
-.summary-item .s-code { font-family:'Special Elite',monospace; color:var(--gold); font-size:16px; margin-top:6px; }
+.code-grid{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:20px 0;}
+.code-cell{width:48px;height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(200,151,58,0.3);background:rgba(0,0,0,0.3);}
+.code-cell.earned{border-color:var(--gold);background:rgba(200,151,58,0.1);}
+.code-cell .ch{font-family:'Special Elite',monospace;font-size:24px;font-weight:bold;color:var(--gold);}
+.code-cell .empty-ch{font-size:24px;color:rgba(240,232,208,0.1);}
+.code-cell .lbl{font-size:10px;color:var(--muted);margin-top:4px;font-family:'Oswald',sans-serif;letter-spacing:1px;}
+.tresor-input{font-family:'Special Elite',monospace;font-size:28px;letter-spacing:8px;text-align:center;text-transform:uppercase;background:rgba(0,0,0,0.4);border:2px solid var(--gold);color:var(--gold);padding:16px;width:100%;outline:none;}
+.missing-warning{background:rgba(181,25,26,0.15);border:1px solid rgba(181,25,26,0.4);padding:12px 16px;font-size:14px;color:#f07070;display:none;}
 </style>
 </head>
 <body>
-<div class="noise"></div>
-<div class="bg-texture"></div>
-
+<div class="noise"></div><div class="bg-texture"></div>
 <div class="station-container">
   <div id="progress-area"></div>
-
   <div class="station-header">
     <div class="station-num">10</div>
     <div class="station-meta">
-      <div class="station-tag">🔓 Finale Mission</div>
-      <div class="station-title">Der Tresor:<br>Die letzte Wahrheit</div>
-      <div class="station-loc">📍 Berliner Mauer, Checkpoint Charlie · 21:50 Uhr</div>
+      <div class="station-tag">&#128274; Finale Mission</div>
+      <div class="station-title">Der Tresor: Die letzte Wahrheit</div>
+      <div class="station-loc">&#128205; Berliner Mauer &middot; 21:50 Uhr</div>
     </div>
   </div>
-
-  <div class="narrative">
-    Ihr habt es bis zum letzten Versteck geschafft. Vor euch steht Major Hartmanns Tresor. Er ist mit einem Code gesichert, der sich aus eurem gesammelten Wissen über das geteilte Deutschland zusammensetzt. Die Mauer fällt in wenigen Minuten – öffnet den Tresor!
-  </div>
+  <div class="narrative">Ihr habt alle neun Stationen durchquert. Jede hat euch ein Zeichen gegeben &ndash; ein Puzzlest&uuml;ck der deutschen Geschichte. Jetzt setzt ihr alles zusammen: der Tresor &ouml;ffnet sich nur mit dem vollst&auml;ndigen Code aus allen 10 Stationen.</div>
 
   <div class="heft-aufgabe">
-    <div class="icon">📓</div>
-    <div class="text"><strong>Finale Heft-Aufgabe:</strong> Schreibt in eurem Heft eine <strong>abschließende Reflexion</strong> (8–10 Sätze): "Was waren die drei wichtigsten Folgen der deutschen Teilung für die Menschen – und was hat euch in diesem Escape Room am meisten überrascht?"</div>
+    <div class="icon">&#128211;</div>
+    <div class="text"><strong>Finale Heft-Aufgabe:</strong> Schreibt 8&ndash;10 S&auml;tze: &bdquo;Was waren die drei wichtigsten Folgen der deutschen Teilung f&uuml;r die Menschen &ndash; und welche Station hat euch am meisten &uuml;berrascht?&ldquo; Dann: Vergleicht eure Antwort mit dem Nachbar-Team.</div>
   </div>
 
+  <!-- Transfer question – earns the final code digit -->
   <div class="question-area">
-    <h3>🔍 Abschließende Transfer-Frage</h3>
-    <p>Bevor ihr den Tresor öffnen könnt, müsst ihr eine letzte Frage beantworten:</p>
-    <p style="margin-top:12px; font-size:16px; color:var(--paper);">Willy Brandt sagte über die deutsche Einheit: <em>„Auch wenn zwei Staaten in Deutschland existieren, sind sie doch füreinander nicht Ausland."</em></p>
-    <p style="margin-top:10px;">Was bringt dieser Satz zum Ausdruck? Wählt die umfassendste Antwort:</p>
+    <h3>&#128269; Abschlussfrage: Transfer</h3>
+    <p>Willy Brandt sagte: <em>„Auch wenn zwei Staaten in Deutschland existieren, sind sie doch f&uuml;reinander nicht Ausland."</em></p>
+    <p style="margin-top:10px;">Was bringt dieser Satz zum Ausdruck? W&auml;hlt die vollst&auml;ndigste Antwort:</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin:14px 0;">
+      <button class="choice-btn" id="tf0" onclick="selTF(0)" style="text-align:left;">A) Die BRD erkannte die Existenz der DDR an, hielt aber am Ziel der deutschen Einheit fest und behandelte DDR-Deutsche weiterhin als Angeh&ouml;rige desselben Volkes &ndash; nicht als Ausl&auml;nder.</button>
+      <button class="choice-btn" id="tf1" onclick="selTF(1)" style="text-align:left;">B) Brandt meinte, die Teilung sei v&ouml;lkerrechtlich illegal und die DDR existiere nicht wirklich als eigener Staat.</button>
+      <button class="choice-btn" id="tf2" onclick="selTF(2)" style="text-align:left;">C) Mit diesem Satz wollte Brandt die DDR diplomatisch isolieren und ihre internationale Anerkennung verhindern.</button>
+    </div>
+    <div class="btn-row">
+      <button class="submit-btn" onclick="checkTF()">&#9654; Pr&uuml;fen</button>
+      <button class="hint-btn" onclick="showHint()">&#128161; Hinweis</button>
+    </div>
+    <div class="feedback" id="fb-tf"></div>
   </div>
 
-  <div style="display:flex; flex-direction:column; gap:10px; margin:16px 0;">
-    <button class="choice-btn" id="tf0" onclick="selTF(0)" style="text-align:left;">A) Die BRD lehnte es ab, die DDR als Ausland zu behandeln – sie hielt am Ziel der deutschen Einheit fest und wollte die Beziehungen intensivieren, ohne die DDR formal anzuerkennen.</button>
-    <button class="choice-btn" id="tf1" onclick="selTF(1)" style="text-align:left;">B) Brandt meinte, die BRD und DDR hätten eigentlich immer zusammengehört und die Teilung sei illegal gewesen.</button>
-    <button class="choice-btn" id="tf2" onclick="selTF(2)" style="text-align:left;">C) Die BRD wollte mit diesem Satz die DDR diplomatisch isolieren.</button>
-  </div>
-
-  <div class="btn-row">
-    <button class="submit-btn" onclick="checkTF()">▶ Antwort prüfen</button>
-    <button class="hint-btn" onclick="showHint()">💡 Letzter Hinweis</button>
-  </div>
-  <div class="feedback" id="feedback"></div>
-
-  <div id="tresor-section" style="display:none; margin-top:28px;">
+  <!-- Code assembly section, shown after transfer question solved -->
+  <div id="tresor-section" style="display:none;margin-top:28px;">
     <div class="question-area">
-      <h3>🔓 TRESOR-CODE EINGABE</h3>
-      <p>Nutzt alle Codes, die ihr gesammelt habt. Setzt sie zusammen: Jeder Code steht für ein wichtiges Thema der deutschen Teilung.</p>
+      <h3>&#128274; Tresor-Code zusammensetzen</h3>
+      <p>Ihr habt an jeder Station ein Zeichen gesammelt &ndash; jedes steht f&uuml;r ein Schl&uuml;sselkonzept der deutschen Teilung. Kombiniert alle 10 Zeichen zum Tresor-Code.</p>
     </div>
 
-    <div class="summary-grid">
-      <div class="summary-item"><div class="s-num">STATION 1</div><div class="s-topic">Chronologie</div><div class="s-code">1949</div></div>
-      <div class="summary-item"><div class="s-num">STATION 2</div><div class="s-topic">Bündnisse</div><div class="s-code">STASI</div></div>
-      <div class="summary-item"><div class="s-num">STATION 3</div><div class="s-topic">Stasi</div><div class="s-code">NS</div></div>
-      <div class="summary-item"><div class="s-num">STATION 4</div><div class="s-topic">NS-Aufarbeitung</div><div class="s-code">1953</div></div>
-      <div class="summary-item"><div class="s-num">STATION 5</div><div class="s-topic">Volksaufstand</div><div class="s-code">WAHL</div></div>
-      <div class="summary-item"><div class="s-num">STATION 6</div><div class="s-topic">Wahlen</div><div class="s-code">PLAN</div></div>
-      <div class="summary-item"><div class="s-num">STATION 7</div><div class="s-topic">Wirtschaft</div><div class="s-code">RAF</div></div>
-      <div class="summary-item"><div class="s-num">STATION 8</div><div class="s-topic">68er/RAF</div><div class="s-code">OST</div></div>
-      <div class="summary-item"><div class="s-num">STATION 9</div><div class="s-topic">Ostpolitik</div><div class="s-code">89</div></div>
-    </div>
+    <!-- Live display of collected characters -->
+    <div class="code-grid" id="code-grid"></div>
+    <div class="missing-warning" id="missing-warning"></div>
 
-    <div class="question-area" style="margin-top:20px;">
-      <h3>🔑 Finaler Tresor-Code</h3>
-      <p>Der Code ist das Jahr, in dem die Berliner Mauer fiel und die Dokumente endlich frei werden konnten:</p>
-      <div class="input-area" style="margin-top:14px;">
-        <label>Jahreszahl (4-stellig):</label>
-        <input type="text" class="big-input" id="final-code" placeholder="____" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-      </div>
+    <div class="question-area" style="margin-top:16px;">
+      <h3>&#128272; Code eingeben</h3>
+      <p style="margin-bottom:14px;">Gebt alle 10 Zeichen hintereinander ein (keine Leerzeichen, Gro&szlig;- und Kleinschreibung egal):</p>
+      <input type="text" class="tresor-input" id="tresor-input" placeholder="__________" maxlength="10" oninput="this.value=this.value.toUpperCase()">
       <div class="btn-row" style="margin-top:14px;">
-        <button class="submit-btn" style="font-size:20px; padding:18px 40px;" onclick="checkFinal()">🔓 TRESOR ÖFFNEN</button>
+        <button class="submit-btn" style="font-size:18px;padding:16px 36px;" onclick="checkTresor()">&#128274; TRESOR &Ouml;FFNEN</button>
       </div>
-      <div class="feedback" id="feedback2" style="margin-top:12px;"></div>
+      <div class="feedback" id="fb-tresor" style="margin-top:12px;"></div>
     </div>
+
+    <!-- Hint: meaning of each character (shown only if stuck) -->
+    <div id="code-hint-section" style="display:none;margin-top:16px;">
+      <div class="heft-aufgabe">
+        <div class="icon">&#128161;</div>
+        <div class="text">
+          <strong>Erinnerung: Bedeutung der Code-Zeichen</strong><br>
+          4 = Besatzungszonen &middot; 5 = Beitritts<strong>j</strong>ahr NATO (195<strong>5</strong>) &middot; M = Mielke &middot; A = Auschwitz &middot; 7 = 1<strong>7</strong>. Juni &middot; E = Einheitsliste &middot; V = VEB &middot; B = Baader &middot; W = Warschauer Vertrag &middot; 9 = 198<strong>9</strong>
+        </div>
+      </div>
+    </div>
+    <button class="hint-btn" onclick="document.getElementById('code-hint-section').style.display=\'block\';" style="margin-top:8px;">&#128161; Code-Erinnerung anzeigen</button>
   </div>
 
-  <button class="next-btn" id="next-btn" onclick="window.location.href='success.html'">
-    🎉 Mission abgeschlossen → Erfolgsmeldung
+  <button class="next-btn" id="next-btn" onclick="window.location.href='success.html'" style="margin-top:20px;">
+    &#127881; Mission abgeschlossen &#8594; Erfolgsmeldung
   </button>
 </div>
 
@@ -123,51 +92,81 @@
 <script>
 document.getElementById('progress-area').innerHTML = progressBar(10);
 
-let tfSel = -1;
-function selTF(i) {
-  tfSel = i;
-  [0,1,2].forEach(j => document.getElementById('tf'+j).classList.toggle('selected', i===j));
-}
+var tfSel=-1;
+function selTF(i){tfSel=i;[0,1,2].forEach(function(j){document.getElementById('tf'+j).classList.toggle('selected',i===j);});}
 
-function checkTF() {
-  const fb = document.getElementById('feedback');
-  if(tfSel === 0) {
+function checkTF(){
+  var fb=document.getElementById('fb-tf');
+  if(tfSel===0){
     fb.className='feedback success';
-    fb.innerHTML='✅ Korrekt! Brandt erkannte die Realität zweier Staaten an – hielt aber am Ziel der Einheit fest und intensivierte die Beziehungen. Das war das Konzept des "Alleinvertretungsanspruchs" und der Ostpolitik zugleich.';
-    document.getElementById('tresor-section').style.display = 'block';
+    fb.innerHTML='&#10003; Korrekt! Brandt erkannte die Realit&auml;t an, ohne das Ziel der Einheit aufzugeben &ndash; das Wesen der Ostpolitik.';
+    saveCode(10,'9');
+    buildCodeGrid();
+    document.getElementById('tresor-section').style.display='block';
     markStationComplete(10);
-    // Scroll to tresor
-    setTimeout(() => document.getElementById('tresor-section').scrollIntoView({behavior:'smooth'}), 300);
+    setTimeout(function(){document.getElementById('tresor-section').scrollIntoView({behavior:'smooth'});},300);
   } else {
     fb.className='feedback error';
-    fb.innerHTML='❌ Lies S. 118: Brandt nannte die DDR existierend, aber "nicht Ausland" – er hielt am Ziel der Einheit fest, erkannte aber die Realität an. Das ist der "Alleinvertretungsanspruch" + Ostpolitik.';
+    fb.innerHTML='&#10007; S.&nbsp;118: Brandt nannte die DDR &bdquo;nicht Ausland&ldquo; und verwies auf Artikel 116 GG (gemeinsame Staatsb&uuml;rgerschaft) &ndash; er erkannte die Realit&auml;t an, ohne die Einheit aufzugeben.';
   }
 }
 
-function checkFinal() {
-  const val = document.getElementById('final-code').value.trim();
-  const fb = document.getElementById('feedback2');
-  if(val === '1989') {
+function buildCodeGrid(){
+  var grid=document.getElementById('code-grid');
+  grid.innerHTML='';
+  var labels=['Besatzungs-zonen','NATO-Beitritt','MfS-Chef','Auschwitz-Prozesse','17. Juni','Einheitsliste','VEB','RAF-Gründer','Warschauer Vertrag','Mauerfall'];
+  for(var i=1;i<=10;i++){
+    var ch=getCode(i);
+    var earned=ch!=='?';
+    var cell=document.createElement('div');
+    cell.className='code-cell'+(earned?' earned':'');
+    cell.innerHTML=(earned?'<span class="ch">'+ch+'</span>':'<span class="empty-ch">?</span>')+
+      '<span class="lbl">S'+i+'</span>';
+    cell.title=labels[i-1];
+    grid.appendChild(cell);
+  }
+  // Check for missing codes
+  var missing=[];
+  for(var i=1;i<=10;i++){if(getCode(i)==='?') missing.push(i);}
+  var warn=document.getElementById('missing-warning');
+  if(missing.length>0){
+    warn.style.display='block';
+    warn.innerHTML='&#9888; Station'+( missing.length>1?'en':'')+' <strong>'+missing.join(', ')+'</strong> noch nicht gel&ouml;st! Ihr k&ouml;nnt den Code trotzdem eingeben &ndash; aber er wird nicht stimmen.';
+  }
+}
+
+function checkTresor(){
+  var val=document.getElementById('tresor-input').value.trim().toUpperCase();
+  var correct='45MA7EVBW9';
+  var fb=document.getElementById('fb-tresor');
+  if(val===correct){
     fb.className='feedback success';
-    fb.innerHTML='🎉 DER TRESOR IST OFFEN! 1989 – der Mauerfall! Die Dokumente sind gerettet!';
+    fb.innerHTML='&#127881;&#128274; DER TRESOR IST OFFEN! Alle 10 Zeichen korrekt &ndash; die Dokumente sind gerettet!';
+    localStorage.setItem('completed','true');
+    localStorage.setItem('endTime',Date.now());
     document.getElementById('next-btn').classList.add('show');
-    localStorage.setItem('completed', 'true');
-    localStorage.setItem('endTime', Date.now());
-    setTimeout(() => document.getElementById('next-btn').scrollIntoView({behavior:'smooth'}), 500);
-  } else if(val === '1961') {
-    fb.className='feedback error'; fb.innerHTML='❌ 1961 war der Mauerbau! Gesucht ist das Jahr, in dem die Mauer FIEL.';
-  } else if(val === '1972') {
-    fb.className='feedback error'; fb.innerHTML='❌ 1972 war der Grundlagenvertrag. Der Mauerfall war später!';
+    setTimeout(function(){document.getElementById('next-btn').scrollIntoView({behavior:'smooth'});},400);
   } else {
-    fb.className='feedback error'; fb.innerHTML='❌ Nicht korrekt. Das gesuchte Jahr steht auf dem Deckblatt der Mission und ist das wichtigste Datum der deutschen Geschichte nach 1945.';
+    // Give targeted feedback – how many chars correct, which positions wrong
+    var hits=0;
+    var wrongPos=[];
+    for(var i=0;i<10;i++){
+      if(i<val.length&&val[i]===correct[i]) hits++;
+      else wrongPos.push(i+1);
+    }
+    if(val.length!==10){
+      fb.className='feedback error';
+      fb.innerHTML='&#10007; Der Code muss genau <strong>10 Zeichen</strong> haben (ihr habt '+val.length+' eingegeben).';
+    } else {
+      fb.className='feedback error';
+      fb.innerHTML='&#10007; '+hits+'/10 Zeichen korrekt. Position'+( wrongPos.length>1?'en':'')+' <strong>'+wrongPos.join(', ')+'</strong> stimm'+(wrongPos.length>1?'en':'')+' nicht &ndash; &uuml;berpr&uuml;ft eure Heft-Tabelle!';
+    }
   }
 }
 
-function showHint() {
+function showHint(){
   addHint();
-  document.getElementById('feedback').className='feedback hint';
-  document.getElementById('feedback').innerHTML='💡 Der Satz "füreinander nicht Ausland" bedeutet: Die BRD erkannte die DDR-Realität an (Grundlagenvertrag), aber betrachtete Deutsche in der DDR weiterhin als Deutsche – nicht als Ausländer. Ziel: Einheit durch Annäherung.';
+  document.getElementById('fb-tf').className='feedback hint';
+  document.getElementById('fb-tf').innerHTML='&#128161; S.&nbsp;118: Brandt erkannte die DDR als eigenst&auml;ndigen Staat an &ndash; aber bestand auf Artikel 116 GG (gemeinsame deutsche Staatsb&uuml;rgerschaft). Das ist kein Widerspruch, sondern Realpolitik.';
 }
-</script>
-</body>
-</html>
+</script></body></html>

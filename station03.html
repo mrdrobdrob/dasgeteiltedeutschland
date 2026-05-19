@@ -1,164 +1,118 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Station 3 – Die Stasi</title>
-<link rel="stylesheet" href="shared.css">
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Station 3 – Stasi</title><link rel="stylesheet" href="shared.css"></head>
 <body>
-<div class="noise"></div>
-<div class="bg-texture"></div>
-
+<div class="noise"></div><div class="bg-texture"></div>
 <div class="station-container">
   <div id="progress-area"></div>
-
   <div class="station-header">
     <div class="station-num">03</div>
     <div class="station-meta">
-      <div class="station-tag">🕵️ Staatssicherheit &amp; Gesellschaft</div>
-      <div class="station-title">Das Ministerium<br>für Staatssicherheit</div>
-      <div class="station-loc">📍 Normannenstraße 20, Ost-Berlin · 18:52 Uhr</div>
+      <div class="station-tag">&#128373; Staatssicherheit</div>
+      <div class="station-title">Das Ministerium f&uuml;r Staatssicherheit</div>
+      <div class="station-loc">&#128205; Normannenstra&szlig;e 20, Ost-Berlin &middot; 18:52 Uhr</div>
     </div>
   </div>
-
-  <div class="narrative">
-    Ihr betretet die Zentrale der Stasi. In den Aktenschränken liegen Zehntausende von Berichten. Hartmanns dritte Akte ist versteckt hinter einem Verhörprotokoll, das nur zu öffnen ist, wenn ihr die Methoden und Strukturen des MfS kennt.
+  <div class="narrative">Ihr betretet die Stasi-Zentrale. Hartmanns dritte Akte enth&auml;lt ein Verhörprotokoll. Nur wer die Strukturen des MfS wirklich versteht, erh&auml;lt das n&auml;chste Zeichen.</div>
+  <div class="heft-aufgabe">
+    <div class="icon">&#128211;</div>
+    <div class="text"><strong>Heft S.&nbsp;3:</strong> Aufgaben der Stasi (3 Punkte), Methode der IM, Folgen f&uuml;r die Gesellschaft. Quelle: S.&nbsp;110&ndash;111. &mdash; <strong>Code-Zeichen eintragen!</strong></div>
   </div>
 
   <div class="doc-card">
-    <div class="doc-title">📜 Originalquelle: Auszug Interview 1998 (Schulbuch S. 110–111)</div>
-    <p>„Robert P. [...] Das fing an mit 17. Irgendwann haben die bei meinen Eltern zu Hause gewartet, mit falschen Ausweisen und irgendeinem Vorwand. Sagten, sie seien von der Polizei; in der Schule sei etwas vorgefallen, und sie bräuchten mich als Zeugen..."</p>
-    <p>„Mein Kreis war der geschützte, die Stasi war außerhalb. Jetzt begreife ich: Wenn die zu mir kommen, zu was bin ich dann nächste...? Mit einem Mal konnte ich keinem mehr trauen."</p>
-    <div class="doc-source">Quelle: Schulbuch S. 111, M2 – Interview mit ehem. Inoffiziellem Mitarbeiter Robert P. (Name geändert)</div>
+    <div class="doc-title">&#128196; Quelle: Interview 1998 (Schulbuch S.&nbsp;111)</div>
+    <p>„Das fing an mit 17. Irgendwann haben die bei meinen Eltern zu Hause gewartet, mit falschen Ausweisen... Mein Kreis war der gesch&uuml;tzte, die Stasi war au&szlig;erhalb. Jetzt begreife ich: Wenn die zu mir kommen, zu was bin ich dann n&auml;chste...? Mit einem Mal konnte ich keinem mehr trauen."</p>
+    <div class="doc-source">Robert P. (Name ge&auml;ndert), ehem. IM, Schulbuch S.&nbsp;111 M2</div>
   </div>
 
-  <div class="heft-aufgabe">
-    <div class="icon">📓</div>
-    <div class="text"><strong>Heft-Aufgabe Station 3:</strong> Beschreibt in eurem Heft: <strong>(a)</strong> Aufgaben der Stasi (3 Punkte), <strong>(b)</strong> Methode der IM (Inoffizielle Mitarbeiter), <strong>(c)</strong> Folgen für das gesellschaftliche Leben. Nutzt S. 110–111.</div>
-  </div>
-
+  <!-- Part 1: True/False – shuffled, no pattern -->
   <div class="question-area">
-    <h3>🔍 Verhörprotokoll: Richtig oder Falsch?</h3>
-    <p>Bewertet die folgenden Aussagen zur Stasi. Klickt <strong>Richtig</strong> oder <strong>Falsch</strong>.</p>
+    <h3>&#128269; Teil 1: Richtig oder Falsch?</h3>
+    <p>Bewertet die Aussagen zur Stasi. (Quelle: S.&nbsp;110&ndash;111)</p>
   </div>
-
   <div id="rf-area"></div>
-
-  <div class="btn-row" style="margin-top:16px;">
-    <button class="submit-btn" onclick="checkRF()">▶ Antworten prüfen</button>
-    <button class="hint-btn" onclick="showHint()">💡 Hinweis</button>
+  <div class="btn-row" style="margin-top:12px;">
+    <button class="submit-btn" onclick="checkRF()">&#9654; Pr&uuml;fen</button>
+    <button class="hint-btn" onclick="showHint1()">&#128161; Hinweis</button>
   </div>
+  <div class="feedback" id="fb1"></div>
 
-  <div class="feedback" id="feedback"></div>
-
-  <div class="question-area" id="q2-area" style="display:none; margin-top:20px;">
-    <h3>🔓 Code-Frage: Wie viele IM hatte die Stasi 1989?</h3>
-    <p>Schulbuch S. 110: Wie viele inoffizielle Mitarbeiter hatte die Stasi in ihren letzten Jahren?</p>
-    <p style="color:var(--muted); font-size:13px;">Tipp: Gebt die Zahl (gerundet, in Tausend) ein – z.B. „174" für 174.000</p>
+  <!-- Part 2: Open-text name question -->
+  <div class="question-area" id="q2" style="display:none;margin-top:24px;">
+    <h3>&#128269; Teil 2: Schl&uuml;sselperson</h3>
+    <p>Wie hie&szlig; der langj&auml;hrige Minister f&uuml;r Staatssicherheit, der gleichzeitig Mitglied des SED-Politb&uuml;ros war? (1957&ndash;1989)</p>
+    <p style="font-size:13px;color:var(--muted);margin-top:6px;">Nachname gen&uuml;gt &ndash; Quelle: S.&nbsp;110</p>
     <div class="input-area" style="margin-top:14px;">
-      <label>Anzahl (in Tausend):</label>
-      <input type="text" class="code-input" id="num-input" placeholder="___" maxlength="6">
+      <label>Nachname:</label>
+      <input type="text" class="code-input" id="name-input" placeholder="..." maxlength="20" style="font-size:20px;letter-spacing:2px;">
     </div>
     <div class="btn-row" style="margin-top:12px;">
-      <button class="submit-btn" onclick="checkNum()">▶ Prüfen</button>
+      <button class="submit-btn" onclick="checkName()">&#9654; Pr&uuml;fen</button>
+      <button class="hint-btn" onclick="showHint2()">&#128161; Hinweis</button>
     </div>
-    <div class="feedback" id="feedback2"></div>
+    <div class="feedback" id="fb2"></div>
   </div>
 
-  <div class="code-reveal" id="code-reveal">
-    <div class="code-label">Code für Station 4:</div>
-    <div class="code-value">NS</div>
-    <div class="code-note">Kürzel „NS" → Eingabe bei Station 4</div>
+  <div id="code-section" style="display:none;margin-top:20px;">
+    <div class="code-reveal show">
+      <div class="code-label">&#128274; Code-Zeichen Station&nbsp;3 von&nbsp;10:</div>
+      <div class="code-value">M</div>
+      <div class="code-note">Warum <strong>M</strong>? Der erste Buchstabe von <strong>Mielke</strong> &ndash; dem MfS-Minister, der 32 Jahre lang &bdquo;Schild und Schwert der Partei&ldquo; war.<br>Position 3 in eurer Code-Tabelle.</div>
+    </div>
+    <button class="next-btn show" onclick="window.location.href='station04.html'" style="margin-top:12px;">Weiter zu Station&nbsp;4 &#8594;</button>
   </div>
-  <button class="next-btn" id="next-btn" onclick="window.location.href='station04.html'">
-    Weiter zu Station 4: NS-Vergangenheit →
-  </button>
 </div>
 
 <script src="utils.js"></script>
 <script>
 document.getElementById('progress-area').innerHTML = progressBar(3);
-
-const rfItems = [
-  { text: 'Die Stasi hatte 1989 ca. 91.000 hauptamtliche Mitarbeiter und ca. 174.000 inoffizielle Mitarbeiter (IM).', correct: true },
-  { text: 'Jeder DDR-Bürger wusste, dass die Stasi bei allen öffentlichen Veranstaltungen präsent war und die Post geöffnet wurde.', correct: true },
-  { text: 'Die Stasi war ein unabhängiges Ministerium, das nicht der SED-Führung unterstand.', correct: false },
-  { text: 'Inoffizielle Mitarbeiter (IM) berichteten oft über enge Bekannte oder Verwandte.', correct: true },
-  { text: 'Das MfS baute ein Spionagenetz im westlichen Ausland auf, vor allem in der BRD.', correct: true },
+var rfItems=[
+  {text:'Die Stasi hatte 1989 ca. 91&thinsp;000 hauptamtliche und ca. 174&thinsp;000 inoffizielle Mitarbeiter (IM).',correct:true},
+  {text:'Die Stasi war ein unabh&auml;ngiges Ministerium, das nicht der SED-F&uuml;hrung unterstand.',correct:false},
+  {text:'Inoffizielle Mitarbeiter berichteten oft &uuml;ber enge Bekannte, Nachbarn oder Familienmitglieder.',correct:true},
+  {text:'Das MfS baute ein Spionagenetz im westlichen Ausland auf, vor allem in der BRD.',correct:true},
+  {text:'Jeder DDR-B&uuml;rger wusste, dass die Post ge&ouml;ffnet und Telefone abgeh&ouml;rt wurden.',correct:true},
+  {text:'Die Stasi hatte keine M&ouml;glichkeit, Ger&uuml;che von Personen zu konservieren und sp&auml;ter zur Identifikation zu nutzen.',correct:false},
 ];
-
-const area = document.getElementById('rf-area');
-const answers = {};
-
-rfItems.forEach((item, i) => {
-  const div = document.createElement('div');
-  div.style.cssText = 'margin-bottom:12px; padding:14px; background:rgba(240,232,208,0.03); border:1px solid rgba(200,151,58,0.15);';
-  div.innerHTML = `
-    <p style="font-size:14px; margin-bottom:10px; color:rgba(240,232,208,0.85);">${i+1}. ${item.text}</p>
-    <div style="display:flex; gap:10px;">
-      <button class="choice-btn" id="r-${i}" onclick="setAns(${i},true)">✅ Richtig</button>
-      <button class="choice-btn" id="f-${i}" onclick="setAns(${i},false)">❌ Falsch</button>
-    </div>
-  `;
+rfItems.sort(function(){return Math.random()-.5;});
+var rfAnswers={};
+var area=document.getElementById('rf-area');
+rfItems.forEach(function(item,i){
+  var div=document.createElement('div');
+  div.style.cssText='margin-bottom:12px;padding:14px;background:rgba(240,232,208,0.03);border:1px solid rgba(200,151,58,0.15);';
+  div.innerHTML='<p style="font-size:14px;margin-bottom:10px;color:rgba(240,232,208,0.85);">'+(i+1)+'. '+item.text+'</p>'+
+    '<div style="display:flex;gap:10px;">'+
+    '<button class="choice-btn" id="r'+i+'" onclick="setRF('+i+',true)">&#10003; Richtig</button>'+
+    '<button class="choice-btn" id="f'+i+'" onclick="setRF('+i+',false)">&#10007; Falsch</button>'+
+    '</div>';
   area.appendChild(div);
 });
-
-function setAns(i, val) {
-  answers[i] = val;
-  document.getElementById('r-'+i).classList.toggle('selected', val===true);
-  document.getElementById('f-'+i).classList.toggle('selected', val===false);
-}
-
-let rfDone = false;
-function checkRF() {
-  if(rfDone) { document.getElementById('q2-area').style.display='block'; return; }
-  let correct = 0;
-  rfItems.forEach((item, i) => {
-    const userRight = answers[i];
-    ['r','f'].forEach(p => document.getElementById(p+'-'+i).classList.remove('correct','wrong','selected'));
-    if(answers[i] !== undefined) {
-      const isRight = answers[i] === item.correct;
-      document.getElementById((item.correct?'r':'f')+'-'+i).classList.add('correct');
-      if(!isRight) document.getElementById((answers[i]?'r':'f')+'-'+i).classList.add('wrong');
-      if(isRight) correct++;
-    }
+function setRF(i,val){rfAnswers[i]=val;document.getElementById('r'+i).classList.toggle('selected',val===true);document.getElementById('f'+i).classList.toggle('selected',val===false);}
+var rfDone=false;
+function checkRF(){
+  if(rfDone){document.getElementById('q2').style.display='block';return;}
+  var correct=0;
+  rfItems.forEach(function(item,i){
+    ['r'+i,'f'+i].forEach(function(id){document.getElementById(id).classList.remove('correct','wrong','selected');});
+    document.getElementById((item.correct?'r':'f')+i).classList.add('correct');
+    if(rfAnswers[i]!==undefined&&rfAnswers[i]!==item.correct) document.getElementById((rfAnswers[i]?'r':'f')+i).classList.add('wrong');
+    if(rfAnswers[i]===item.correct) correct++;
   });
-  const fb = document.getElementById('feedback');
-  if(correct >= 4) {
-    fb.className = 'feedback success';
-    fb.innerHTML = `✅ ${correct}/5 richtig! Gut gespürt. Beantwortet jetzt die Code-Frage.`;
-    rfDone = true;
-    document.getElementById('q2-area').style.display = 'block';
-  } else {
-    fb.className = 'feedback error';
-    fb.innerHTML = `❌ ${correct}/5 richtig. Lest nochmal S. 110–111 – besonders den Darstellungstext über die Aufgaben des MfS.`;
-  }
+  var fb=document.getElementById('fb1');
+  if(correct>=5){fb.className='feedback success';fb.innerHTML='&#10003; '+correct+'/6 richtig! Weiter zu Teil 2:';rfDone=true;document.getElementById('q2').style.display='block';}
+  else{fb.className='feedback error';fb.innerHTML='&#10007; '+correct+'/6. Lies S.&nbsp;110&ndash;111 genau: Aufgaben, IM-System, Geruchsproben (Foto S.&nbsp;111).';}
 }
-
-function checkNum() {
-  const val = document.getElementById('num-input').value.trim().replace(/[^0-9]/g,'');
-  const fb = document.getElementById('feedback2');
-  if(val === '174' || val === '174000' || val === '174.000') {
-    fb.className = 'feedback success';
-    fb.innerHTML = '✅ Korrekt! Ca. 174.000 IM – das war ca. 1 pro 50 DDR-Bürger. Erschreckend!';
-    document.getElementById('code-reveal').classList.add('show');
-    document.getElementById('next-btn').classList.add('show');
-    markStationComplete(3);
-  } else if(val === '91' || val === '91000') {
-    fb.className = 'feedback error';
-    fb.innerHTML = '❌ Das sind die hauptamtlichen Mitarbeiter (91.000). Gesucht werden die <em>inoffiziellen</em> Mitarbeiter – die viel größere Zahl!';
-  } else {
-    fb.className = 'feedback error';
-    fb.innerHTML = '❌ Nicht korrekt. Schau in S. 110, Abschnitt "Systematische Bespitelung der Bevölkerung".';
-  }
+function checkName(){
+  var val=document.getElementById('name-input').value;
+  var fb=document.getElementById('fb2');
+  checkAnswer(val,['mielke','erich mielke'],function(){
+    fb.className='feedback success';fb.innerHTML='&#10003; Richtig! Erich Mielke &ndash; 32 Jahre MfS-Minister.';
+    saveCode(3,'M');document.getElementById('code-section').style.display='block';markStationComplete(3);
+  },function(){
+    fb.className='feedback error';fb.innerHTML='&#10007; Nicht korrekt. S.&nbsp;110, zweiter Absatz: Wer war Minister f&uuml;r Staatssicherheit von 1957 bis 1989?';
+  });
 }
-
-function showHint() {
-  addHint();
-  document.getElementById('feedback').className = 'feedback hint';
-  document.getElementById('feedback').innerHTML = '💡 <strong>Hinweis:</strong> Lies S. 110: "Aufgaben des MfS", "Systematische Bespitelung der Bevölkerung", "Inoffizielle Mitarbeiter". Die Stasi unterstand direkt der SED-Führung (nicht unabhängig!). Erich Mielke war Minister UND Politbüromitglied.';
-}
-</script>
-</body>
-</html>
+function showHint1(){addHint();var fb=document.getElementById('fb1');fb.className='feedback hint';fb.innerHTML='&#128161; S.&nbsp;110: &bdquo;Aufgaben des MfS&ldquo; und &bdquo;Systematische Bespitelung&ldquo;. Auch das Foto mit den Geruchskonserven (S.&nbsp;111) gibt Aufschluss!';}
+function showHint2(){addHint();var fb=document.getElementById('fb2');fb.className='feedback hint';fb.innerHTML='&#128161; S.&nbsp;110, 2. Absatz: &bdquo;Dabei bestand zwischen MfS und SED eine enge pers&ouml;nliche Verzahnung&ldquo; &ndash; wer wird dort namentlich erw&auml;hnt?';}
+</script></body></html>
