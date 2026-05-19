@@ -3,14 +3,11 @@
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Station 10 – Der Tresor</title><link rel="stylesheet" href="shared.css">
 <style>
-.code-grid{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:20px 0;}
-.code-cell{width:48px;height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(200,151,58,0.3);background:rgba(0,0,0,0.3);}
-.code-cell.earned{border-color:var(--gold);background:rgba(200,151,58,0.1);}
-.code-cell .ch{font-family:'Special Elite',monospace;font-size:24px;font-weight:bold;color:var(--gold);}
-.code-cell .empty-ch{font-size:24px;color:rgba(240,232,208,0.1);}
-.code-cell .lbl{font-size:10px;color:var(--muted);margin-top:4px;font-family:'Oswald',sans-serif;letter-spacing:1px;}
 .tresor-input{font-family:'Special Elite',monospace;font-size:28px;letter-spacing:8px;text-align:center;text-transform:uppercase;background:rgba(0,0,0,0.4);border:2px solid var(--gold);color:var(--gold);padding:16px;width:100%;outline:none;}
-.missing-warning{background:rgba(181,25,26,0.15);border:1px solid rgba(181,25,26,0.4);padding:12px 16px;font-size:14px;color:#f07070;display:none;}
+.pos-row{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0;}
+.pos-dot{width:28px;height:28px;border-radius:50%;border:2px solid rgba(200,151,58,0.3);background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:11px;color:var(--muted);}
+.pos-dot.ok{border-color:#2d6a3f;background:rgba(45,106,63,0.3);color:#7dcf95;}
+.pos-dot.bad{border-color:#b5191a;background:rgba(181,25,26,0.2);color:#f07070;}
 </style>
 </head>
 <body>
@@ -25,14 +22,9 @@
       <div class="station-loc">&#128205; Berliner Mauer &middot; 21:50 Uhr</div>
     </div>
   </div>
-  <div class="narrative">Ihr habt alle neun Stationen durchquert. Jede hat euch ein Zeichen gegeben &ndash; ein Puzzlest&uuml;ck der deutschen Geschichte. Jetzt setzt ihr alles zusammen: der Tresor &ouml;ffnet sich nur mit dem vollst&auml;ndigen Code aus allen 10 Stationen.</div>
+  <div class="narrative">Ihr habt neun Stationen durchquert und neun Zeichen gesammelt. Station 10 gibt euch das letzte &ndash; aber den vollst&auml;ndigen Code m&uuml;sst ihr aus eurem Heft zusammensetzen. Der Tresor &ouml;ffnet sich nur, wenn ihr alle 10 Positionen korrekt habt.</div>
 
-  <div class="heft-aufgabe">
-    <div class="icon">&#128211;</div>
-    <div class="text"><strong>Finale Heft-Aufgabe:</strong> Schreibt 8&ndash;10 S&auml;tze: &bdquo;Was waren die drei wichtigsten Folgen der deutschen Teilung f&uuml;r die Menschen &ndash; und welche Station hat euch am meisten &uuml;berrascht?&ldquo; Dann: Vergleicht eure Antwort mit dem Nachbar-Team.</div>
-  </div>
-
-  <!-- Transfer question – earns the final code digit -->
+  <!-- Transfer question – earns code character '9' -->
   <div class="question-area">
     <h3>&#128269; Abschlussfrage: Transfer</h3>
     <p>Willy Brandt sagte: <em>„Auch wenn zwei Staaten in Deutschland existieren, sind sie doch f&uuml;reinander nicht Ausland."</em></p>
@@ -49,38 +41,34 @@
     <div class="feedback" id="fb-tf"></div>
   </div>
 
-  <!-- Code assembly section, shown after transfer question solved -->
+  <!-- Shown only after transfer question is solved -->
+  <div id="code-reveal-10" style="display:none;margin-top:20px;">
+    <div class="code-reveal show">
+      <div class="code-label">&#128274; Euer letztes Code-Zeichen &ndash; Station&nbsp;10 von&nbsp;10:</div>
+      <div class="code-value">9</div>
+      <div class="code-note">Warum <strong>9</strong>? Die letzte Ziffer von 198<strong>9</strong> &ndash; dem Jahr des Mauerfalls.<br>
+      Tragt &bdquo;9&ldquo; auf Position&nbsp;10 in eure Heft-Tabelle ein. Jetzt habt ihr alle 10 Zeichen!</div>
+    </div>
+  </div>
+
+  <!-- Tresor section – shown after code-reveal -->
   <div id="tresor-section" style="display:none;margin-top:28px;">
     <div class="question-area">
-      <h3>&#128274; Tresor-Code zusammensetzen</h3>
-      <p>Ihr habt an jeder Station ein Zeichen gesammelt &ndash; jedes steht f&uuml;r ein Schl&uuml;sselkonzept der deutschen Teilung. Kombiniert alle 10 Zeichen zum Tresor-Code.</p>
-    </div>
-
-    <!-- Live display of collected characters -->
-    <div class="code-grid" id="code-grid"></div>
-    <div class="missing-warning" id="missing-warning"></div>
-
-    <div class="question-area" style="margin-top:16px;">
-      <h3>&#128272; Code eingeben</h3>
-      <p style="margin-bottom:14px;">Gebt alle 10 Zeichen hintereinander ein (keine Leerzeichen, Gro&szlig;- und Kleinschreibung egal):</p>
-      <input type="text" class="tresor-input" id="tresor-input" placeholder="__________" maxlength="10" oninput="this.value=this.value.toUpperCase()">
+      <h3>&#128272; Tresor &ouml;ffnen</h3>
+      <p>Setzt die 10 Zeichen aus eurer Heft-Tabelle zusammen und gebt den Code ein.</p>
+      <p style="margin-top:8px;font-size:13px;color:var(--muted);">Keine Leerzeichen &middot; Gro&szlig;- und Kleinschreibung egal &middot; Reihenfolge: Station&nbsp;1 bis Station&nbsp;10</p>
+      <input type="text" class="tresor-input" id="tresor-input" placeholder="__________" maxlength="10"
+        style="margin-top:16px;" oninput="this.value=this.value.toUpperCase()">
       <div class="btn-row" style="margin-top:14px;">
         <button class="submit-btn" style="font-size:18px;padding:16px 36px;" onclick="checkTresor()">&#128274; TRESOR &Ouml;FFNEN</button>
       </div>
       <div class="feedback" id="fb-tresor" style="margin-top:12px;"></div>
-    </div>
-
-    <!-- Hint: meaning of each character (shown only if stuck) -->
-    <div id="code-hint-section" style="display:none;margin-top:16px;">
-      <div class="heft-aufgabe">
-        <div class="icon">&#128161;</div>
-        <div class="text">
-          <strong>Erinnerung: Bedeutung der Code-Zeichen</strong><br>
-          4 = Besatzungszonen &middot; 5 = Beitritts<strong>j</strong>ahr NATO (195<strong>5</strong>) &middot; M = Mielke &middot; A = Auschwitz &middot; 7 = 1<strong>7</strong>. Juni &middot; E = Einheitsliste &middot; V = VEB &middot; B = Baader &middot; W = Warschauer Vertrag &middot; 9 = 198<strong>9</strong>
-        </div>
+      <!-- Position indicator shown only after a wrong attempt -->
+      <div id="pos-indicator" style="display:none;margin-top:12px;">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:6px;">Positionen (gr&uuml;n&nbsp;= richtig, rot&nbsp;= falsch):</p>
+        <div class="pos-row" id="pos-row"></div>
       </div>
     </div>
-    <button class="hint-btn" onclick="document.getElementById('code-hint-section').style.display=\'block\';" style="margin-top:8px;">&#128161; Code-Erinnerung anzeigen</button>
   </div>
 
   <button class="next-btn" id="next-btn" onclick="window.location.href='success.html'" style="margin-top:20px;">
@@ -93,80 +81,83 @@
 document.getElementById('progress-area').innerHTML = progressBar(10);
 
 var tfSel=-1;
-function selTF(i){tfSel=i;[0,1,2].forEach(function(j){document.getElementById('tf'+j).classList.toggle('selected',i===j);});}
+function selTF(i){
+  tfSel=i;
+  [0,1,2].forEach(function(j){document.getElementById('tf'+j).classList.toggle('selected',i===j);});
+}
 
 function checkTF(){
   var fb=document.getElementById('fb-tf');
   if(tfSel===0){
     fb.className='feedback success';
-    fb.innerHTML='&#10003; Korrekt! Brandt erkannte die Realit&auml;t an, ohne das Ziel der Einheit aufzugeben &ndash; das Wesen der Ostpolitik.';
+    fb.innerHTML='&#10003; Korrekt! Brandt erkannte die Realit&auml;t an, ohne das Ziel der Einheit aufzugeben.';
+    // Save the final code character BEFORE showing the tresor
     saveCode(10,'9');
-    buildCodeGrid();
-    document.getElementById('tresor-section').style.display='block';
     markStationComplete(10);
-    setTimeout(function(){document.getElementById('tresor-section').scrollIntoView({behavior:'smooth'});},300);
+    // Reveal the code character first, then the tresor input after a moment
+    document.getElementById('code-reveal-10').style.display='block';
+    setTimeout(function(){
+      document.getElementById('tresor-section').style.display='block';
+      document.getElementById('tresor-section').scrollIntoView({behavior:'smooth'});
+    }, 1800);
   } else {
     fb.className='feedback error';
-    fb.innerHTML='&#10007; S.&nbsp;118: Brandt nannte die DDR &bdquo;nicht Ausland&ldquo; und verwies auf Artikel 116 GG (gemeinsame Staatsb&uuml;rgerschaft) &ndash; er erkannte die Realit&auml;t an, ohne die Einheit aufzugeben.';
+    fb.innerHTML='&#10007; S.&nbsp;118: Brandt nannte die DDR &bdquo;nicht Ausland&ldquo; und verwies auf Artikel&nbsp;116 GG (gemeinsame Staatsb&uuml;rgerschaft). Er erkannte die Realit&auml;t an, ohne die Einheit aufzugeben.';
   }
 }
 
-function buildCodeGrid(){
-  var grid=document.getElementById('code-grid');
-  grid.innerHTML='';
-  var labels=['Besatzungs-zonen','NATO-Beitritt','MfS-Chef','Auschwitz-Prozesse','17. Juni','Einheitsliste','VEB','RAF-Gründer','Warschauer Vertrag','Mauerfall'];
-  for(var i=1;i<=10;i++){
-    var ch=getCode(i);
-    var earned=ch!=='?';
-    var cell=document.createElement('div');
-    cell.className='code-cell'+(earned?' earned':'');
-    cell.innerHTML=(earned?'<span class="ch">'+ch+'</span>':'<span class="empty-ch">?</span>')+
-      '<span class="lbl">S'+i+'</span>';
-    cell.title=labels[i-1];
-    grid.appendChild(cell);
-  }
-  // Check for missing codes
-  var missing=[];
-  for(var i=1;i<=10;i++){if(getCode(i)==='?') missing.push(i);}
-  var warn=document.getElementById('missing-warning');
-  if(missing.length>0){
-    warn.style.display='block';
-    warn.innerHTML='&#9888; Station'+( missing.length>1?'en':'')+' <strong>'+missing.join(', ')+'</strong> noch nicht gel&ouml;st! Ihr k&ouml;nnt den Code trotzdem eingeben &ndash; aber er wird nicht stimmen.';
-  }
-}
-
+var attempts=0;
 function checkTresor(){
   var val=document.getElementById('tresor-input').value.trim().toUpperCase();
   var correct='45MA7EVBW9';
   var fb=document.getElementById('fb-tresor');
+  attempts++;
+
   if(val===correct){
     fb.className='feedback success';
     fb.innerHTML='&#127881;&#128274; DER TRESOR IST OFFEN! Alle 10 Zeichen korrekt &ndash; die Dokumente sind gerettet!';
+    document.getElementById('pos-indicator').style.display='none';
     localStorage.setItem('completed','true');
     localStorage.setItem('endTime',Date.now());
     document.getElementById('next-btn').classList.add('show');
     setTimeout(function(){document.getElementById('next-btn').scrollIntoView({behavior:'smooth'});},400);
-  } else {
-    // Give targeted feedback – how many chars correct, which positions wrong
-    var hits=0;
-    var wrongPos=[];
-    for(var i=0;i<10;i++){
-      if(i<val.length&&val[i]===correct[i]) hits++;
-      else wrongPos.push(i+1);
-    }
-    if(val.length!==10){
-      fb.className='feedback error';
-      fb.innerHTML='&#10007; Der Code muss genau <strong>10 Zeichen</strong> haben (ihr habt '+val.length+' eingegeben).';
-    } else {
-      fb.className='feedback error';
-      fb.innerHTML='&#10007; '+hits+'/10 Zeichen korrekt. Position'+( wrongPos.length>1?'en':'')+' <strong>'+wrongPos.join(', ')+'</strong> stimm'+(wrongPos.length>1?'en':'')+' nicht &ndash; &uuml;berpr&uuml;ft eure Heft-Tabelle!';
-    }
+    return;
   }
+
+  // Wrong – show position-by-position feedback (which slot, not which letter)
+  if(val.length!==10){
+    fb.className='feedback error';
+    fb.innerHTML='&#10007; Der Code muss genau <strong>10 Zeichen</strong> haben &ndash; ihr habt '+val.length+' eingegeben.';
+    document.getElementById('pos-indicator').style.display='none';
+    return;
+  }
+
+  var hits=0;
+  var wrongPos=[];
+  for(var i=0;i<10;i++){
+    if(val[i]===correct[i]) hits++;
+    else wrongPos.push(i+1);
+  }
+
+  fb.className='feedback error';
+  fb.innerHTML='&#10007; '+hits+'/10 Positionen korrekt &ndash; schaut auf die Markierungen unten und &uuml;berpr&uuml;ft eure Heft-Tabelle.';
+
+  // Build position dots – show which POSITIONS are wrong, never reveal the correct letter
+  var posRow=document.getElementById('pos-row');
+  posRow.innerHTML='';
+  for(var i=0;i<10;i++){
+    var dot=document.createElement('div');
+    dot.className='pos-dot '+(val[i]===correct[i]?'ok':'bad');
+    dot.textContent=i+1;
+    dot.title='Position '+(i+1)+': '+(val[i]===correct[i]?'richtig':'falsch');
+    posRow.appendChild(dot);
+  }
+  document.getElementById('pos-indicator').style.display='block';
 }
 
 function showHint(){
   addHint();
   document.getElementById('fb-tf').className='feedback hint';
-  document.getElementById('fb-tf').innerHTML='&#128161; S.&nbsp;118: Brandt erkannte die DDR als eigenst&auml;ndigen Staat an &ndash; aber bestand auf Artikel 116 GG (gemeinsame deutsche Staatsb&uuml;rgerschaft). Das ist kein Widerspruch, sondern Realpolitik.';
+  document.getElementById('fb-tf').innerHTML='&#128161; S.&nbsp;118: Brandt erkannte die DDR als Staat an (Grundlagenvertrag), bestand aber auf Artikel&nbsp;116 GG: Alle Deutschen blieben eine Staatsb&uuml;rgerschaft. &bdquo;Nicht Ausland&ldquo; = gleiche Nation, zwei Staaten.';
 }
 </script></body></html>
