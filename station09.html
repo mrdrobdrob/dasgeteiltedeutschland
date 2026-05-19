@@ -97,12 +97,30 @@ function checkAll(){
 function checkInterp(){
   var val=document.getElementById('interp-input').value;
   var fb=document.getElementById('fb2');
-  checkAnswer(val,['deutschen','alle deutschen','schuld','verantwortung','kollektiv','kollektive','tater','täter','ns','nationalsozialismus','kriegsverbrechen'],function(){
-    fb.className='feedback success';fb.innerHTML='&#10003; Gut erkannt! Brandt &ndash; selbst kein NS-T&auml;ter &ndash; kniete f&uuml;r alle Deutschen, die Verantwortung f&uuml;r die NS-Verbrechen tragen.';
-    saveCode(9,'W');document.getElementById('code-section').style.display='block';markStationComplete(9);
-  },function(){
-    fb.className='feedback error';fb.innerHTML='&#10007; Schreiber sagt: Brandt hatte es &bdquo;nicht n&ouml;tig&ldquo; (er war kein NS-T&auml;ter). Aber er kniete f&uuml;r alle, die es n&ouml;tig h&auml;tten. Wer sind diese Menschen?';
-  });
+  if(val.trim().length<8){
+    fb.className='feedback error';
+    fb.innerHTML='&#10007; Bitte einen vollst&auml;ndigen Satz eingeben.';
+    return;
+  }
+  var n=normalize(val);
+  var keywords=[
+    'deutschen','bevoelkerung','bevolkerung','volk','nation','alle','gesamte','gemeinschaft',
+    'schuld','verantwortung','kollektiv','mitschuld','mitverantwortung',
+    'tater','taeter','ns','nazi','nationalsozialismus','holocaust',
+    'kriegsverbrechen','verbrechen','opfer','entschuldigung',
+    'versoehn','reue','busse','vergebung','stellvertretend'
+  ];
+  var hit=keywords.some(function(k){return n.includes(normalize(k));});
+  if(hit){
+    fb.className='feedback success';
+    fb.innerHTML='&#10003; Gut erkannt! Brandt kniete stellvertretend f&uuml;r alle Deutschen und &uuml;bernahm symbolisch Verantwortung f&uuml;r die NS-Verbrechen.';
+    saveCode(9,'W');
+    document.getElementById('code-section').style.display='block';
+    markStationComplete(9);
+  } else {
+    fb.className='feedback error';
+    fb.innerHTML='&#10007; Schreiber sagt: Brandt hatte es &bdquo;nicht n&ouml;tig&ldquo; &ndash; er war kein NS-T&auml;ter. Trotzdem kniete er. Wen repr&auml;sentierte er? Denkt an: deutsche Bev&ouml;lkerung, Verantwortung, Schuld...';
+  }
 }
 function showHint(){addHint();document.getElementById('fb1').className='feedback hint';document.getElementById('fb1').innerHTML='&#128161; Alle Antworten stehen in S.&nbsp;116&ndash;119. Sucht nach den Jahreszahlen, Namen und Vertragsbezeichnungen.';}
 function showHint2(){addHint();document.getElementById('fb2').className='feedback hint';document.getElementById('fb2').innerHTML='&#128161; Brandt war im Widerstand gegen die Nazis &ndash; er war kein T&auml;ter. Dennoch kniete er. F&uuml;r wen? Die Bildunterschrift S.&nbsp;116 enth&auml;lt Schreibers vollen Kommentar.';}
