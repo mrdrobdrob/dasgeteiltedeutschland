@@ -107,7 +107,7 @@ function checkUrsachen(){
 function checkWords(){
   var val=document.getElementById('words-input').value;
   var fb=document.getElementById('fb2');
-  checkAnswer(val,['faschistische untergrundorganisation','faschistische agenten','westliche agenten','amerikanische agenten','faschist'],function(){
+  checkAnswer(val,['faschistische untergrundorganisation','faschistische agenten','westliche agenten','amerikanische agenten','faschist','maskierte Volkfsfeinde'],function(){
     fb.className='feedback success';fb.innerHTML='&#10003; Korrekt! Das ZK bezeichnete die Aufst&auml;ndischen als von &bdquo;faschistischen&ldquo; Agenten gesteuert &ndash; eine offensichtliche Propagandalüge.';
     saveCode(5,'7');document.getElementById('code-section').style.display='block';markStationComplete(5);
   },function(){
