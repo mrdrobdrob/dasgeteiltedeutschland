@@ -41,10 +41,10 @@
   <!-- Part 2: Open-text concept question -->
   <div class="question-area" id="q2" style="display:none;margin-top:24px;">
     <h3>&#128269; Teil 2: Begriff erkl&auml;ren</h3>
-    <p>In welcher deutschen Stadt fanden zwischen 1963 und 1965 die ber&uuml;hmtesten Strafprozesse gegen NS-T&auml;ter statt, die die &ouml;ffentliche Aufarbeitung entscheidend vorantrieben?</p>
-    <p style="font-size:13px;color:var(--muted);margin-top:6px;">Stadtname &ndash; Quelle: S.&nbsp;96&ndash;97 und Zeitstrahl S.&nbsp;120</p>
+    <p>Wann fanden in Frankfurt am Main die ber&uuml;hmtesten Strafprozesse gegen NS-T&auml;ter statt, die die &ouml;ffentliche Aufarbeitung entscheidend vorantrieben?</p>
+    <p style="font-size:13px;color:var(--muted);margin-top:6px;">Quelle: S.&nbsp;96&ndash;97 und Zeitstrahl S.&nbsp;120</p>
     <div class="input-area" style="margin-top:14px;">
-      <label>Stadt:</label>
+      <label>Zeitraum:</label>
       <input type="text" class="code-input" id="city-input" placeholder="..." maxlength="20" style="font-size:20px;">
     </div>
     <div class="btn-row" style="margin-top:12px;">
@@ -108,11 +108,11 @@ function checkAssign(){
 function checkCity(){
   var val=document.getElementById('city-input').value;
   var fb=document.getElementById('fb2');
-  checkAnswer(val,['frankfurt','frankfurt am main'],function(){
-    fb.className='feedback success';fb.innerHTML='&#10003; Frankfurt am Main &ndash; Generalstaatsanwalt Fritz Bauer initiierte die Auschwitz-Prozesse.';
+  checkAnswer(val,['1963-1965','1963-65','1963 - 1965','1963 - 65'],function(){
+    fb.className='feedback success';fb.innerHTML='&#10003; Zwischen 1963 und 1965 in Frankfurt am Main &ndash; Generalstaatsanwalt Fritz Bauer initiierte die Auschwitz-Prozesse.';
     saveCode(4,'A');document.getElementById('code-section').style.display='block';markStationComplete(4);
   },function(){
-    fb.className='feedback error';fb.innerHTML='&#10007; Nicht korrekt. S.&nbsp;96&ndash;97: &bdquo;Der hessische Generalstaatsanwalt Fritz Bauer...&ldquo; &ndash; in welcher Stadt ist Hessens Generalstaatsanwaltschaft?';
+    fb.className='feedback error';fb.innerHTML='&#10007; Nicht korrekt. S.&nbsp;96&ndash;97: &bdquo;Der hessische Generalstaatsanwalt Fritz Bauer...&ldquo; &ndash; schau noch einmal auf S. 96 nach!';
   });
 }
 function showHint1(){addHint();document.getElementById('fb1').className='feedback hint';document.getElementById('fb1').innerHTML='&#128161; DDR = &bdquo;verordneter Antifaschismus&ldquo; (keine pers&ouml;nliche Schuld). BRD = zuerst Amnestie und Schlussstrichmentalit&auml;t, dann Auschwitz-Prozesse. Beides in S.&nbsp;96&ndash;97.';}
